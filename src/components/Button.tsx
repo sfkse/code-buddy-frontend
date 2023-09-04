@@ -18,7 +18,7 @@ const Button = ({ title, icon, onClick, style, disabled }: ButtonProps) => {
 export default Button;
 
 const ButtonComponent = styled.button`
-  background-color: ${(props) => props.theme.colors.yellow};
+  background-color: ${({ theme }) => theme.colors.yellow};
   width: 100%;
   border: none;
   text-align: center;
@@ -27,15 +27,14 @@ const ButtonComponent = styled.button`
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  box-shadow: 1px 1px 0.5px 0px
-    ${(props) => props.theme.colors.darkPrimaryColor};
+  box-shadow: 1px 1px 0.5px 0px ${({ theme }) => theme.colors.darkPrimaryColor};
   &:hover {
-    background-color: ${(props) => props.theme.colors.darkPrimaryColor};
-    color: ${(props) => props.theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.darkPrimaryColor};
+    color: ${({ theme }) => theme.colors.white};
   }
   &:disabled {
-    background-color: ${(props) => props.theme.colors.darkSecondaryColor};
-    color: ${(props) => props.theme.colors.secondaryColor};
+    background-color: ${({ theme }) => theme.colors.darkSecondaryColor};
+    color: ${({ theme }) => theme.colors.secondaryColor};
     cursor: not-allowed;
   }
 `;

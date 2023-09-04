@@ -22,7 +22,7 @@ const IconsWrapper = styled.div`
   display: flex;
   font-size: 1.2rem;
   padding: 0.5rem;
-  color: ${(props) => props.theme.colors.lightGray};
+  color: ${({ theme }) => theme.colors.lightGray};
   cursor: pointer;
   &:hover > ul {
     display: flex;
@@ -37,7 +37,7 @@ const AlertDot = styled.div`
   border-radius: 50%;
   position: absolute;
   transform: translateY(-20%);
-  background-color: ${(props) => props.theme.colors.yellow};
+  background-color: ${({ theme }) => theme.colors.yellow};
   margin-left: 0.7rem;
 `;
 

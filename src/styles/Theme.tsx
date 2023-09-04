@@ -1,3 +1,21 @@
+const breakpoints = {
+  xs: "320px",
+  sm: "640px",
+  md: "768px",
+  lg: "1024px",
+  xl: "1280px",
+  "2xl": "1536px",
+};
+
+export const devices = {
+  xs: `(max-width: ${breakpoints.xs})`,
+  sm: `(max-width: ${breakpoints.sm})`,
+  md: `(max-width: ${breakpoints.md})`,
+  lg: `(max-width: ${breakpoints.lg})`,
+  xl: `(max-width: ${breakpoints.xl})`,
+  "2xl": `(min-width: ${breakpoints["2xl"]})`,
+};
+
 export const theme = {
   colors: {
     lightGray: "rgb(199, 199, 199)",
@@ -23,27 +41,27 @@ export const theme = {
   layout: {
     padding: "2rem 1rem;",
   },
-  selectStyle: {
-    option: (base: object, { isFocused, isSelected }) => ({
-      ...base,
-      backgroundColor: isSelected
-        ? theme.colors.lightPrimaryColor
-        : theme.colors.white,
-      border: isFocused ? 0 : 0,
-      boxShadow: isFocused ? 0 : 0,
-      ":focus": {
-        border: isFocused ? 0 : 0,
-        boxShadow: isFocused ? 0 : 0,
-      },
-      ":hover": {
-        backgroundColor: isFocused ? theme.colors.orange : base.backgroundColor,
-        color: theme.colors.secondaryColor,
-      },
-    }),
-    control: (styles) => ({
-      ...styles,
-      border: `1px solid ${theme.colors.darkPrimaryColorTransparent}`,
-    }),
-  },
+  // selectStyle: {
+  //   option: (base: object, { isFocused, isSelected }) => ({
+  //     ...base,
+  //     backgroundColor: isSelected
+  //       ? theme.colors.lightPrimaryColor
+  //       : theme.colors.white,
+  //     border: isFocused ? 0 : 0,
+  //     boxShadow: isFocused ? 0 : 0,
+  //     ":focus": {
+  //       border: isFocused ? 0 : 0,
+  //       boxShadow: isFocused ? 0 : 0,
+  //     },
+  //     ":hover": {
+  //       backgroundColor: isFocused ? theme.colors.orange : base.backgroundColor,
+  //       color: theme.colors.secondaryColor,
+  //     },
+  //   }),
+  //   control: (styles) => ({
+  //     ...styles,
+  //     border: `1px solid ${theme.colors.darkPrimaryColorTransparent}`,
+  //   }),
+  // },
 };
 

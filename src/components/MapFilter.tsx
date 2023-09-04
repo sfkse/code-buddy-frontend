@@ -49,7 +49,7 @@ const Button = styled.button<Buttontype>`
   justify-content: center;
   background-color: ${({ theme, checked }) =>
     checked ? theme.colors.darkPrimaryColor : theme.colors.white};
-  border: 1px solid ${(props) => props.theme.colors.darkPrimaryColor};
+  border: 1px solid ${({ theme }) => theme.colors.darkPrimaryColor};
   border-radius: 0.5rem;
   padding: 0.5rem;
   font-size: 0.8rem;
@@ -58,8 +58,8 @@ const Button = styled.button<Buttontype>`
     checked ? theme.colors.white : theme.colors.darkPrimaryColor};
   cursor: pointer;
   &:hover {
-    background-color: ${(props) => props.theme.colors.darkPrimaryColor};
-    color: ${(props) => props.theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.darkPrimaryColor};
+    color: ${({ theme }) => theme.colors.white};
   }
 `;
 

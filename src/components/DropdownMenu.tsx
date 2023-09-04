@@ -26,7 +26,7 @@ const MenuList = styled.ul`
   top: 3rem;
   right: 3%;
   min-width: 10rem;
-  background-color: ${(props) => props.theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.white};
   border-radius: 0.5rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   display: none;
@@ -42,11 +42,11 @@ const MenuItem = styled.li`
 const MenuItemTitle = styled.h4`
   font-size: 0.8rem;
   font-weight: 700;
-  color: ${(props) => props.theme.colors.darkPrimaryColor};
+  color: ${({ theme }) => theme.colors.darkPrimaryColor};
 `;
 
 const MenuItemText = styled.p`
   font-size: 0.8rem;
-  color: ${(props) => props.theme.colors.darkPrimaryColor};
+  color: ${({ theme }) => theme.colors.darkPrimaryColor};
 `;
 

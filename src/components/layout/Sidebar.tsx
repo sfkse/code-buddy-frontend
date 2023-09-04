@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import { NavLink } from "react-router-dom";
 import { SiGotomeeting } from "react-icons/si";
+import { CgClose } from "react-icons/cg";
 import { GiCalendar, GiDiscussion } from "react-icons/gi";
 import {
   FaSearchLocation,
@@ -10,12 +11,19 @@ import {
 } from "react-icons/fa";
 import { menuItemBorder } from "../../styles/Global";
 import { CSSProperties } from "react";
+import { devices } from "../../styles/Theme";
 
 type MenuLinkTypes = {
   label: string;
   icon: JSX.Element;
   link: string;
 };
+
+type SidebarProps = {
+  toggle: boolean;
+  handleToggle: () => void;
+};
+
 const menuLinks: MenuLinkTypes[] = [
   {
     label: "Dashboard",
@@ -53,10 +61,11 @@ const menuLinks: MenuLinkTypes[] = [
     link: "/calender",
   },
 ];
-const Sidebar = () => {
+const Sidebar = ({ toggle, handleToggle }: SidebarProps) => {
   return (
-    <SidebarWrapper>
+    <SidebarWrapper toggle={toggle}>
       <div>LOGO</div>
+      <CgCloseIcon onClick={handleToggle} />
       <MenuItemWrapper>
         {menuLinks.map((link) => (
           <NavLink
@@ -81,9 +90,36 @@ export default Sidebar;
 
 const SidebarWrapper = styled.div`
   grid-area: 1 / 1 / 3 / 2;
-  background-color: ${(props) => props.theme.colors.darkPrimaryColor};
-  color: ${(props) => props.theme.colors.white};
-  padding: ${(props) => props.theme.layout.padding};
+  background-color: ${({ theme }) => theme.colors.darkPrimaryColor};
+  color: ${({ theme }) => theme.colors.white};
+  padding: ${({ theme }) => theme.layout.padding};
+  @media only screen and ${devices.md} {
+    position: absolute;
+    left: -100%;
+    top: 0;
+    bottom: 0;
+    z-index: 500;
+
+    transition: left 0.3s ease-in-out;
+
+    ${({ toggle }: SidebarProps) =>
+      toggle && {
+        left: 0,
+      }}
+  }
+`;
+
+const CgCloseIcon = styled(CgClose)`
+  display: none;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+
+  @media only screen and ${devices.md} {
+    display: block;
+  }
 `;
 
 const MenuItemWrapper = styled.div`

@@ -24,16 +24,16 @@ const CardWrapper = styled.div`
   gap: 0.5rem;
   height: auto;
   padding: 1rem;
-  background-color: ${(props) => props.theme.colors.white};
-  border: 3px solid ${(props) => props.theme.colors.darkPrimaryColor};
+  background-color: ${({ theme }) => theme.colors.white};
+  border: 3px solid ${({ theme }) => theme.colors.darkPrimaryColor};
   border-radius: 3px;
-  box-shadow: 4px 8px ${(props) => props.theme.colors.darkPrimaryColor};
+  box-shadow: 4px 8px ${({ theme }) => theme.colors.darkPrimaryColor};
 `;
 
 const CardTitle = styled.div`
   font-size: 1.2rem;
   margin-bottom: 0.6rem;
   font-weight: 700;
-  color: ${(props) => props.theme.colors.darkPrimaryColor};
+  color: ${({ theme }) => theme.colors.darkPrimaryColor};
 `;
 
