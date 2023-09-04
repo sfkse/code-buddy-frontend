@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
-import Actions from "./Actions";
-import UserMenu from "./UserMenu";
+import Actions from "../Actions";
+import UserMenu from "../UserMenu";
 
 const TopBar = () => {
   return (

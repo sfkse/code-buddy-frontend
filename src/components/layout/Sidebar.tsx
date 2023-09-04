@@ -8,7 +8,7 @@ import {
   FaRocketchat,
   FaDashcube,
 } from "react-icons/fa";
-import { menuItemBorder } from "../styles/Global";
+import { menuItemBorder } from "../../styles/Global";
 import { CSSProperties } from "react";
 
 type MenuLinkTypes = {

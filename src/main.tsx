@@ -8,7 +8,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Home from "./pages/Home";
 import Chat from "./pages/Chat";
 import Error from "./pages/Error";
-import Layout from "./components/Layout";
+import Layout from "./components/layout/Layout";
 import Login from "./pages/Login";
 
 import { theme } from "./styles/Theme";
