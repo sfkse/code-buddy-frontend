@@ -14,6 +14,7 @@ import Login from "./pages/Login";
 import { theme } from "./styles/Theme";
 import "./index.css";
 import AuthWrapper from "./components/AuthWrapper";
+import Register from "./pages/Register";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
     ],
   },
   { path: "/login", element: <Login /> },
+  { path: "/register", element: <Register /> },
 ]);
 
 const queryClient = new QueryClient();

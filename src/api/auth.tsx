@@ -8,3 +8,20 @@ export const authenticateLogin = async (email: string, password: string) => {
   return data;
 };
 
+export const authenticateRegister = async (
+  email: string,
+  password: string,
+  confirmPassword: string
+) => {
+  try {
+    const { data } = await api.post(`/auth/register`, {
+      email,
+      password,
+      confirmPassword,
+    });
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+

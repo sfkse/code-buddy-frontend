@@ -7,6 +7,7 @@ import ToastMessage from "../components/ToastMessage";
 
 import { useLoginUser } from "../hooks/user/useLoginUser";
 import { useNavigate } from "react-router-dom";
+import { useRegisterUser } from "../hooks/user/useRegisterUser";
 
 const githubButtonStyle = {
   width: "200px",
@@ -27,20 +28,22 @@ const githubButtonStyle = {
   letterSpacing: ".025rem",
 };
 
-const Login = () => {
+const Register = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [userData, setUserData] = useState({
     email: "",
     password: "",
+    confirmPassword: "",
   });
-  const { mutate, isLoading } = useLoginUser(
+  const { mutate, isLoading } = useRegisterUser(
     userData.email,
     userData.password,
+    userData.confirmPassword,
     setErrorMessage
   );
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleRegister = () => {
     if (userData.email === "" || userData.password === "") {
       return setErrorMessage("Please fill all the fields");
     }
@@ -58,7 +61,7 @@ const Login = () => {
         <Hr>- OR -</Hr>
         <FormInput
           type="email"
-          placeholder="Email"
+          placeholder="Email*"
           onChange={(e) =>
             setUserData((userData) => ({
               ...userData,
@@ -68,7 +71,17 @@ const Login = () => {
         />
         <FormInput
           type="password"
-          placeholder="Password"
+          placeholder="Password*"
+          onChange={(e) =>
+            setUserData((userData) => ({
+              ...userData,
+              password: e.target.value,
+            }))
+          }
+        />
+        <FormInput
+          type="password"
+          placeholder="Confirm Password*"
           onChange={(e) =>
             setUserData((userData) => ({
               ...userData,
@@ -77,17 +90,15 @@ const Login = () => {
           }
         />
         <Button
-          onClick={handleLogin}
+          onClick={handleRegister}
           disabled={isLoading}
-          title="LOGIN"
+          title="REGISTER"
           style={{ padding: "0.7rem 0", fontSize: "1.3rem" }}
         />
-        <RegisterText>
-          Don't you have an account? Create{" "}
-          <RegisterLink onClick={() => navigate("/register")}>
-            here
-          </RegisterLink>
-        </RegisterText>
+        <LoginText>
+          Do you already have an account? Login{" "}
+          <LoginLink onClick={() => navigate("/login")}>here</LoginLink>
+        </LoginText>
       </FormWrapper>
 
       {errorMessage ? (
@@ -97,7 +108,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
 
 const AuthPageWrapper = styled.div`
   min-width: 100vw;
@@ -135,14 +146,14 @@ const FormInput = styled.input`
   }
 `;
 
-const RegisterText = styled.p`
+const LoginText = styled.p`
   text-align: center;
   font-size: 0.8rem;
   font-weight: 700;
   color: ${({ theme }) => theme.colors.secondaryColor};
 `;
 
-const RegisterLink = styled.a`
+const LoginLink = styled.a`
   color: ${({ theme }) => theme.colors.white};
   cursor: pointer;
 `;

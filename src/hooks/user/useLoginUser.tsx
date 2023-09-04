@@ -15,6 +15,7 @@ export const useLoginUser = (
       localStorage.setItem("user", JSON.stringify(data));
       queryClient.invalidateQueries(["user"]);
       navigate("/");
+      return data;
     },
     onError: (error: any) => {
       setErrorMessage(error.response.data.message);
@@ -22,7 +23,6 @@ export const useLoginUser = (
   });
 
   const { mutate, error, data, isLoading } = mutation;
-
   return { mutate, data, error, isLoading };
 };
 
