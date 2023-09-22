@@ -1,13 +1,30 @@
 import { styled } from "styled-components";
 import Button from "./Button";
+import { User } from "../types/user";
+import { transformToHashtags } from "../utils/stringUtils";
+import { useEffect, useState } from "react";
 
-const UserInfoPopUp = () => {
+type UserInfoPopUpProps = {
+  user: User;
+};
+
+const UserInfoPopUp = ({ user }: UserInfoPopUpProps) => {
+  const [skills, setSkills] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (user.skills) setSkills(transformToHashtags(user.skills));
+  }, [user.skills]);
+
   return (
     <PopUpWrapper>
       <UserLogo />
-      <UserLocation>KIYV, UKRAINE</UserLocation>
-      <UserFullName>Ilya Dmitruk</UserFullName>
-      <UserTags>#founder and #designer</UserTags>
+      <UserLocation>{user.location}</UserLocation>
+      <UserFullName>{`${user.firstname} ${user.lastname}`}</UserFullName>
+      <UserTagsWrapper>
+        {skills.map((skill: string) => (
+          <UserTags key={skill}>{`${skill} `}</UserTags>
+        ))}
+      </UserTagsWrapper>
       <Actions>
         <Button title="CALL" />
         <Button title="MESSAGE" />
@@ -43,6 +60,8 @@ const UserLocation = styled.span`
 `;
 
 const UserFullName = styled.span``;
+
+const UserTagsWrapper = styled.div``;
 
 const UserTags = styled.span``;
 

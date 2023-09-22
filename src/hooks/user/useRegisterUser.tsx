@@ -17,7 +17,7 @@ export const useRegisterUser = (
       onSuccess: (data) => {
         if (data) {
           localStorage.setItem("user", JSON.stringify(data));
-          queryClient.invalidateQueries(["user"]);
+          queryClient.invalidateQueries(["singleUser"]);
           navigate("/");
         }
       },

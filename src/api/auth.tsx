@@ -1,10 +1,11 @@
 import api from "./axios";
 
 export const authenticateLogin = async (email: string, password: string) => {
-  const { data } = await api.post(`/auth/login`, {
-    email,
-    password,
+  const jsonData = JSON.stringify({
+    email: email,
+    password: password,
   });
+  const { data } = await api.post(`/auth/login`, jsonData);
   return data;
 };
 

@@ -11,13 +11,27 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    config.withCredentials = true;
     return config;
   },
   (error) => {
+    console.log("error", error);
     Promise.reject(error);
   }
 );
+
+// axiosInstance.interceptors.response.use(
+//   (data) => {
+//     return data;
+//   },
+//   (error) => {
+//     console.log("error", error);
+//     if (error.response.status === 401 || error.response.status === 500) {
+//       localStorage.removeItem("user");
+//       window.location.href = `${config.APP_BASE_URL}/login?error=Something went wrong. Please try again later.`;
+//     }
+//     Promise.reject(error);
+//   }
+// );
 
 export default axiosInstance;
 

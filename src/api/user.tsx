@@ -1,12 +1,13 @@
 import api from "./axios";
 import { User } from "../types/user";
 
-export const getUser = async (id: string) => {
-  try {
-    const { data } = await api.get<User>(`/user/${id}`);
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
+export const getSingleUser = async (id: string): Promise<User | undefined> => {
+  const { data } = await api.get(`/users/single/${id}`);
+  return data;
+};
+
+export const getAllUsers = async (): Promise<User[] | undefined> => {
+  const { data } = await api.get(`/users/all`);
+  return data;
 };
 

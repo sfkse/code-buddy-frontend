@@ -1,87 +1,55 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { styled } from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { BsGithub } from "react-icons/bs";
 
 import Button from "../components/Button";
 import ToastMessage from "../components/ToastMessage";
+import FormFields from "../components/FormFields";
 
 import { useLoginUser } from "../hooks/user/useLoginUser";
-import { useNavigate } from "react-router-dom";
-
-const githubButtonStyle = {
-  width: "200px",
-  alignSelf: "center",
-  color: "white",
-  display: "flex",
-  gap: "5px",
-  alignItems: "center",
-  justifyContent: "space-evenly",
-  background:
-    "radial-gradient(circle at 100% 100%, #000 0, #000 1px, transparent 1px) 0% 0%/2px 2px no-repeat,radial-gradient(circle at 0 100%, #000 0, #000 1px, transparent 1px) 100% 0%/2px 2px no-repeat,radial-gradient(circle at 100% 0, #000 0, #000 1px, transparent 1px) 0% 100%/2px 2px no-repeat,radial-gradient(circle at 0 0, #000 0, #000 1px, transparent 1px) 100% 100%/2px 2px no-repeat,linear-gradient(#000, #000) 50% 50%/calc(100% - 4px) calc(100% - 6px) no-repeat,linear-gradient(#000, #000) 50% 50%/calc(100% - 6px) calc(100% - 4px) no-repeat,linear-gradient(90deg, transparent 0%, #ffd100 51%)",
-  borderRadius: "2px",
-  padding: "0.7rem 0.6rem",
-  boxSizing: "border-box",
-  fontSize: ".95rem",
-  lineHeight: "1.5",
-  fonwWeight: "300",
-  letterSpacing: ".025rem",
-};
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
-  const [userData, setUserData] = useState({
+  const [userData, setFormState] = useState({
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
+
+  // AUTHENTICATION
   const { mutate, isLoading } = useLoginUser(
     userData.email,
     userData.password,
     setErrorMessage
   );
-  const navigate = useNavigate();
 
-  const handleLogin = () => {
+  // LOGIN WITH EMAIL AND PASSWORD
+  const handleLogin = (e: FormEvent) => {
+    e.preventDefault();
     if (userData.email === "" || userData.password === "") {
       return setErrorMessage("Please fill all the fields");
     }
     mutate();
   };
 
+  // LOGIN WITH GITHUB
+  const handleGithubLogin = () => {
+    window.location.href = "http://localhost:5000/auth/github";
+  };
+
   return (
     <AuthPageWrapper>
-      <FormWrapper>
+      <FormWrapper onSubmit={handleLogin}>
         <Button
           title="Login With Github"
           icon={<BsGithub />}
-          style={githubButtonStyle}
+          buttonStyle="gradient"
+          onClick={handleGithubLogin}
         />
         <Hr>- OR -</Hr>
-        <FormInput
-          type="email"
-          placeholder="Email"
-          onChange={(e) =>
-            setUserData((userData) => ({
-              ...userData,
-              email: e.target.value,
-            }))
-          }
-        />
-        <FormInput
-          type="password"
-          placeholder="Password"
-          onChange={(e) =>
-            setUserData((userData) => ({
-              ...userData,
-              password: e.target.value,
-            }))
-          }
-        />
-        <Button
-          onClick={handleLogin}
-          disabled={isLoading}
-          title="LOGIN"
-          style={{ padding: "0.7rem 0", fontSize: "1.3rem" }}
-        />
+        <FormFields type="login" setFormState={setFormState} />
+        <Button type="submit" disabled={isLoading} title="LOGIN" />
         <RegisterText>
           Don't you have an account? Create{" "}
           <RegisterLink onClick={() => navigate("/register")}>
@@ -109,7 +77,7 @@ const AuthPageWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.darkPrimaryColor};
 `;
 
-const FormWrapper = styled.div`
+const FormWrapper = styled.form`
   display: flex;
   width: 30%;
   flex-direction: column;
@@ -123,16 +91,6 @@ const Hr = styled.p`
   font-size: 0.8rem;
   font-weight: 700;
   color: ${({ theme }) => theme.colors.secondaryColor};
-`;
-
-const FormInput = styled.input`
-  padding: 0.7rem;
-  background-color: ${({ theme }) => theme.colors.darkSecondaryColor};
-  color: ${({ theme }) => theme.colors.white};
-  font-size: 1rem;
-  &::placeholder {
-    color: ${({ theme }) => theme.colors.secondaryColor};
-  }
 `;
 
 const RegisterText = styled.p`

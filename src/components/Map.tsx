@@ -1,45 +1,76 @@
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { styled } from "styled-components";
 import Leaflet from "leaflet";
+
 import UserInfoPopUp from "./UserInfoPopUp";
+import MapFilter from "./MapFilter";
+import Loader from "./Loader";
 import onlineIcon from "../assets/onlineIcon.png";
 // import offlineIcon from "../assets/offlineIcon.png";
-import MapFilter from "./MapFilter";
 
-const Map = () => {
-  const Markers = (
-    <Marker
-      icon={
-        new Leaflet.Icon({
-          iconUrl: onlineIcon,
-          iconRetinaUrl: onlineIcon,
-          popupAnchor: [-0, -0],
-          iconSize: [32, 32],
-        })
-      }
-      position={[51.505, -0.09]}
-    >
-      <Popup>
-        <UserInfoPopUp />
-      </Popup>
-    </Marker>
-  );
+import { useFetchAllUsers } from "../hooks/user/useFetchAllUsers";
+import { User } from "../types/user";
+
+type MarkersProps = {
+  users: User[] | undefined;
+};
+const Markers = ({ users }: MarkersProps) => {
+  const positions: [number, number][] = [
+    [51.505, -0.09],
+    [52.505, -0.19],
+  ];
+
+  if (!users) return null;
 
   return (
     <>
-      <MapFilter />
-      <MapWrapper>
-        <MapContainer
-          style={{ height: "65vh", width: "100%" }}
-          center={[51.505, -0.09]}
-          zoom={5}
-          scrollWheelZoom={true}
+      {users.map((user, index: number) => (
+        <Marker
+          key={user.idusers}
+          icon={
+            new Leaflet.Icon({
+              iconUrl: onlineIcon,
+              iconRetinaUrl: onlineIcon,
+              popupAnchor: [-0, -0],
+              iconSize: [32, 32],
+            })
+          }
+          position={positions[index]}
         >
-          <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
-          {Markers}
-        </MapContainer>
-      </MapWrapper>
+          <Popup>
+            <UserInfoPopUp user={user} />
+          </Popup>
+        </Marker>
+      ))}
     </>
+  );
+};
+
+const Map = () => {
+  const { data: users, isLoading, error } = useFetchAllUsers();
+
+  if (error instanceof Error) {
+    return <span>Error: {error.message}</span>;
+  }
+
+  return (
+    <Loader isLoading={isLoading}>
+      <>
+        <MapFilter />
+        <MapWrapper>
+          <MapContainer
+            style={{ height: "65vh", width: "100%" }}
+            center={[51.505, -0.09]}
+            zoom={3}
+            scrollWheelZoom={false}
+            key={users?.length}
+          >
+            <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
+            <Markers users={users} />
+          </MapContainer>
+        </MapWrapper>
+      </>
+    </Loader>
   );
 };
 

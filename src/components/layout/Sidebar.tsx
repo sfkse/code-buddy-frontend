@@ -7,27 +7,28 @@ import {
   FaSearchLocation,
   FaRegStickyNote,
   FaRocketchat,
-  FaDashcube,
 } from "react-icons/fa";
+import { LuLayoutDashboard } from "react-icons/lu";
+import { HiCodeBracket } from "react-icons/hi2";
 import { menuItemBorder } from "../../styles/Global";
 import { CSSProperties } from "react";
 import { devices } from "../../styles/Theme";
-
-type MenuLinkTypes = {
-  label: string;
-  icon: JSX.Element;
-  link: string;
-};
 
 type SidebarProps = {
   toggle: boolean;
   handleToggle: () => void;
 };
 
-const menuLinks: MenuLinkTypes[] = [
+type MenuLinkProps = {
+  label: string;
+  icon: JSX.Element;
+  link: string;
+};
+
+const menuLinks: MenuLinkProps[] = [
   {
-    label: "Dashboard",
-    icon: <FaDashcube />,
+    label: "Home",
+    icon: <LuLayoutDashboard />,
     link: "/",
   },
   {
@@ -63,23 +64,23 @@ const menuLinks: MenuLinkTypes[] = [
 ];
 const Sidebar = ({ toggle, handleToggle }: SidebarProps) => {
   return (
-    <SidebarWrapper toggle={toggle}>
-      <div>LOGO</div>
+    <SidebarWrapper $toggleSidebar={toggle}>
+      <div>
+        FELLOW <HiCodeBracket /> CODERS
+      </div>
       <CgCloseIcon onClick={handleToggle} />
       <MenuItemWrapper>
         {menuLinks.map((link) => (
-          <NavLink
+          <NavLinkItem
             to={link.link}
             key={link.label}
             style={({ isActive }): CSSProperties => ({
               fontWeight: isActive ? "bold" : "normal",
             })}
           >
-            <MenuItem>
-              {link.icon}
-              {link.label}
-            </MenuItem>
-          </NavLink>
+            {link.icon}
+            {link.label}
+          </NavLinkItem>
         ))}
       </MenuItemWrapper>
     </SidebarWrapper>
@@ -88,22 +89,21 @@ const Sidebar = ({ toggle, handleToggle }: SidebarProps) => {
 
 export default Sidebar;
 
-const SidebarWrapper = styled.div`
+const SidebarWrapper = styled.div<{ $toggleSidebar: boolean }>`
   grid-area: 1 / 1 / 3 / 2;
   background-color: ${({ theme }) => theme.colors.darkPrimaryColor};
   color: ${({ theme }) => theme.colors.white};
   padding: ${({ theme }) => theme.layout.padding};
-  @media only screen and ${devices.md} {
+  @media only screen and (${devices.md}) {
     position: absolute;
     left: -100%;
     top: 0;
     bottom: 0;
     z-index: 500;
-
     transition: left 0.3s ease-in-out;
 
-    ${({ toggle }: SidebarProps) =>
-      toggle && {
+    ${({ $toggleSidebar }) =>
+      $toggleSidebar && {
         left: 0,
       }}
   }
@@ -117,7 +117,7 @@ const CgCloseIcon = styled(CgClose)`
   font-size: 1.5rem;
   cursor: pointer;
 
-  @media only screen and ${devices.md} {
+  @media only screen and (${devices.md}) {
     display: block;
   }
 `;
@@ -126,12 +126,12 @@ const MenuItemWrapper = styled.div`
   margin-top: 2rem;
 `;
 
-const MenuItem = styled.span`
+const NavLinkItem = styled(NavLink)`
   list-style: none;
   font-size: 1.2rem;
   cursor: pointer;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 5px;
   padding: 0.8rem 0.5rem;
 

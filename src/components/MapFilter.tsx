@@ -3,7 +3,7 @@ import { BsCheck2 } from "react-icons/bs";
 import { useState } from "react";
 
 type Buttontype = {
-  checked: boolean;
+  $checked: boolean;
   onClick: () => void;
 };
 const MapFilter = () => {
@@ -16,14 +16,14 @@ const MapFilter = () => {
     <FilterButtonsWrapper>
       <Button
         onClick={() => setFilters({ ...filters, online: !filters.online })}
-        checked={filters.online}
+        $checked={filters.online}
       >
         <CheckIcon />
         Online
       </Button>
       <Button
         onClick={() => setFilters({ ...filters, offline: !filters.offline })}
-        checked={filters.offline}
+        $checked={filters.offline}
       >
         <CheckIcon />
         Offline
@@ -47,15 +47,15 @@ const Button = styled.button<Buttontype>`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme, checked }) =>
-    checked ? theme.colors.darkPrimaryColor : theme.colors.white};
+  background-color: ${({ theme, $checked }) =>
+    $checked ? theme.colors.darkPrimaryColor : theme.colors.white};
   border: 1px solid ${({ theme }) => theme.colors.darkPrimaryColor};
   border-radius: 0.5rem;
   padding: 0.5rem;
   font-size: 0.8rem;
   font-weight: 700;
-  color: ${({ theme, checked }) =>
-    checked ? theme.colors.white : theme.colors.darkPrimaryColor};
+  color: ${({ theme, $checked }) =>
+    $checked ? theme.colors.white : theme.colors.darkPrimaryColor};
   cursor: pointer;
   &:hover {
     background-color: ${({ theme }) => theme.colors.darkPrimaryColor};

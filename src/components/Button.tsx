@@ -1,11 +1,24 @@
 import { styled } from "styled-components";
 
 import { ButtonProps } from "../types/components";
+import { gradientButtonStyle } from "../styles/Theme";
 
-const Button = ({ title, icon, onClick, style, disabled }: ButtonProps) => {
+const Button = ({
+  title,
+  icon,
+  onClick,
+  buttonStyle,
+  disabled,
+  type,
+}: ButtonProps) => {
+  const style =
+    buttonStyle === "gradient"
+      ? gradientButtonStyle
+      : { padding: "0.7rem 0", fontSize: "1.3rem" };
+
   return (
     <ButtonComponent
-      type="button"
+      type={type || "button"}
       onClick={onClick}
       style={style}
       disabled={disabled}
