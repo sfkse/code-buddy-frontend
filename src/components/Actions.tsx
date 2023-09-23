@@ -19,9 +19,10 @@ const Actions = () => {
 export default Actions;
 
 const IconsWrapper = styled.div`
+  position: relative;
   display: flex;
   font-size: 1.2rem;
-  padding: 0.5rem;
+  padding: 1.12rem 0.5rem;
   color: ${({ theme }) => theme.colors.lightGray};
   cursor: pointer;
   &:hover > ul {

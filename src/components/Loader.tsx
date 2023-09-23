@@ -14,7 +14,6 @@ const cssOverride: CSSProperties = {
   zIndex: 2000,
 };
 const Loader = ({ children, isLoading }: LoaderProps) => {
-  console.log(isLoading);
   return (
     <LoaderWrapper $isLoading={isLoading}>
       {isLoading && (

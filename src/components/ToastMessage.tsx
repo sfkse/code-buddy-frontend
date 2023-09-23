@@ -43,6 +43,7 @@ const ToastMessageWrapper = styled.p`
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
   width: 100%;
   text-align: center;
   color: ${({ theme }) => theme.colors.white};
@@ -50,6 +51,6 @@ const ToastMessageWrapper = styled.p`
   font-size: 0.9rem;
   font-weight: 700;
   padding: 0.5rem;
-  animation: ${slideAnimation} 2.5s ease-in-out forwards;
+  /* animation: ${slideAnimation} 2.5s ease-in-out forwards; */
 `;
 

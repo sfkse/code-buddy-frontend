@@ -1,8 +1,13 @@
 import { styled } from "styled-components";
 import DropdownMenu from "./DropdownMenu";
+import { useLogoutUser } from "../hooks/user/useLogoutUser";
 
 const UserMenu = () => {
-  const dropdownMenuContent = [{ text: "Settings" }, { text: "Logout" }];
+  const { logoutUser } = useLogoutUser();
+  const dropdownMenuContent = [
+    { text: "Settings", onClick: () => console.log("settings") },
+    { text: "Logout", onClick: () => logoutUser() },
+  ];
 
   return (
     <MenuWrapper>
@@ -16,7 +21,6 @@ export default UserMenu;
 
 const MenuWrapper = styled.div`
   position: relative;
-  z-index: 500;
   padding: 0.5rem;
   &:hover > ul {
     display: flex;

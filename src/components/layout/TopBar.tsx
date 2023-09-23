@@ -34,7 +34,7 @@ const TopBarWrapper = styled.div`
   justify-content: flex-end;
   align-items: center;
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
-  @media only screen and ${devices.md} {
+  @media only screen and (${devices.md}) {
     grid-area: 1 / 1 / 2 / 3;
     justify-content: space-between;
   }
@@ -52,14 +52,14 @@ const SidebarToggle = styled.div`
   height: 1.5rem;
   border-radius: 50%;
   overflow: hidden;
-  @media only screen and ${devices.md} {
+  @media only screen and (${devices.md}) {
     display: block;
   }
 `;
 
 const ToggleHamburger = styled.span`
   display: none;
-  @media only screen and ${devices.md} {
+  @media only screen and (${devices.md}) {
     display: block;
     cursor: pointer;
     font-size: 1.5rem;

@@ -1,6 +1,11 @@
+import { MouseEventHandler } from "react";
 import { styled } from "styled-components";
 
-type MenuItems = { title?: string; text: string }[];
+type MenuItems = {
+  title?: string;
+  text: string;
+  onClick?: MouseEventHandler;
+}[];
 
 interface DropdownMenuProps {
   content: MenuItems;
@@ -10,7 +15,7 @@ const DropdownMenu = ({ content }: DropdownMenuProps) => {
   return (
     <MenuList>
       {content.map((item, index) => (
-        <MenuItem key={index}>
+        <MenuItem key={index} onClick={item.onClick}>
           {item.title && <MenuItemTitle>{item.title}</MenuItemTitle>}
           <MenuItemText>{item.text}</MenuItemText>
         </MenuItem>
@@ -27,7 +32,6 @@ const MenuList = styled.ul`
   right: 3%;
   min-width: 10rem;
   background-color: ${({ theme }) => theme.colors.white};
-  border-radius: 0.5rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   display: none;
 `;
@@ -35,8 +39,12 @@ const MenuList = styled.ul`
 const MenuItem = styled.li`
   display: flex;
   flex-direction: column;
-  padding: 0.5rem 1rem;
-  gap: 0.5rem;
+  padding: 0.35rem 1rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.yellow};
+  }
 `;
 
 const MenuItemTitle = styled.h4`

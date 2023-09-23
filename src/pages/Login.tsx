@@ -8,10 +8,11 @@ import ToastMessage from "../components/ToastMessage";
 import FormFields from "../components/FormFields";
 
 import { useLoginUser } from "../hooks/user/useLoginUser";
+import { AuthFormState } from "../types/user";
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
-  const [userData, setFormState] = useState({
+  const [formState, setFormState] = useState<AuthFormState>({
     email: "",
     password: "",
   });
@@ -19,15 +20,15 @@ const Login = () => {
 
   // AUTHENTICATION
   const { mutate, isLoading } = useLoginUser(
-    userData.email,
-    userData.password,
+    formState,
+    setFormState,
     setErrorMessage
   );
 
   // LOGIN WITH EMAIL AND PASSWORD
   const handleLogin = (e: FormEvent) => {
     e.preventDefault();
-    if (userData.email === "" || userData.password === "") {
+    if (formState.email === "" || formState.password === "") {
       return setErrorMessage("Please fill all the fields");
     }
     mutate();
@@ -48,7 +49,11 @@ const Login = () => {
           onClick={handleGithubLogin}
         />
         <Hr>- OR -</Hr>
-        <FormFields type="login" setFormState={setFormState} />
+        <FormFields
+          type="login"
+          formState={formState}
+          setFormState={setFormState}
+        />
         <Button type="submit" disabled={isLoading} title="LOGIN" />
         <RegisterText>
           Don't you have an account? Create{" "}

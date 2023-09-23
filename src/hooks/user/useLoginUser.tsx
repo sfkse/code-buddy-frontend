@@ -1,23 +1,27 @@
 import { useMutation } from "@tanstack/react-query";
-import { authenticateLogin } from "../../api/auth";
 import { useNavigate } from "react-router-dom";
 
+import { authenticateLogin } from "../../api/auth";
+import { saveCredentials } from "../../utils/userUtils";
+import { AuthFormState } from "../../types/user";
+
 export const useLoginUser = (
-  email: string,
-  password: string,
+  formState: AuthFormState,
+  setFormState: React.Dispatch<React.SetStateAction<AuthFormState>>,
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>
 ) => {
   const navigate = useNavigate();
 
   const { mutate, error, data, isLoading } = useMutation({
-    mutationFn: () => authenticateLogin(email, password),
+    mutationFn: () => authenticateLogin(formState),
     onSuccess: (data) => {
       if (data) {
-        localStorage.setItem("user", JSON.stringify(data.data.user));
-        navigate("/");
-        return;
-      } else {
-        console.log("no data", data);
+        saveCredentials(data.data.user.idusers);
+        setFormState({
+          email: "",
+          password: "",
+        });
+        return navigate("/");
       }
     },
     onError: (error: any) => setErrorMessage(error.response.data.message),

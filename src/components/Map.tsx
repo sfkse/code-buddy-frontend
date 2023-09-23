@@ -12,12 +12,13 @@ import { useFetchAllUsers } from "../hooks/user/useFetchAllUsers";
 import { User } from "../types/user";
 
 type MarkersProps = {
-  users: User[] | undefined;
+  users: User[];
 };
 const Markers = ({ users }: MarkersProps) => {
   const positions: [number, number][] = [
     [51.505, -0.09],
     [52.505, -0.19],
+    [46.505, -0.19],
   ];
 
   if (!users) return null;
@@ -48,7 +49,7 @@ const Markers = ({ users }: MarkersProps) => {
 
 const Map = () => {
   const { data: users, isLoading, error } = useFetchAllUsers();
-
+  console.log(users);
   if (error instanceof Error) {
     return <span>Error: {error.message}</span>;
   }
@@ -66,7 +67,7 @@ const Map = () => {
             key={users?.length}
           >
             <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
-            <Markers users={users} />
+            {users && <Markers users={users} />}
           </MapContainer>
         </MapWrapper>
       </>

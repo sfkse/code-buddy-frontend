@@ -1,24 +1,19 @@
+import { AuthFormState } from "../types/user";
 import api from "./axios";
 
-export const authenticateLogin = async (email: string, password: string) => {
+export const authenticateLogin = async (formState: AuthFormState) => {
   const jsonData = JSON.stringify({
-    email: email,
-    password: password,
+    ...formState,
   });
   const { data } = await api.post(`/auth/login`, jsonData);
   return data;
 };
 
-export const authenticateRegister = async (
-  email: string,
-  password: string,
-  confirmPassword: string
-) => {
+export const authenticateRegister = async (formState: AuthFormState) => {
+  console.log(formState);
   try {
     const { data } = await api.post(`/auth/register`, {
-      email,
-      password,
-      confirmPassword,
+      ...formState,
     });
     return data;
   } catch (error) {
