@@ -45,6 +45,21 @@ const Register = () => {
   const handleGithubLogin = () => {
     window.location.href = "http://localhost:5000/auth/github";
   };
+
+  const handleSetFormState = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    name: string
+  ) => {
+    setFormState((formData) => ({
+      ...formData,
+      [name]: e.target.value,
+    }));
+  };
+
+  const handleSetResetMessage = (message: string) => {
+    setErrorMessage(message);
+  };
+
   return (
     <AuthPageWrapper>
       <FormWrapper onSubmit={handleRegister}>
@@ -55,17 +70,23 @@ const Register = () => {
           onClick={handleGithubLogin}
         />
         <Hr>- OR -</Hr>
-        <FormFields formState={formState} setFormState={setFormState} />
+        <FormFields
+          formState={formState}
+          handleSetFormState={handleSetFormState}
+        />
         <Button type="submit" disabled={isLoading} title="REGISTER" />
         <LoginText>
-          Do you already have an account? Login{" "}
+          Do you already have an account? Login &nbsp;
           <LoginLink onClick={() => navigate("/login")}>here</LoginLink>
         </LoginText>
       </FormWrapper>
 
-      {errorMessage ? (
-        <ToastMessage text={errorMessage} setErrorMessage={setErrorMessage} />
-      ) : null}
+      {errorMessage && (
+        <ToastMessage
+          text={errorMessage}
+          handleSetResetMessage={handleSetResetMessage}
+        />
+      )}
     </AuthPageWrapper>
   );
 };

@@ -39,6 +39,20 @@ const Login = () => {
     window.location.href = "http://localhost:5000/auth/github";
   };
 
+  const handleSetFormState = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    name: string
+  ) => {
+    setFormState((formData) => ({
+      ...formData,
+      [name]: e.target.value,
+    }));
+  };
+
+  const handleSetResetMessage = (message: string) => {
+    setErrorMessage(message);
+  };
+
   return (
     <AuthPageWrapper>
       <FormWrapper onSubmit={handleLogin}>
@@ -52,11 +66,11 @@ const Login = () => {
         <FormFields
           type="login"
           formState={formState}
-          setFormState={setFormState}
+          handleSetFormState={handleSetFormState}
         />
         <Button type="submit" disabled={isLoading} title="LOGIN" />
         <RegisterText>
-          Don't you have an account? Create{" "}
+          Don't you have an account? Create one &nbsp;
           <RegisterLink onClick={() => navigate("/register")}>
             here
           </RegisterLink>
@@ -64,7 +78,10 @@ const Login = () => {
       </FormWrapper>
 
       {errorMessage ? (
-        <ToastMessage text={errorMessage} setErrorMessage={setErrorMessage} />
+        <ToastMessage
+          text={errorMessage}
+          handleSetResetMessage={handleSetResetMessage}
+        />
       ) : null}
     </AuthPageWrapper>
   );

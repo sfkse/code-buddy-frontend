@@ -5,8 +5,8 @@ import Leaflet from "leaflet";
 import UserInfoPopUp from "./UserInfoPopUp";
 import MapFilter from "./MapFilter";
 import Loader from "./Loader";
-import onlineIcon from "../assets/onlineIcon.png";
-// import offlineIcon from "../assets/offlineIcon.png";
+import onlineIcon from "../assets/images/onlineIcon.png";
+// import offlineIcon from "../assets/images/offlineIcon.png";
 
 import { useFetchAllUsers } from "../hooks/user/useFetchAllUsers";
 import { User } from "../types/user";
@@ -19,6 +19,7 @@ const Markers = ({ users }: MarkersProps) => {
     [51.505, -0.09],
     [52.505, -0.19],
     [46.505, -0.19],
+    [38.505, -0.19],
   ];
 
   if (!users) return null;

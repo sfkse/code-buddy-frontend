@@ -3,20 +3,20 @@ import { keyframes, styled } from "styled-components";
 
 type ToastMessageProps = {
   text: string;
-  setErrorMessage?: React.Dispatch<React.SetStateAction<string>>;
+  handleSetResetMessage?: (message: string) => void;
 };
 
-const ToastMessage = ({ text, setErrorMessage }: ToastMessageProps) => {
+const ToastMessage = ({ text, handleSetResetMessage }: ToastMessageProps) => {
   useEffect(() => {
     let timer: ReturnType<typeof setInterval>;
-    if (text && setErrorMessage) {
+    if (text && handleSetResetMessage) {
       timer = setTimeout(() => {
-        setErrorMessage("");
+        handleSetResetMessage("");
       }, 3000);
     }
 
     return () => clearTimeout(timer);
-  }, [setErrorMessage, text]);
+  }, [handleSetResetMessage, text]);
 
   return <ToastMessageWrapper>{text}</ToastMessageWrapper>;
 };
