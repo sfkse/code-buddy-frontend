@@ -5,7 +5,6 @@ import { UserLocation } from "../../types/location";
 
 export const useSetUserLocation = (location: UserLocation, userID: string) => {
   const navigate = useNavigate();
-  console.log(location, userID);
   const { mutate, error, data, isLoading } = useMutation({
     mutationFn: () => setUserLocation(location, userID),
     onSuccess: (data) => {

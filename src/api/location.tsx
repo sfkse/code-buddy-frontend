@@ -27,7 +27,6 @@ export const getCountriesAndCities = async () => {
 
 export const setUserLocation = async (location: UserLocation, id: string) => {
   try {
-    console.log(location);
     const { data } = await api.put(
       `/users/single/${id}/location`,
       JSON.stringify(location)
