@@ -48,7 +48,7 @@ const MessagesHeader = styled.div`
   display: flex;
   align-items: center;
   padding: 1rem;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.lightGray};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.secondary};
 `;
 
 const MessagesHeaderTitle = styled.h3`
@@ -68,7 +68,7 @@ const MessagesHeaderSearchInput = styled.input`
   outline: none;
   padding: 0.5rem;
   border-radius: 0.5rem;
-  background-color: ${({ theme }) => theme.colors.lightGray};
+  background-color: ${({ theme }) => theme.colors.secondary};
 `;
 
 const MessagesHeaderSearchIcon = styled(TbSearch)`
@@ -82,7 +82,7 @@ const MessagesListItem = styled.div`
   display: flex;
   align-items: center;
   padding: 0.7rem;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.secondaryColor};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.secondary};
 `;
 
 const MessagesListItemAvatar = styled(RxAvatar)`

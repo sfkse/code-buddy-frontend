@@ -65,9 +65,9 @@ const menuLinks: MenuLinkProps[] = [
 const Sidebar = ({ toggle, handleToggle }: SidebarProps) => {
   return (
     <SidebarWrapper $toggleSidebar={toggle}>
-      <div>
-        FELLOW <HiCodeBracket /> CODERS
-      </div>
+      <Logo>
+        FELLOW <HiCodeBracketStyle /> CODERS
+      </Logo>
       <CgCloseIcon onClick={handleToggle} />
       <MenuItemWrapper>
         {menuLinks.map((link) => (
@@ -76,6 +76,7 @@ const Sidebar = ({ toggle, handleToggle }: SidebarProps) => {
             key={link.label}
             style={({ isActive }): CSSProperties => ({
               fontWeight: isActive ? "bold" : "normal",
+              color: isActive ? "#fff" : "#ccc",
             })}
           >
             {link.icon}
@@ -90,8 +91,8 @@ const Sidebar = ({ toggle, handleToggle }: SidebarProps) => {
 export default Sidebar;
 
 const SidebarWrapper = styled.div<{ $toggleSidebar: boolean }>`
-  grid-area: 1 / 1 / 3 / 2;
-  background-color: ${({ theme }) => theme.colors.darkPrimaryColor};
+  grid-area: 1 / 1 / 4 / 2;
+  background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.white};
   padding: ${({ theme }) => theme.layout.padding};
   @media only screen and (${devices.md}) {
@@ -122,13 +123,27 @@ const CgCloseIcon = styled(CgClose)`
   }
 `;
 
+const Logo = styled.h1`
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.colors.white};
+  margin-bottom: 1rem;
+`;
+
+const HiCodeBracketStyle = styled(HiCodeBracket)`
+  color: ${({ theme }) => theme.colors.yellow};
+  font-weight: 900;
+  padding-top: 6px;
+  font-size: 1.2rem;
+`;
+
 const MenuItemWrapper = styled.div`
   margin-top: 2rem;
 `;
 
 const NavLinkItem = styled(NavLink)`
   list-style: none;
-  font-size: 1.2rem;
+  font-size: 1rem;
   cursor: pointer;
   display: flex;
   align-items: flex-end;

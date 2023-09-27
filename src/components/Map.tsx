@@ -15,18 +15,11 @@ type MarkersProps = {
   users: User[];
 };
 const Markers = ({ users }: MarkersProps) => {
-  const positions: [number, number][] = [
-    [51.505, -0.09],
-    [52.505, -0.19],
-    [46.505, -0.19],
-    [38.505, -0.19],
-  ];
-
   if (!users) return null;
 
   return (
     <>
-      {users.map((user, index: number) => (
+      {users.map((user) => (
         <Marker
           key={user.idusers}
           icon={
@@ -37,7 +30,10 @@ const Markers = ({ users }: MarkersProps) => {
               iconSize: [32, 32],
             })
           }
-          position={positions[index]}
+          position={[
+            JSON.parse(user.location).lat,
+            JSON.parse(user.location).lon,
+          ]}
         >
           <Popup>
             <UserInfoPopUp user={user} />
@@ -49,8 +45,8 @@ const Markers = ({ users }: MarkersProps) => {
 };
 
 const Map = () => {
-  const { data: users, isLoading, error } = useFetchAllUsers();
-  console.log(users);
+  const { users, isLoading, error } = useFetchAllUsers();
+
   if (error instanceof Error) {
     return <span>Error: {error.message}</span>;
   }

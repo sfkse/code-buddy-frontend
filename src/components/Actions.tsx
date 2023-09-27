@@ -23,7 +23,7 @@ const IconsWrapper = styled.div`
   display: flex;
   font-size: 1.2rem;
   padding: 1.12rem 0.5rem;
-  color: ${({ theme }) => theme.colors.lightGray};
+  color: ${({ theme }) => theme.colors.yellow};
   cursor: pointer;
   &:hover > ul {
     display: flex;

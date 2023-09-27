@@ -1,14 +1,10 @@
 export const theme = {
   colors: {
-    lightGray: "rgb(199, 199, 199)",
-    frameBorders: "rgba(0, 51, 78, 0.2)",
     //Text
-    darkPrimaryColor: "rgb(0, 0, 0)",
-    darkSecondaryColor: "rgb(34, 34, 34)",
-    darkPrimaryColorTransparent: "rgba(0, 0, 0, 0.4)",
-    lightPrimaryColor: "rgb(20, 83, 116)",
-    secondaryColor: "#B8B8B8",
-    yellow: "#F5CA5B",
+    primary: "#191716",
+    primaryTransparent: "#191716c0",
+    secondary: "#e0e2db",
+    yellow: "#e6af2e",
     white: "white",
     error: "#FF4154",
     //Box
@@ -37,12 +33,12 @@ export const theme = {
   //     },
   //     ":hover": {
   //       backgroundColor: isFocused ? theme.colors.orange : base.backgroundColor,
-  //       color: theme.colors.secondaryColor,
+  //       color: theme.colors.secondary,
   //     },
   //   }),
   //   control: (styles) => ({
   //     ...styles,
-  //     border: `1px solid ${theme.colors.darkPrimaryColorTransparent}`,
+  //     border: `1px solid ${theme.colors.primaryTransparent}`,
   //   }),
   // },
 };

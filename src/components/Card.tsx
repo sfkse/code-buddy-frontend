@@ -25,15 +25,15 @@ const CardWrapper = styled.div`
   height: auto;
   padding: 1rem;
   background-color: ${({ theme }) => theme.colors.white};
-  border: 3px solid ${({ theme }) => theme.colors.darkPrimaryColor};
+  border: 3px solid ${({ theme }) => theme.colors.primary};
   border-radius: 3px;
-  box-shadow: 4px 8px ${({ theme }) => theme.colors.darkPrimaryColor};
+  box-shadow: 4px 8px ${({ theme }) => theme.colors.primary};
 `;
 
 const CardTitle = styled.div`
   font-size: 1.2rem;
   margin-bottom: 0.6rem;
   font-weight: 700;
-  color: ${({ theme }) => theme.colors.darkPrimaryColor};
+  color: ${({ theme }) => theme.colors.primary};
 `;
 

@@ -17,7 +17,6 @@ const Register = () => {
     password: "",
     firstName: "",
     lastName: "",
-    location: "",
     skills: "",
     confirmPassword: "",
   });
@@ -100,7 +99,7 @@ const AuthPageWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.colors.darkPrimaryColor};
+  background-color: ${({ theme }) => theme.colors.primary};
 `;
 
 const FormWrapper = styled.form`
@@ -116,14 +115,14 @@ const Hr = styled.p`
   text-align: center;
   font-size: 0.8rem;
   font-weight: 700;
-  color: ${({ theme }) => theme.colors.secondaryColor};
+  color: ${({ theme }) => theme.colors.secondary};
 `;
 
 const LoginText = styled.p`
   text-align: center;
   font-size: 0.8rem;
   font-weight: 700;
-  color: ${({ theme }) => theme.colors.secondaryColor};
+  color: ${({ theme }) => theme.colors.secondary};
 `;
 
 const LoginLink = styled.a`

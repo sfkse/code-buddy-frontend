@@ -7,9 +7,9 @@ const Footer = () => {
 export default Footer;
 
 const FooterWrapper = styled.div`
-  grid-column: 1 / -1;
+  grid-column: 2 / -1;
   grid-row: 3 / 4;
-  background-color: ${({ theme }) => theme.colors.secondaryColor};
+  background-color: ${({ theme }) => theme.colors.secondary};
   color: ${({ theme }) => theme.colors.white};
   padding: ${({ theme }) => theme.layout.padding};
   display: flex;

@@ -63,7 +63,7 @@ const ShowMore = styled(Link)`
   display: flex;
   justify-content: center;
   font-size: 0.8rem;
-  color: ${({ theme }) => theme.colors.darkPrimaryColor};
+  color: ${({ theme }) => theme.colors.primary};
   cursor: pointer;
   &:hover {
     color: ${({ theme }) => theme.colors.yellow};

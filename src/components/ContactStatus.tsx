@@ -67,7 +67,7 @@ const ContactLogo = styled.div`
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: ${({ theme }) => theme.colors.lightGray};
+  background-color: ${({ theme }) => theme.colors.secondary};
 `;
 
 const ContactName = styled.div`
@@ -78,6 +78,6 @@ const ContactStatusText = styled.div`
   font-size: 0.9rem;
   display: flex;
   align-items: center;
-  color: ${({ theme }) => theme.colors.darkPrimaryColorTransparent};
+  color: ${({ theme }) => theme.colors.primaryTransparent};
 `;
 

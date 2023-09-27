@@ -38,11 +38,11 @@ export default FormFields;
 
 const FormInput = styled.input`
   padding: 0.7rem;
-  background-color: ${({ theme }) => theme.colors.darkSecondaryColor};
+  background-color: ${({ theme }) => theme.colors.primaryTransparent};
   color: ${({ theme }) => theme.colors.white};
   font-size: 1rem;
   &::placeholder {
-    color: ${({ theme }) => theme.colors.secondaryColor};
+    color: ${({ theme }) => theme.colors.secondary};
   }
 `;
 

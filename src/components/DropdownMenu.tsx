@@ -50,11 +50,11 @@ const MenuItem = styled.li`
 const MenuItemTitle = styled.h4`
   font-size: 0.8rem;
   font-weight: 700;
-  color: ${({ theme }) => theme.colors.darkPrimaryColor};
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
 const MenuItemText = styled.p`
   font-size: 0.8rem;
-  color: ${({ theme }) => theme.colors.darkPrimaryColor};
+  color: ${({ theme }) => theme.colors.primary};
 `;
 

@@ -10,7 +10,6 @@ export const authenticateLogin = async (formState: AuthFormState) => {
 };
 
 export const authenticateRegister = async (formState: AuthFormState) => {
-  console.log(formState);
   try {
     const { data } = await api.post(`/auth/register`, {
       ...formState,

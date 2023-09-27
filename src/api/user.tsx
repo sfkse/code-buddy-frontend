@@ -11,3 +11,11 @@ export const getAllUsers = async (): Promise<User[] | undefined> => {
   return data;
 };
 
+export const updateSingleUser = async (data: object, id: string) => {
+  try {
+    return await api.put(`/users/single/${id}`, JSON.stringify(data));
+  } catch (error) {
+    console.log(error);
+  }
+};
+

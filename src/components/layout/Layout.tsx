@@ -22,7 +22,7 @@ const Layout = () => {
         <>
           <Sidebar toggle={toggle} handleToggle={handleOnToggle} />
           <TopBar handleOnToggle={handleOnToggle} />
-          <Footer />
+          {/* <Footer /> */}
         </>
       )}
       <ContentWrapper>
@@ -36,7 +36,7 @@ export default Layout;
 
 const LayoutWrapper = styled.div`
   display: grid;
-  grid-template-columns: 0.15fr 1fr;
+  grid-template-columns: 0.18fr 1fr;
   grid-template-rows: 0.03fr 1fr;
   min-height: 100vh;
   @media only screen and (${devices.sm}) {
@@ -44,14 +44,16 @@ const LayoutWrapper = styled.div`
   }
   @media only screen and (${devices.md}) {
     grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
   }
   @media only screen and (${devices.lg}) {
     grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
   }
 `;
 
 const ContentWrapper = styled.div`
-  padding: 1rem;
+  padding: 1rem 1rem 4rem 1rem;
   @media only screen and (${devices.md}) {
     grid-area: 2 / 1 / 2 / 3;
   }

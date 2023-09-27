@@ -1,4 +1,3 @@
-import React from "react";
 import { styled } from "styled-components";
 import { TbSearch } from "react-icons/tb";
 
@@ -28,6 +27,10 @@ const Conversation = () => {
           </ConversationReceiverMessageContent>
         </ConversationReceiverMessage>
       </ConversationContent>
+      <ConversationMessageInputWrapper>
+        <ConversationMessageInput placeholder="Type a message" />
+        <ConversationMessageInputIcon />
+      </ConversationMessageInputWrapper>
     </ConversationWrapper>
   );
 };
@@ -44,7 +47,7 @@ const ConversationHeader = styled.div`
   display: flex;
   align-items: center;
   padding: 1rem;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.lightGray};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.secondary};
 `;
 
 const ConversationHeaderTitle = styled.h3`
@@ -64,7 +67,7 @@ const ConversationHeaderSearchInput = styled.input`
   outline: none;
   padding: 0.5rem;
   border-radius: 0.5rem;
-  background-color: ${({ theme }) => theme.colors.lightGray};
+  background-color: ${({ theme }) => theme.colors.secondary};
 `;
 
 const ConversationHeaderSearchIcon = styled(TbSearch)`
@@ -91,12 +94,12 @@ const ConversationSenderMessageContent = styled.div`
   max-width: 50%;
   padding: 0.5rem 1rem;
   border-radius: 1rem;
-  background-color: ${({ theme }) => theme.colors.primaryColor};
+  background-color: ${({ theme }) => theme.colors.primaryTransparent};
 `;
 
 const ConversationSenderMessageContentMessage = styled.p`
   font-size: 0.8rem;
-  color: ${({ theme }) => theme.colors.darkPrimaryColor};
+  color: ${({ theme }) => theme.colors.white};
 `;
 
 const ConversationReceiverMessage = styled.div`
@@ -113,11 +116,36 @@ const ConversationReceiverMessageContent = styled.div`
   max-width: 50%;
   padding: 0.5rem 1rem;
   border-radius: 1rem;
-  background-color: ${({ theme }) => theme.colors.lightGray};
+  background-color: ${({ theme }) => theme.colors.yellow};
 `;
 
 const ConversationReceiverMessageContentMessage = styled.p`
   font-size: 0.8rem;
-  color: ${({ theme }) => theme.colors.darkPrimaryColor};
+  color: ${({ theme }) => theme.colors.primary};
+`;
+
+const ConversationMessageInputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.secondary};
+`;
+
+const ConversationMessageInput = styled.input`
+  flex: 1;
+  font-size: 0.8rem;
+  border: none;
+  outline: none;
+  padding: 0.7rem;
+  border-radius: 4px;
+  background-color: ${({ theme }) => theme.colors.secondary};
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.secondary};
+  }
+`;
+
+const ConversationMessageInputIcon = styled(TbSearch)`
+  margin-left: 0.5rem;
 `;
 

@@ -25,11 +25,10 @@ export const useRegisterUser = (
           confirmPassword: "",
           firstName: "",
           lastName: "",
-          location: "",
           skills: "",
         });
         queryClient.invalidateQueries(["singleUser"]);
-        return navigate("/");
+        return navigate("/welcome");
       }
     },
     onError: (error: any) => setErrorMessage(error.response.data.message),

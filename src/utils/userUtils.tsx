@@ -4,3 +4,10 @@ export const saveCredentials = (userID: string) => {
   localStorage.setItem("user_key", userKey);
 };
 
+//FETCH USER CREDENTIALS
+export const fetchCredentials = () => {
+  const userKeyObj = JSON.parse(localStorage.getItem("user_key") || "");
+
+  return userKeyObj.key;
+};
+

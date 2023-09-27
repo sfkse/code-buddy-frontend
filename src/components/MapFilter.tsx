@@ -48,17 +48,17 @@ const Button = styled.button<Buttontype>`
   align-items: center;
   justify-content: center;
   background-color: ${({ theme, $checked }) =>
-    $checked ? theme.colors.darkPrimaryColor : theme.colors.white};
-  border: 1px solid ${({ theme }) => theme.colors.darkPrimaryColor};
+    $checked ? theme.colors.primary : theme.colors.white};
+  border: 1px solid ${({ theme }) => theme.colors.primary};
   border-radius: 0.5rem;
   padding: 0.5rem;
   font-size: 0.8rem;
   font-weight: 700;
   color: ${({ theme, $checked }) =>
-    $checked ? theme.colors.white : theme.colors.darkPrimaryColor};
+    $checked ? theme.colors.white : theme.colors.primary};
   cursor: pointer;
   &:hover {
-    background-color: ${({ theme }) => theme.colors.darkPrimaryColor};
+    background-color: ${({ theme }) => theme.colors.primary};
     color: ${({ theme }) => theme.colors.white};
   }
 `;

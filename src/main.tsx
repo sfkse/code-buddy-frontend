@@ -16,6 +16,7 @@ import AuthWrapper from "./components/AuthWrapper";
 
 import { theme } from "./styles/Theme";
 import { GlobalStyles } from "./styles/Global";
+import Welcome from "./pages/Welcome";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,14 @@ const router = createBrowserRouter([
   },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
+  {
+    path: "/welcome",
+    element: (
+      <AuthWrapper>
+        <Welcome />
+      </AuthWrapper>
+    ),
+  },
 ]);
 
 const queryClient = new QueryClient();

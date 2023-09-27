@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
 import { authenticateLogin } from "../../api/auth";
@@ -11,6 +11,7 @@ export const useLoginUser = (
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>
 ) => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const { mutate, error, data, isLoading } = useMutation({
     mutationFn: () => authenticateLogin(formState),
@@ -21,8 +22,11 @@ export const useLoginUser = (
           email: "",
           password: "",
         });
-        return navigate("/");
+        return navigate("/welcome");
       }
+
+      //Add user to queryClient
+      // queryClient.setQueryData(["user"], data.data.user);
     },
     onError: (error: any) => setErrorMessage(error.response.data.message),
   });

@@ -26,11 +26,7 @@ export const registerFormFields = [
     type: "text",
     name: "lastName",
   },
-  {
-    placeholder: "Location*",
-    type: "text",
-    name: "location",
-  },
+
   {
     placeholder: "Skills*",
     type: "text",
@@ -47,3 +43,4 @@ export const registerFormFields = [
     name: "confirmPassword",
   },
 ];
+

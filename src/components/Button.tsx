@@ -8,19 +8,17 @@ const Button = ({
   icon,
   onClick,
   buttonStyle,
+  customStyle,
   disabled,
   type,
 }: ButtonProps) => {
-  const style =
-    buttonStyle === "gradient"
-      ? gradientButtonStyle
-      : { padding: "0.7rem 0", fontSize: "1.3rem" };
+  const style = buttonStyle === "gradient" ? gradientButtonStyle : customStyle;
 
   return (
     <ButtonComponent
       type={type || "button"}
       onClick={onClick}
-      style={style}
+      style={style as React.CSSProperties}
       disabled={disabled}
     >
       {icon} {title}
@@ -40,14 +38,14 @@ const ButtonComponent = styled.button`
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  box-shadow: 1px 1px 0.5px 0px ${({ theme }) => theme.colors.darkPrimaryColor};
+  box-shadow: 1px 1px 0.5px 0px ${({ theme }) => theme.colors.primary};
   &:hover {
-    background-color: ${({ theme }) => theme.colors.darkPrimaryColor};
+    background-color: ${({ theme }) => theme.colors.primary};
     color: ${({ theme }) => theme.colors.white};
   }
   &:disabled {
-    background-color: ${({ theme }) => theme.colors.darkSecondaryColor};
-    color: ${({ theme }) => theme.colors.secondaryColor};
+    background-color: ${({ theme }) => theme.colors.primaryTransparent};
+    color: ${({ theme }) => theme.colors.secondary};
     cursor: not-allowed;
   }
 `;
