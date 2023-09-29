@@ -5,10 +5,9 @@ export const useFetchSingleUser = (id: string) => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["singleUser", id],
     queryFn: () => getSingleUser(id),
-    retryDelay: 1000,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
   });
+
+  if (error instanceof Error) error;
 
   return { data, isLoading, isError, error };
 };

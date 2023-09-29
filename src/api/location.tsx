@@ -8,14 +8,11 @@ export const getCoordinatesFromLocation = async (
   cityName: string,
   countryCode: string
 ) => {
-  try {
-    const { data } = await axios.get(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${cityName},${countryCode}&appid=${API_KEY_GEOCODE}`
-    );
-    return data[0];
-  } catch (error) {
-    console.log(`Error when fetching coordinates: ${error}`);
-  }
+  const { data } = await axios.get(
+    `http://api.openweathermap.org/geo/1.0/direct?q=${cityName},${countryCode}&appid=${API_KEY_GEOCODE}`
+  );
+  if (data.length === 0) return { lat: 0, lon: 0 };
+  return data[0];
 };
 
 export const getCountriesAndCities = async () => {
@@ -26,14 +23,10 @@ export const getCountriesAndCities = async () => {
 };
 
 export const setUserLocation = async (location: UserLocation, id: string) => {
-  try {
-    const { data } = await api.put(
-      `/users/single/${id}/location`,
-      JSON.stringify(location)
-    );
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
+  const { data } = await api.put(
+    `/users/single/${id}/location`,
+    JSON.stringify(location)
+  );
+  return data;
 };
 

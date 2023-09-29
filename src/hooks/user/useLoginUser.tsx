@@ -17,7 +17,7 @@ export const useLoginUser = (
     onSuccess: (data) => {
       if (data) {
         saveCredentials(data.data.user.idusers);
-        return navigate("/welcome");
+        return navigate("/");
       }
     },
     onSettled: () =>

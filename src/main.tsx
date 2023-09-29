@@ -29,18 +29,11 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/chat", element: <Chat /> },
+      { path: "/welcome", element: <Welcome /> },
     ],
   },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
-  {
-    path: "/welcome",
-    element: (
-      <AuthWrapper>
-        <Welcome />
-      </AuthWrapper>
-    ),
-  },
 ]);
 
 const queryClient = new QueryClient();

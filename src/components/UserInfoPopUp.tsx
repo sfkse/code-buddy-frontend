@@ -6,11 +6,13 @@ import { useEffect, useState } from "react";
 
 type UserInfoPopUpProps = {
   user: User;
+  type?: string;
+  size?: string;
 };
 
-const UserInfoPopUp = ({ user }: UserInfoPopUpProps) => {
+const UserInfoPopUp = ({ user, type }: UserInfoPopUpProps) => {
   const [skills, setSkills] = useState<string[]>([]);
-
+  const parsedLocation = JSON.parse(user.location);
   useEffect(() => {
     if (user.skills) setSkills(transformToHashtags(user.skills));
   }, [user.skills]);
@@ -18,17 +20,19 @@ const UserInfoPopUp = ({ user }: UserInfoPopUpProps) => {
   return (
     <PopUpWrapper>
       <UserLogo />
-      <UserLocation>{user.location}</UserLocation>
+      <UserLocation>{`${parsedLocation.city}, ${parsedLocation.country}`}</UserLocation>
       <UserFullName>{`${user.firstname} ${user.lastname}`}</UserFullName>
       <UserTagsWrapper>
         {skills.map((skill: string) => (
           <UserTags key={skill}>{`${skill} `}</UserTags>
         ))}
       </UserTagsWrapper>
-      <Actions>
-        <Button title="CALL" />
-        <Button title="MESSAGE" />
-      </Actions>
+      {type !== "noAction" && (
+        <Actions>
+          <Button title="CALL" />
+          <Button title="MESSAGE" />
+        </Actions>
+      )}
     </PopUpWrapper>
   );
 };
@@ -38,6 +42,7 @@ export default UserInfoPopUp;
 const PopUpWrapper = styled.div`
   display: flex;
   width: 200px;
+  padding-top: 0.5rem;
   flex-direction: column;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.white};
@@ -54,8 +59,8 @@ const UserLogo = styled.p`
 `;
 
 const UserLocation = styled.span`
-  height: 20px;
-  color: ${({ theme }) => theme.colors.secondary};
+  line-height: 1.5rem;
+  color: ${({ theme }) => theme.colors.primaryTransparent};
   font-size: 0.7rem;
 `;
 
@@ -63,12 +68,14 @@ const UserFullName = styled.span``;
 
 const UserTagsWrapper = styled.div``;
 
-const UserTags = styled.span``;
+const UserTags = styled.span`
+  display: inline-block;
+  margin-bottom: 0.5rem;
+`;
 
 const Actions = styled.div`
   display: flex;
   width: 100%;
-  margin-top: 0.5rem;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.yellow};
   color: ${({ theme }) => theme.colors.primary};

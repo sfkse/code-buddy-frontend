@@ -3,15 +3,15 @@ import { keyframes, styled } from "styled-components";
 
 type ToastMessageProps = {
   text: string;
-  handleSetResetMessage?: (message: string) => void;
+  handleSetResetMessage: () => void;
 };
 
 const ToastMessage = ({ text, handleSetResetMessage }: ToastMessageProps) => {
   useEffect(() => {
     let timer: ReturnType<typeof setInterval>;
-    if (text && handleSetResetMessage) {
+    if (text) {
       timer = setTimeout(() => {
-        handleSetResetMessage("");
+        handleSetResetMessage();
       }, 3000);
     }
 

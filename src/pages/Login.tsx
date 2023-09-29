@@ -49,8 +49,8 @@ const Login = () => {
     }));
   };
 
-  const handleSetResetMessage = (message: string) => {
-    setErrorMessage(message);
+  const handleSetResetMessage = () => {
+    setErrorMessage("");
   };
 
   return (

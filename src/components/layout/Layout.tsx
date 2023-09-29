@@ -10,7 +10,10 @@ import { useState } from "react";
 const Layout = () => {
   const [toggle, setToggle] = useState(false);
   const location = useLocation();
-  const isAuthPage = location.pathname === "/login";
+  const isAuthPage =
+    location.pathname === "/login" ||
+    location.pathname === "/register" ||
+    location.pathname === "/welcome";
 
   const handleOnToggle = () => {
     setToggle(!toggle);
@@ -25,7 +28,7 @@ const Layout = () => {
           {/* <Footer /> */}
         </>
       )}
-      <ContentWrapper>
+      <ContentWrapper $isAuthPage={isAuthPage}>
         <Outlet />
       </ContentWrapper>
     </LayoutWrapper>
@@ -38,7 +41,7 @@ const LayoutWrapper = styled.div`
   display: grid;
   grid-template-columns: 0.18fr 1fr;
   grid-template-rows: 0.03fr 1fr;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   @media only screen and (${devices.sm}) {
     font-size: ${fonSizes.body.sm};
   }
@@ -52,8 +55,8 @@ const LayoutWrapper = styled.div`
   }
 `;
 
-const ContentWrapper = styled.div`
-  padding: 1rem 1rem 4rem 1rem;
+const ContentWrapper = styled.div<{ $isAuthPage: boolean }>`
+  padding: ${({ $isAuthPage }) => (!$isAuthPage ? "1rem 1rem 4rem 1rem" : 0)};
   @media only screen and (${devices.md}) {
     grid-area: 2 / 1 / 2 / 3;
   }

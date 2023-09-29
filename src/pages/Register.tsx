@@ -31,12 +31,16 @@ const Register = () => {
   // REGISTER WITH EMAIL AND PASSWORD
   const handleRegister = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    if (!formState.email || !formState.password || !formState.confirmPassword) {
+
+    const emptyFields = Object.values(formState).filter(
+      (value) => value === ""
+    );
+
+    if (emptyFields.length > 0)
       return setErrorMessage("Please fill all the fields");
-    }
-    if (formState.password !== formState.confirmPassword) {
+
+    if (formState.password !== formState.confirmPassword)
       return setErrorMessage("Passwords do not match");
-    }
 
     mutate();
   };
@@ -55,8 +59,8 @@ const Register = () => {
     }));
   };
 
-  const handleSetResetMessage = (message: string) => {
-    setErrorMessage(message);
+  const handleSetResetMessage = () => {
+    setErrorMessage("");
   };
 
   return (

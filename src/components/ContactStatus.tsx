@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import { HiOutlineStatusOnline, HiOutlineStatusOffline } from "react-icons/hi";
 import { SlOptions } from "react-icons/sl";
+import { RxAvatar } from "react-icons/Rx";
 
 import Card from "./Card";
 
@@ -63,11 +64,9 @@ const ContactStatueSecondCol = styled.div`
   margin-left: auto;
 `;
 
-const ContactLogo = styled.div`
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: ${({ theme }) => theme.colors.secondary};
+const ContactLogo = styled(RxAvatar)`
+  width: 2rem;
+  height: 2rem;
 `;
 
 const ContactName = styled.div`

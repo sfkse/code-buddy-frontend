@@ -27,9 +27,9 @@ const TopBar = ({ handleOnToggle }: TopBarProps) => {
 export default TopBar;
 
 const TopBarWrapper = styled.div`
+  display: flex;
   grid-area: 1 / 2 / 2 / -1;
   padding: 0 2rem;
-  display: flex;
   min-width: 100%;
   justify-content: flex-end;
   align-items: center;

@@ -1,6 +1,8 @@
 export interface UserLocation {
   lat: number;
   lon: number;
+  city?: string;
+  country?: string;
   // name: string;
   // country: string;
   // state: string;

@@ -16,7 +16,7 @@ export const useRegisterUser = (
     mutationFn: () => authenticateRegister(formState),
     onSuccess: (data) => {
       if (data) {
-        saveCredentials(data.data.user.idusers);
+        saveCredentials(data.data.user.idusers, false);
         return navigate("/welcome");
       }
     },

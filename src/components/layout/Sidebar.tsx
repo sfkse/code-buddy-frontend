@@ -1,67 +1,18 @@
 import { styled } from "styled-components";
 import { NavLink } from "react-router-dom";
-import { SiGotomeeting } from "react-icons/si";
-import { CgClose } from "react-icons/cg";
-import { GiCalendar, GiDiscussion } from "react-icons/gi";
-import {
-  FaSearchLocation,
-  FaRegStickyNote,
-  FaRocketchat,
-} from "react-icons/fa";
-import { LuLayoutDashboard } from "react-icons/lu";
-import { HiCodeBracket } from "react-icons/hi2";
-import { menuItemBorder } from "../../styles/Global";
 import { CSSProperties } from "react";
+import { CgClose } from "react-icons/cg";
+import { HiCodeBracket } from "react-icons/hi2";
+
+import { menuItemBorder } from "../../styles/Global";
 import { devices } from "../../styles/Theme";
+import { menuLinks } from "../../assets/data/menu";
 
 type SidebarProps = {
   toggle: boolean;
   handleToggle: () => void;
 };
 
-type MenuLinkProps = {
-  label: string;
-  icon: JSX.Element;
-  link: string;
-};
-
-const menuLinks: MenuLinkProps[] = [
-  {
-    label: "Home",
-    icon: <LuLayoutDashboard />,
-    link: "/",
-  },
-  {
-    label: "Find devs",
-    icon: <FaSearchLocation />,
-    link: "/find-devs",
-  },
-  {
-    label: "Notes",
-    icon: <FaRegStickyNote />,
-    link: "/notes/my-notes",
-  },
-  {
-    label: "Chat",
-    icon: <FaRocketchat />,
-    link: "/chat",
-  },
-  {
-    label: "Events",
-    icon: <SiGotomeeting />,
-    link: "/events",
-  },
-  {
-    label: "Discussions",
-    icon: <GiDiscussion />,
-    link: "/discussions",
-  },
-  {
-    label: "Calender",
-    icon: <GiCalendar />,
-    link: "/calender",
-  },
-];
 const Sidebar = ({ toggle, handleToggle }: SidebarProps) => {
   return (
     <SidebarWrapper $toggleSidebar={toggle}>
@@ -90,23 +41,20 @@ const Sidebar = ({ toggle, handleToggle }: SidebarProps) => {
 
 export default Sidebar;
 
-const SidebarWrapper = styled.div<{ $toggleSidebar: boolean }>`
+const SidebarWrapper = styled.div<{
+  $toggleSidebar: boolean;
+}>`
   grid-area: 1 / 1 / 4 / 2;
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.white};
   padding: ${({ theme }) => theme.layout.padding};
   @media only screen and (${devices.md}) {
     position: absolute;
-    left: -100%;
+    left: ${(props) => (props.$toggleSidebar ? "-100%" : "0")};
     top: 0;
     bottom: 0;
     z-index: 500;
     transition: left 0.3s ease-in-out;
-
-    ${({ $toggleSidebar }) =>
-      $toggleSidebar && {
-        left: 0,
-      }}
   }
 `;
 

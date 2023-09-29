@@ -6,21 +6,25 @@ const Messages = () => {
   return (
     <MessagesWrapper>
       <MessagesHeader>
-        <MessagesHeaderTitle>Messages</MessagesHeaderTitle>
+        <MessagesHeaderTitle>Contacts</MessagesHeaderTitle>
         <MessagesHeaderSearch>
           <MessagesHeaderSearchInput placeholder="Search" />
           <MessagesHeaderSearchIcon />
         </MessagesHeaderSearch>
       </MessagesHeader>
       <MessagesList>
-        <MessagesListItem>
+        <MessagesListItem active>
           <MessagesListItemAvatar />
           <MessagesListItemContent>
             <MessagesListItemContentName>John Doe</MessagesListItemContentName>
-            <MessagesListItemContentMessage>
+            <MessagesListItemContentMessage unread>
               Hey, how are you?
             </MessagesListItemContentMessage>
           </MessagesListItemContent>
+          <MeesageListItemStatus>
+            <MessagesListItemUnreadStatus>1</MessagesListItemUnreadStatus>
+            <MessagestListItemTime>1h ago</MessagestListItemTime>
+          </MeesageListItemStatus>
         </MessagesListItem>
         <MessagesListItem>
           <MessagesListItemAvatar />
@@ -47,12 +51,12 @@ const MessagesWrapper = styled.div`
 const MessagesHeader = styled.div`
   display: flex;
   align-items: center;
-  padding: 1rem;
+  padding: 0.7rem;
   border-bottom: 1px solid ${({ theme }) => theme.colors.secondary};
 `;
 
 const MessagesHeaderTitle = styled.h3`
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 700;
 `;
 
@@ -78,11 +82,21 @@ const MessagesHeaderSearchIcon = styled(TbSearch)`
 
 const MessagesList = styled.div``;
 
-const MessagesListItem = styled.div`
+const MessagesListItem = styled.div<{ active?: boolean }>`
   display: flex;
   align-items: center;
   padding: 0.7rem;
   border-bottom: 1px solid ${({ theme }) => theme.colors.secondary};
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.secondary};
+  }
+
+  ${({ active, theme }) =>
+    active && {
+      backgroundColor: theme.colors.secondary,
+    }}
 `;
 
 const MessagesListItemAvatar = styled(RxAvatar)`
@@ -101,7 +115,39 @@ const MessagesListItemContentName = styled.h4`
   font-weight: 700;
 `;
 
-const MessagesListItemContentMessage = styled.p`
+const MessagesListItemContentMessage = styled.p<{ unread?: boolean }>`
   font-size: 0.8rem;
+
+  ${({ unread, theme }) =>
+    unread && {
+      color: theme.colors.yellow,
+      fontWeight: 700,
+      fontStyle: "italic",
+    }}
+`;
+
+const MeesageListItemStatus = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-left: auto;
+`;
+
+const MessagesListItemUnreadStatus = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.colors.yellow};
+  color: ${({ theme }) => theme.colors.white};
+  font-weight: 700;
+  font-size: 0.6rem;
+`;
+
+const MessagestListItemTime = styled.span`
+  font-size: 0.7rem;
+  color: ${({ theme }) => theme.colors.primaryTransparent};
 `;
 

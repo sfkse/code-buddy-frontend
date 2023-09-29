@@ -1,25 +1,35 @@
-import React, { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React from "react";
+import { Navigate, useLocation } from "react-router-dom";
 
 type AuthWrapperProps = {
   children?: React.ReactNode;
 };
-type JSONString = string | object;
 
 const AuthWrapper = ({ children }: AuthWrapperProps) => {
-  const navigate = useNavigate();
   const location = useLocation();
-  const user: JSONString = localStorage.getItem("user_key")
-    ? JSON.parse(localStorage.getItem("user_key") || "")
+  const credentials = localStorage.getItem("credentials")
+    ? JSON.parse(localStorage.getItem("credentials") || "")
     : null;
 
-  useEffect(() => {
-    if (!user && location.pathname !== "/login") return navigate("/login");
+  // Send user to login page if not logged in
+  if (!credentials && location.pathname !== "/login")
+    return <Navigate to="/login" />;
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location, user]);
+  // Send user to welcome page if not activated
+  if (credentials && !credentials.activated && location.pathname !== "/welcome")
+    return <Navigate to="/welcome" />;
 
-  return <>{user && children}</>;
+  // Send user to home page if logged in
+  if (
+    credentials &&
+    credentials.activated &&
+    (location.pathname === "/welcome" ||
+      location.pathname === "/register" ||
+      location.pathname === "/login")
+  )
+    return <Navigate to="/" />;
+
+  return <>{children}</>;
 };
 
 export default AuthWrapper;

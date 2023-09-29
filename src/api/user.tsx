@@ -12,10 +12,6 @@ export const getAllUsers = async (): Promise<User[] | undefined> => {
 };
 
 export const updateSingleUser = async (data: object, id: string) => {
-  try {
-    return await api.put(`/users/single/${id}`, JSON.stringify(data));
-  } catch (error) {
-    console.log(error);
-  }
+  return await api.put(`/users/single/${id}`, JSON.stringify(data));
 };
 

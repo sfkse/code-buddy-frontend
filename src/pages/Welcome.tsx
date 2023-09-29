@@ -9,6 +9,8 @@ import { useSetUserLocation } from "../hooks/location/useSetUserLocation";
 import { getCoordinatesFromLocation } from "../api/location";
 import { fetchCredentials } from "../utils/userUtils";
 import { UserLocation } from "../types/location";
+import ToastMessage from "../components/ToastMessage";
+import Select from "../components/Select";
 
 type CountryProps = {
   country: string;
@@ -16,36 +18,59 @@ type CountryProps = {
 };
 
 const Welcome = () => {
-  const [selectedCountry, setSelectedCountry] = useState<CountryProps>({});
+  const [selectedCountry, setSelectedCountry] = useState<CountryProps>({
+    country: "",
+    iso2: "",
+  });
+  const [errorMessage, setErrorMessage] = useState("");
   const [cities, setCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
-  const [location, setLocation] = useState<UserLocation>({});
+  const [location, setLocation] = useState<UserLocation>({
+    lat: 0,
+    lon: 0,
+    city: "",
+    country: "",
+  });
   const userID = fetchCredentials();
+
   const { countries, isLoading: isLoadingCountries } =
     useGetCountriesAndCities();
+  const mappedCountries = countries?.map((country: CountryProps) => ({
+    value: country.country,
+    label: country.country,
+    defaultValue: "Select a country",
+  }));
+
+  const mappedCities = cities?.map((city: string) => ({
+    value: city,
+    label: city,
+  }));
+
   const { isLoading: isLoadingLocation, mutate } = useSetUserLocation(
     location,
-    userID
+    userID,
+    setErrorMessage
   );
   const isLoading = isLoadingCountries || isLoadingLocation;
 
   useEffect(() => {
-    if (Object.keys(location).length > 0) {
-      mutate(location, userID);
-    }
-  }, [location, userID, mutate]);
+    if (location.lat > 0 && location.lon > 0) mutate();
+  }, [location, mutate]);
 
   const handleCountrySelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (e.target.value) {
       const selectedCountryObject = countries.filter(
         (country: CountryProps) => country.country === e.target.value
       );
-      setSelectedCountry(selectedCountryObject[0]);
+      setSelectedCountry({
+        country: selectedCountryObject[0]["country"],
+        iso2: selectedCountryObject[0]["iso2"],
+      });
 
       const cities = selectedCountryObject[0].cities;
       if (cities.length > 0) setCities(cities);
     } else {
-      setSelectedCountry({});
+      setSelectedCountry({ country: "", iso2: "" });
       setSelectedCity("");
       setCities([]);
     }
@@ -60,10 +85,30 @@ const Welcome = () => {
       selectedCity,
       selectedCountry.iso2
     );
-    setLocation({ lat, lon });
+
+    if (lat === 0 && lon === 0)
+      return setErrorMessage("Error fetching location, try another city");
+
+    setLocation({
+      lat,
+      lon,
+      city: selectedCity,
+      country: selectedCountry.country,
+    });
   };
+
+  const handleSetResetMessage = () => {
+    setErrorMessage("");
+  };
+
   return (
     <Loader isLoading={isLoading}>
+      {errorMessage && (
+        <ToastMessage
+          text={errorMessage}
+          handleSetResetMessage={handleSetResetMessage}
+        />
+      )}
       <WelcomWrapper>
         <Logo>
           FELLOW <HiCodeBracketStyle /> CODERS
@@ -74,15 +119,27 @@ const Welcome = () => {
             Share your location, so fellow developers can connect and
             collaborate with you more easily. 📍🤝
           </WelcomeText>
-          <SelectContainer onChange={handleCountrySelect}>
+          {/* <SelectContainer onChange={handleCountrySelect}>
             <option value="">Select a country</option>
             {countries?.map((country: CountryProps, idx: number) => (
               <option key={idx} value={country.country}>
                 {country.country}
               </option>
             ))}
-          </SelectContainer>
-          {Object.keys(selectedCountry).length > 0 && (
+          </SelectContainer> */}
+          <Select
+            defaultValue="Select a country"
+            data={mappedCountries}
+            handleOnChange={handleCountrySelect}
+          />
+          {selectedCountry.country && (
+            <Select
+              defaultValue="Select a city"
+              data={mappedCities}
+              handleOnChange={handleCitySelect}
+            />
+          )}
+          {/* {Object.keys(selectedCountry).length > 0 && (
             <SelectContainer onChange={handleCitySelect}>
               <option value="">Select a city</option>
               {cities?.map((city: string, idx: number) => (
@@ -91,7 +148,7 @@ const Welcome = () => {
                 </option>
               ))}
             </SelectContainer>
-          )}
+          )} */}
           {selectedCity && (
             <Button
               title="LET'S GO! 🚀"
@@ -152,18 +209,5 @@ const WelcomeText = styled.p`
   font-size: 1rem;
   font-weight: 400;
   color: ${({ theme }) => theme.colors.secondary};
-`;
-
-const SelectContainer = styled.select`
-  width: 50%;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  border: none;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.white};
-  font-size: 1rem;
-  font-weight: 700;
-  outline: none;
-  cursor: pointer;
 `;
 
