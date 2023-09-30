@@ -1,8 +1,9 @@
+import { useEffect, useState } from "react";
 import { styled } from "styled-components";
+
 import Button from "./Button";
 import { User } from "../types/user";
 import { transformToHashtags } from "../utils/stringUtils";
-import { useEffect, useState } from "react";
 
 type UserInfoPopUpProps = {
   user: User;

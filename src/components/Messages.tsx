@@ -13,11 +13,11 @@ const Messages = () => {
         </MessagesHeaderSearch>
       </MessagesHeader>
       <MessagesList>
-        <MessagesListItem active>
+        <MessagesListItem $active={true}>
           <MessagesListItemAvatar />
           <MessagesListItemContent>
             <MessagesListItemContentName>John Doe</MessagesListItemContentName>
-            <MessagesListItemContentMessage unread>
+            <MessagesListItemContentMessage $unread={true}>
               Hey, how are you?
             </MessagesListItemContentMessage>
           </MessagesListItemContent>
@@ -26,11 +26,11 @@ const Messages = () => {
             <MessagestListItemTime>1h ago</MessagestListItemTime>
           </MeesageListItemStatus>
         </MessagesListItem>
-        <MessagesListItem>
+        <MessagesListItem $active={false}>
           <MessagesListItemAvatar />
           <MessagesListItemContent>
             <MessagesListItemContentName>John Doe</MessagesListItemContentName>
-            <MessagesListItemContentMessage>
+            <MessagesListItemContentMessage $unread={false}>
               Hey, how are you?
             </MessagesListItemContentMessage>
           </MessagesListItemContent>
@@ -82,7 +82,7 @@ const MessagesHeaderSearchIcon = styled(TbSearch)`
 
 const MessagesList = styled.div``;
 
-const MessagesListItem = styled.div<{ active?: boolean }>`
+const MessagesListItem = styled.div<{ $active?: boolean }>`
   display: flex;
   align-items: center;
   padding: 0.7rem;
@@ -93,8 +93,8 @@ const MessagesListItem = styled.div<{ active?: boolean }>`
     background-color: ${({ theme }) => theme.colors.secondary};
   }
 
-  ${({ active, theme }) =>
-    active && {
+  ${({ $active, theme }) =>
+    $active && {
       backgroundColor: theme.colors.secondary,
     }}
 `;
@@ -115,11 +115,11 @@ const MessagesListItemContentName = styled.h4`
   font-weight: 700;
 `;
 
-const MessagesListItemContentMessage = styled.p<{ unread?: boolean }>`
+const MessagesListItemContentMessage = styled.p<{ $unread?: boolean }>`
   font-size: 0.8rem;
 
-  ${({ unread, theme }) =>
-    unread && {
+  ${({ $unread, theme }) =>
+    $unread && {
       color: theme.colors.yellow,
       fontWeight: 700,
       fontStyle: "italic",

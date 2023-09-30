@@ -44,10 +44,11 @@ export default Sidebar;
 const SidebarWrapper = styled.div<{
   $toggleSidebar: boolean;
 }>`
-  grid-area: 1 / 1 / 4 / 2;
+  grid-area: 1 / 1 / 3 / 2;
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.white};
   padding: ${({ theme }) => theme.layout.padding};
+  padding-bottom: 0;
   @media only screen and (${devices.md}) {
     position: absolute;
     left: ${(props) => (props.$toggleSidebar ? "-100%" : "0")};

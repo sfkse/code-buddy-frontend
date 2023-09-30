@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { IoSendSharp } from "react-icons/io5";
+import { IoDocumentAttachOutline, IoSendSharp } from "react-icons/io5";
 import { RxAvatar } from "react-icons/Rx";
 import UserInfoPopUp from "./UserInfoPopUp";
 import { useState } from "react";
@@ -36,7 +36,7 @@ const Conversation = () => {
                 Active 1h ago
               </ConversationContactLastSeen>
             </ConversationContactInfoWrapper>
-            <ConversationContactInfoPopUpWrapper isOpenPopUp={isOpenPopUp}>
+            <ConversationContactInfoPopUpWrapper $isopenpopup={isOpenPopUp}>
               <UserInfoPopUp type="noAction" user={userObject} />
             </ConversationContactInfoPopUpWrapper>
           </ConversationContactWrapper>
@@ -59,6 +59,8 @@ const Conversation = () => {
         </ConversationContent>
         <ConversationMessageInputWrapper>
           <ConversationMessageInput placeholder="Type a message" />
+          <ConversationMessageFileInputIcon />
+          <ConversationMessageIconsDivider />
           <ConversationMessageInputIcon />
         </ConversationMessageInputWrapper>
       </ConversationWrapper>
@@ -71,7 +73,9 @@ export default Conversation;
 const ConversationWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 85vh;
+  height: 90vh;
+  overflow: hidden;
+  border-left: 1px solid ${({ theme }) => theme.colors.secondary};
 `;
 
 const ConversationHeader = styled.div`
@@ -115,15 +119,15 @@ const ConversationContactLastSeen = styled.div`
 `;
 
 const ConversationContactInfoPopUpWrapper = styled.div<{
-  isOpenPopUp?: boolean;
+  $isopenpopup?: boolean;
 }>`
   position: absolute;
   top: 110%;
   right: -100%;
   display: none;
 
-  ${({ isOpenPopUp }) =>
-    isOpenPopUp && {
+  ${({ $isopenpopup }) =>
+    $isopenpopup && {
       display: "block",
     }}
 `;
@@ -181,8 +185,9 @@ const ConversationReceiverMessageContentMessage = styled.p`
 const ConversationMessageInputWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding: 1rem;
+  padding: 0.7rem;
   border-top: 1px solid ${({ theme }) => theme.colors.secondary};
+  background-color: ${({ theme }) => theme.colors.secondary};
 `;
 
 const ConversationMessageInput = styled.input`
@@ -190,17 +195,29 @@ const ConversationMessageInput = styled.input`
   font-size: 0.8rem;
   border: none;
   outline: none;
-  padding: 0.7rem;
   border-radius: 4px;
-  background-color: ${({ theme }) => theme.colors.secondary};
+  padding-right: 0.5rem;
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.primaryTransparent};
   }
 `;
 
+const ConversationMessageFileInputIcon = styled(IoDocumentAttachOutline)`
+  font-size: 1rem;
+  color: ${({ theme }) => theme.colors.primaryTransparent};
+  cursor: pointer;
+`;
+
+const ConversationMessageIconsDivider = styled.div`
+  width: 1px;
+  height: 1rem;
+  margin: 0 0.5rem;
+  background-color: ${({ theme }) => theme.colors.primaryTransparent};
+`;
 const ConversationMessageInputIcon = styled(IoSendSharp)`
   margin-left: 0.3rem;
-  font-size: 2rem;
+  font-size: 1rem;
+  cursor: pointer;
 `;
 

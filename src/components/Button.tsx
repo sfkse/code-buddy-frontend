@@ -21,7 +21,7 @@ const Button = ({
       style={style as React.CSSProperties}
       disabled={disabled}
     >
-      {icon} {title}
+      <span>{icon}</span> <span>{title}</span>
     </ButtonComponent>
   );
 };
@@ -29,6 +29,9 @@ const Button = ({
 export default Button;
 
 const ButtonComponent = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: ${({ theme }) => theme.colors.yellow};
   width: 100%;
   border: none;

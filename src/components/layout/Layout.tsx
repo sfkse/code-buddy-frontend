@@ -1,11 +1,10 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { Outlet, useLocation } from "react-router-dom";
 
 import TopBar from "./TopBar";
 import Sidebar from "./Sidebar";
-import Footer from "./Footer";
 import { devices, fonSizes } from "../../styles/Theme";
-import { useState } from "react";
 
 const Layout = () => {
   const [toggle, setToggle] = useState(false);
@@ -25,7 +24,6 @@ const Layout = () => {
         <>
           <Sidebar toggle={toggle} handleToggle={handleOnToggle} />
           <TopBar handleOnToggle={handleOnToggle} />
-          {/* <Footer /> */}
         </>
       )}
       <ContentWrapper $isAuthPage={isAuthPage}>
@@ -40,7 +38,7 @@ export default Layout;
 const LayoutWrapper = styled.div`
   display: grid;
   grid-template-columns: 0.18fr 1fr;
-  grid-template-rows: 0.03fr 1fr;
+  grid-template-rows: 1fr 15fr;
   /* min-height: 100vh; */
   @media only screen and (${devices.sm}) {
     font-size: ${fonSizes.body.sm};
@@ -56,7 +54,8 @@ const LayoutWrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div<{ $isAuthPage: boolean }>`
-  padding: ${({ $isAuthPage }) => (!$isAuthPage ? "1rem 1rem 4rem 1rem" : 0)};
+  padding: ${({ $isAuthPage }) => (!$isAuthPage ? "1rem" : 0)};
+  padding-bottom: 0;
   @media only screen and (${devices.md}) {
     grid-area: 2 / 1 / 2 / 3;
   }
