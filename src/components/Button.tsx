@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 
 import { ButtonProps } from "../types/components";
-import { gradientButtonStyle } from "../styles/Theme";
+import { GRADIENT_BUTTON_STYLE } from "../styles/Theme";
 
 const Button = ({
   title,
@@ -12,7 +12,8 @@ const Button = ({
   disabled,
   type,
 }: ButtonProps) => {
-  const style = buttonStyle === "gradient" ? gradientButtonStyle : customStyle;
+  const style =
+    buttonStyle === "gradient" ? GRADIENT_BUTTON_STYLE : customStyle;
 
   return (
     <ButtonComponent
@@ -47,7 +48,7 @@ const ButtonComponent = styled.button`
     color: ${({ theme }) => theme.colors.white};
   }
   &:disabled {
-    background-color: ${({ theme }) => theme.colors.primaryTransparent};
+    background-color: ${({ theme }) => theme.colors.primaryLight};
     color: ${({ theme }) => theme.colors.secondary};
     cursor: not-allowed;
   }

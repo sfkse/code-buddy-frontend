@@ -5,7 +5,7 @@ import { CgClose } from "react-icons/cg";
 import { HiCodeBracket } from "react-icons/hi2";
 
 import { menuItemBorder } from "../../styles/Global";
-import { devices } from "../../styles/Theme";
+import { DEVICES } from "../../styles/Theme";
 import { menuLinks } from "../../assets/data/menu";
 
 type SidebarProps = {
@@ -49,7 +49,7 @@ const SidebarWrapper = styled.div<{
   color: ${({ theme }) => theme.colors.white};
   padding: ${({ theme }) => theme.layout.padding};
   padding-bottom: 0;
-  @media only screen and (${devices.md}) {
+  @media only screen and (${DEVICES.md}) {
     position: absolute;
     left: ${(props) => (props.$toggleSidebar ? "-100%" : "0")};
     top: 0;
@@ -67,7 +67,7 @@ const CgCloseIcon = styled(CgClose)`
   font-size: 1.5rem;
   cursor: pointer;
 
-  @media only screen and (${devices.md}) {
+  @media only screen and (${DEVICES.md}) {
     display: block;
   }
 `;

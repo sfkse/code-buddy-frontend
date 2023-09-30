@@ -77,6 +77,6 @@ const ContactStatusText = styled.div`
   font-size: 0.9rem;
   display: flex;
   align-items: center;
-  color: ${({ theme }) => theme.colors.primaryTransparent};
+  color: ${({ theme }) => theme.colors.primaryLight};
 `;
 

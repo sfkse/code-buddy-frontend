@@ -17,6 +17,7 @@ import AuthWrapper from "./components/AuthWrapper";
 import { theme } from "./styles/Theme";
 import { GlobalStyles } from "./styles/Global";
 import Welcome from "./pages/Welcome";
+import Notes from "./pages/Notes";
 
 const router = createBrowserRouter([
   {
@@ -28,8 +29,9 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       { path: "/", element: <Home /> },
-      { path: "/chat", element: <Chat /> },
       { path: "/welcome", element: <Welcome /> },
+      { path: "/chat", element: <Chat /> },
+      { path: "/notes", element: <Notes /> },
     ],
   },
   { path: "/login", element: <Login /> },

@@ -2,7 +2,8 @@ export const theme = {
   colors: {
     //Text
     primary: "#191716",
-    primaryTransparent: "#191716c0",
+    primaryLight: "#191716c0",
+    primaryExtraLight: "#19171670",
     secondary: "#e0e2db",
     yellow: "#e6af2e",
     white: "white",
@@ -38,7 +39,7 @@ export const theme = {
   //   }),
   //   control: (styles) => ({
   //     ...styles,
-  //     border: `1px solid ${theme.colors.primaryTransparent}`,
+  //     border: `1px solid ${theme.colors.primaryLight}`,
   //   }),
   // },
 };
@@ -52,7 +53,7 @@ const breakpoints = {
   "2xl": "1536px",
 };
 
-export const devices = {
+export const DEVICES = {
   xs: `(max-width: ${breakpoints.xs})`,
   sm: `(max-width: ${breakpoints.sm})`,
   md: `(max-width: ${breakpoints.md})`,
@@ -61,7 +62,7 @@ export const devices = {
   "2xl": `(min-width: ${breakpoints["2xl"]})`,
 };
 
-export const fonSizes = {
+export const FONT_SIZES = {
   body: {
     xs: "0.75rem",
     sm: "0.875rem",
@@ -88,7 +89,7 @@ export const fonSizes = {
   },
 };
 
-export const gradientButtonStyle = {
+export const GRADIENT_BUTTON_STYLE = {
   width: "200px",
   alignSelf: "center",
   color: "white",
@@ -105,5 +106,16 @@ export const gradientButtonStyle = {
   lineHeight: "1.5",
   fonwWeight: "300",
   letterSpacing: ".025rem",
+};
+
+export const EDITOR_STYLE_MAP = {
+  CODE: {
+    backgroundColor: "rgba(0, 0, 0, 0.05)",
+    fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
+    fontSize: 14,
+    padding: 2,
+    display: "inline-block",
+    fonwWeight: 500,
+  },
 };
 

@@ -61,7 +61,7 @@ const UserLogo = styled.p`
 
 const UserLocation = styled.span`
   line-height: 1.5rem;
-  color: ${({ theme }) => theme.colors.primaryTransparent};
+  color: ${({ theme }) => theme.colors.primaryLight};
   font-size: 0.7rem;
 `;
 

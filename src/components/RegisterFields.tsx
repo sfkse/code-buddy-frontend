@@ -39,7 +39,7 @@ export default RegisterFields;
 
 const FormInput = styled.input`
   padding: 0.7rem;
-  background-color: ${({ theme }) => theme.colors.primaryTransparent};
+  background-color: ${({ theme }) => theme.colors.primaryLight};
   color: ${({ theme }) => theme.colors.white};
   font-size: 1rem;
   &::placeholder {

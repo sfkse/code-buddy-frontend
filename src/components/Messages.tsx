@@ -148,6 +148,6 @@ const MessagesListItemUnreadStatus = styled.div`
 
 const MessagestListItemTime = styled.span`
   font-size: 0.7rem;
-  color: ${({ theme }) => theme.colors.primaryTransparent};
+  color: ${({ theme }) => theme.colors.primaryLight};
 `;
 

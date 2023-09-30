@@ -115,7 +115,7 @@ const ConversationContactName = styled.div`
 const ConversationContactLastSeen = styled.div`
   margin-left: 0.3rem;
   font-size: 0.7rem;
-  color: ${({ theme }) => theme.colors.primaryTransparent};
+  color: ${({ theme }) => theme.colors.primaryLight};
 `;
 
 const ConversationContactInfoPopUpWrapper = styled.div<{
@@ -152,7 +152,7 @@ const ConversationSenderMessageContent = styled.div`
   max-width: 50%;
   padding: 0.5rem 1rem;
   border-radius: 1rem;
-  background-color: ${({ theme }) => theme.colors.primaryTransparent};
+  background-color: ${({ theme }) => theme.colors.primaryLight};
 `;
 
 const ConversationSenderMessageContentMessage = styled.p`
@@ -199,13 +199,13 @@ const ConversationMessageInput = styled.input`
   padding-right: 0.5rem;
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors.primaryTransparent};
+    color: ${({ theme }) => theme.colors.primaryLight};
   }
 `;
 
 const ConversationMessageFileInputIcon = styled(IoDocumentAttachOutline)`
   font-size: 1rem;
-  color: ${({ theme }) => theme.colors.primaryTransparent};
+  color: ${({ theme }) => theme.colors.primaryLight};
   cursor: pointer;
 `;
 
@@ -213,7 +213,7 @@ const ConversationMessageIconsDivider = styled.div`
   width: 1px;
   height: 1rem;
   margin: 0 0.5rem;
-  background-color: ${({ theme }) => theme.colors.primaryTransparent};
+  background-color: ${({ theme }) => theme.colors.primaryLight};
 `;
 const ConversationMessageInputIcon = styled(IoSendSharp)`
   margin-left: 0.3rem;

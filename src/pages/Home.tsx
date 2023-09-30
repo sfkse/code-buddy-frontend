@@ -26,6 +26,7 @@ const HomeWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  padding: 2rem;
 `;
 
 const SectionWrapper = styled.div`

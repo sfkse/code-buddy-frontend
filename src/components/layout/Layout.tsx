@@ -4,7 +4,7 @@ import { Outlet, useLocation } from "react-router-dom";
 
 import TopBar from "./TopBar";
 import Sidebar from "./Sidebar";
-import { devices, fonSizes } from "../../styles/Theme";
+import { DEVICES, FONT_SIZES } from "../../styles/Theme";
 
 const Layout = () => {
   const [toggle, setToggle] = useState(false);
@@ -40,23 +40,22 @@ const LayoutWrapper = styled.div`
   grid-template-columns: 0.18fr 1fr;
   grid-template-rows: 1fr 15fr;
   /* min-height: 100vh; */
-  @media only screen and (${devices.sm}) {
-    font-size: ${fonSizes.body.sm};
+  @media only screen and (${DEVICES.sm}) {
+    font-size: ${FONT_SIZES.body.sm};
   }
-  @media only screen and (${devices.md}) {
+  @media only screen and (${DEVICES.md}) {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
   }
-  @media only screen and (${devices.lg}) {
+  @media only screen and (${DEVICES.lg}) {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
   }
 `;
 
 const ContentWrapper = styled.div<{ $isAuthPage: boolean }>`
-  padding: ${({ $isAuthPage }) => (!$isAuthPage ? "1rem" : 0)};
-  padding-bottom: 0;
-  @media only screen and (${devices.md}) {
+  padding: 0;
+  @media only screen and (${DEVICES.md}) {
     grid-area: 2 / 1 / 2 / 3;
   }
 `;

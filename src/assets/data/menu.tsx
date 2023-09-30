@@ -18,7 +18,7 @@ export const menuLinks: MenuLinkProps[] = [
   {
     label: "Notes",
     icon: <FaRegStickyNote />,
-    link: "/notes/my-notes",
+    link: "/notes",
   },
   {
     label: "Chat",

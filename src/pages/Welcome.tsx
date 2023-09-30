@@ -165,7 +165,7 @@ const Welcome = () => {
 export default Welcome;
 
 const WelcomWrapper = styled.div`
-  background-color: ${({ theme }) => theme.colors.primaryTransparent};
+  background-color: ${({ theme }) => theme.colors.primaryLight};
   width: 100vw;
   height: 100vh;
   overflow: hidden;
