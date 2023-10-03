@@ -1,11 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 import { Editor, EditorState, RichUtils } from "draft-js";
 import "draft-js/dist/Draft.css";
 
 import NoteContentToolbar from "./NoteContentToolbar";
-import { EDITOR_STYLE_MAP } from "../styles/Theme";
 import SelectMultiple from "./SelectMultiple";
+
+import { EDITOR_STYLE_MAP } from "../styles/theme";
 
 const NotesContent = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -27,15 +28,19 @@ const NotesContent = () => {
     setEditorState(RichUtils.toggleInlineStyle(editorState, style));
   };
 
-  const handleOnClickTag = () => {
+  const handleOpenTags = () => {
     setIsOpenTags(!isOpenTags);
   };
 
+  const handleDeleteNote = () => {
+    console.log("Delete note");
+  };
   return (
     <NotesContentWrapper>
       <NoteContentToolbar
         handleOnStyle={handleOnStyle}
-        handleOnClickTag={handleOnClickTag}
+        handleOpenTags={handleOpenTags}
+        handleDeleteNote={handleDeleteNote}
       />
       {isOpenTags && (
         <NoteTagsWrapper>

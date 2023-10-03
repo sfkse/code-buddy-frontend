@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import NotesSetup from "./NotesSetup";
+import chroma from "chroma-js";
 
 const NotesList = () => {
+  const color1 = chroma("green");
+  const color2 = chroma("red");
+
   const handleAddNote = () => {
     console.log("Add note");
   };
@@ -10,7 +14,7 @@ const NotesList = () => {
       <NotesSetup handleAddNote={handleAddNote} />
       <Note>
         <NotePropertiesWrapper>
-          <NoteTag>General</NoteTag>
+          <NoteTag $color={color1}>General</NoteTag>
           <NoteDate>Today</NoteDate>
         </NotePropertiesWrapper>
         <NoteTitle>My first note</NoteTitle>
@@ -23,7 +27,7 @@ const NotesList = () => {
       </Note>
       <Note>
         <NotePropertiesWrapper>
-          <NoteTag>General</NoteTag>
+          <NoteTag $color={color2}>Primary</NoteTag>
           <NoteDate>Today</NoteDate>
         </NotePropertiesWrapper>
         <NoteTitle>My first note</NoteTitle>
@@ -62,9 +66,13 @@ const NotePropertiesWrapper = styled.div`
   color: ${({ theme }) => theme.colors.primaryExtraLight};
 `;
 
-const NoteTag = styled.span`
-  font-size: 0.8rem;
-  color: ${({ theme }) => theme.colors.text};
+const NoteTag = styled.span<{ $color: chroma.Color }>`
+  font-size: 0.65rem;
+  border-radius: 0.2rem;
+  color: ${({ $color }) => $color.css()};
+  background-color: ${({ $color }) => $color?.alpha(0.3).css()};
+  padding: 0.2rem 0.5rem;
+  display: inline-block;
 `;
 
 const NoteDate = styled.span`

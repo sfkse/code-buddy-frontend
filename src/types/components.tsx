@@ -1,6 +1,7 @@
 export type ButtonProps = {
-  title: string;
+  title?: string;
   type?: "button" | "submit" | "reset";
+  variant?: "primary" | "secondary" | "tertiary";
   buttonStyle?: string;
   customStyle?: React.CSSProperties;
   icon?: React.ReactElement;

@@ -4,7 +4,7 @@ export const useLogoutUser = () => {
   const navigate = useNavigate();
 
   const logoutUser = () => {
-    localStorage.removeItem("user_key");
+    localStorage.removeItem("credentials");
     navigate("/login");
   };
 

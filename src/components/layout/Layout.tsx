@@ -4,7 +4,7 @@ import { Outlet, useLocation } from "react-router-dom";
 
 import TopBar from "./TopBar";
 import Sidebar from "./Sidebar";
-import { DEVICES, FONT_SIZES } from "../../styles/Theme";
+import { DEVICES, FONT_SIZES } from "../../styles/theme";
 
 const Layout = () => {
   const [toggle, setToggle] = useState(false);

@@ -5,7 +5,7 @@ import { CgClose } from "react-icons/cg";
 import { HiCodeBracket } from "react-icons/hi2";
 
 import { menuItemBorder } from "../../styles/Global";
-import { DEVICES } from "../../styles/Theme";
+import { DEVICES } from "../../styles/theme";
 import { menuLinks } from "../../assets/data/menu";
 
 type SidebarProps = {
@@ -53,9 +53,11 @@ const SidebarWrapper = styled.div<{
     position: absolute;
     left: ${(props) => (props.$toggleSidebar ? "-100%" : "0")};
     top: 0;
+    right: ${(props) => (props.$toggleSidebar ? "100%" : "0")};
     bottom: 0;
     z-index: 500;
-    transition: left 0.3s ease-in-out;
+    transition: left 0.3s ease-in 0s, right 0.3s ease-in 0s;
+    overflow-y: ${(props) => (props.$toggleSidebar ? "hidden" : "scroll")};
   }
 `;
 

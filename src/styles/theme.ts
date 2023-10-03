@@ -7,7 +7,8 @@ export const theme = {
     secondary: "#e0e2db",
     yellow: "#e6af2e",
     white: "white",
-    error: "#FF4154",
+    danger: "#ED2121",
+    caution: "#F73423",
     //Box
     boxShadow:
       "0px 2px 2px rgba(21, 21, 23, 0.04), 0px 0px 2px rgba(21, 21, 23, 0.04);",

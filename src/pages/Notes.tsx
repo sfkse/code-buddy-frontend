@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 import NotesList from "../components/NotesList";
 import NotesContent from "../components/NotesContent";
-import NotesSetup from "../components/NotesSetup";
 
 const Notes = () => {
   return (

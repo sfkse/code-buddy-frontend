@@ -47,7 +47,7 @@ const ToastMessageWrapper = styled.p`
   width: 100%;
   text-align: center;
   color: ${({ theme }) => theme.colors.white};
-  background-color: ${({ theme }) => theme.colors.error};
+  background-color: ${({ theme }) => theme.colors.danger};
   font-size: 0.9rem;
   font-weight: 700;
   padding: 0.5rem;

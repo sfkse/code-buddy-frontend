@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 
 import { ButtonProps } from "../types/components";
-import { GRADIENT_BUTTON_STYLE } from "../styles/Theme";
+import { GRADIENT_BUTTON_STYLE } from "../styles/theme";
 
 const Button = ({
   title,
@@ -11,6 +11,7 @@ const Button = ({
   customStyle,
   disabled,
   type,
+  variant,
 }: ButtonProps) => {
   const style =
     buttonStyle === "gradient" ? GRADIENT_BUTTON_STYLE : customStyle;
@@ -19,6 +20,7 @@ const Button = ({
     <ButtonComponent
       type={type || "button"}
       onClick={onClick}
+      $variant={variant}
       style={style as React.CSSProperties}
       disabled={disabled}
     >
@@ -29,11 +31,14 @@ const Button = ({
 
 export default Button;
 
-const ButtonComponent = styled.button`
+const ButtonComponent = styled.button<{ $variant?: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${({ theme }) => theme.colors.yellow};
+  background-color: ${({ theme, $variant }) =>
+    $variant === "primary" ? theme.colors.yellow : theme.colors.caution};
+  color: ${({ theme, $variant }) =>
+    $variant === "primary" ? theme.colors.primary : theme.colors.secondary};
   width: 100%;
   border: none;
   text-align: center;

@@ -10,9 +10,17 @@ const AuthWrapper = ({ children }: AuthWrapperProps) => {
   const credentials = localStorage.getItem("credentials")
     ? JSON.parse(localStorage.getItem("credentials") || "")
     : null;
-
+  console.log("object");
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
   // Send user to login page if not logged in
-  if (!credentials && location.pathname !== "/login")
+  if (
+    !credentials &&
+    location.pathname !== "/login" &&
+    location.pathname !== "/register"
+  )
     return <Navigate to="/login" />;
 
   // Send user to welcome page if not activated

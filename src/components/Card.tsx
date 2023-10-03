@@ -4,7 +4,7 @@ import { styled } from "styled-components";
 type CardProps = {
   children: React.ReactNode;
   title: string;
-  style: React.CSSProperties;
+  style?: React.CSSProperties;
 };
 
 const Card = ({ children, title, style }: CardProps) => {
@@ -33,7 +33,7 @@ const CardWrapper = styled.div`
 const CardTitle = styled.div`
   font-size: 1.2rem;
   margin-bottom: 0.6rem;
-  font-weight: 700;
+  font-weight: 500;
   color: ${({ theme }) => theme.colors.primary};
 `;
 

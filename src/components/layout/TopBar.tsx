@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 import { CgMenuLeftAlt } from "react-icons/cg";
 import Actions from "../Actions";
 import UserMenu from "../UserMenu";
-import { DEVICES } from "../../styles/Theme";
+import { DEVICES } from "../../styles/theme";
 
 type TopBarProps = {
   handleOnToggle: () => void;
@@ -28,6 +28,7 @@ export default TopBar;
 
 const TopBarWrapper = styled.div`
   display: flex;
+  max-height: 4rem;
   grid-area: 1 / 2 / 2 / -1;
   padding: 0 2rem;
   min-width: 100%;

@@ -1,8 +1,10 @@
 import {
   BsCodeSlash,
+  BsFillTrash3Fill,
   BsListOl,
   BsListUl,
   BsPaperclip,
+  BsPrinter,
   BsShare,
   BsTextCenter,
   BsTextLeft,
@@ -18,12 +20,14 @@ import styled from "styled-components";
 
 type NoteContentToolbarProps = {
   handleOnStyle: (style: string) => void;
-  handleOnClickTag: () => void;
+  handleOpenTags: () => void;
+  handleDeleteNote: () => void;
 };
 
 const NoteContentToolbar = ({
   handleOnStyle,
-  handleOnClickTag,
+  handleOpenTags,
+  handleDeleteNote,
 }: NoteContentToolbarProps) => {
   const styles = [
     { Icon: <Bold />, style: "BOLD" },
@@ -42,9 +46,11 @@ const NoteContentToolbar = ({
   return (
     <NoteToolbarWrapper>
       <NoteToolbarConfigOptions>
-        <NoteToolbarConfigOptionTags onClick={handleOnClickTag} />
+        <NoteToolbarConfigOptionTags onClick={handleOpenTags} />
         <NoteToolbarConfigOptionSave />
         <NoteToolbarConfigOptionShare />
+        <NoteToolbarConfigOptionPrint />
+        <NoteToolbarConfigOptionDelete onClick={handleDeleteNote} />
       </NoteToolbarConfigOptions>
       <NoteToolbarStyleOptions>
         {styles.map(({ Icon, style }) => (
@@ -97,6 +103,15 @@ const NoteToolbarConfigOptionSave = styled(FiSave)`
 
 const NoteToolbarConfigOptionShare = styled(BsShare)`
   cursor: pointer;
+`;
+
+const NoteToolbarConfigOptionPrint = styled(BsPrinter)`
+  cursor: pointer;
+`;
+
+const NoteToolbarConfigOptionDelete = styled(BsFillTrash3Fill)`
+  cursor: pointer;
+  color: ${({ theme }) => theme.colors.danger};
 `;
 
 const Bold = styled(BsTypeBold)`
