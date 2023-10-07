@@ -8,21 +8,23 @@ type ColourOption = {
   label: string;
   value: string;
 };
+
+type SelectMultipleProps = {
+  options: Array<{ color: string; label: string; value: string }>;
+  defaultValue?: Array<{ color: string; label: string; value: string }>;
+};
+
 const animatedComponents = makeAnimated();
 
-const SelectMultiple = () => {
+const SelectMultiple = ({ options, defaultValue }: SelectMultipleProps) => {
   return (
     <Select
       styles={colourStyles}
       closeMenuOnSelect={false}
       components={animatedComponents}
       isMulti
-      defaultValue={[{ color: "green", label: "General", value: "General" }]}
-      options={[
-        { color: "green", label: "General", value: "General" },
-        { color: "red", label: "Work", value: "Work" },
-        { color: "blue", label: "Personal", value: "Personal" },
-      ]}
+      defaultValue={defaultValue}
+      options={options}
     />
   );
 };
@@ -31,7 +33,7 @@ const colourStyles: StylesConfig<ColourOption, true> = {
   control: (styles) => ({ ...styles, backgroundColor: "white" }),
   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
     const color = chroma(data.color);
-    console.log(color.alpha(0.3).css());
+
     return {
       ...styles,
       backgroundColor: isDisabled

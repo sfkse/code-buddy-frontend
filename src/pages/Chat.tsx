@@ -22,7 +22,6 @@ export default Chat;
 const ChatWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 3fr;
-  grid-gap: 8px;
-  height: 90vh;
+  height: 100vh;
 `;
 

@@ -4,6 +4,7 @@ import { HiOutlinePlus } from "react-icons/hi";
 import { AiOutlineTags } from "react-icons/ai";
 
 import Button from "./Button";
+import SearchInput from "./SearchInput";
 
 type NotesSetupProps = {
   handleAddNote: () => void;
@@ -21,7 +22,7 @@ const NotesSetup = ({ handleAddNote }: NotesSetupProps) => {
       </NotesOptionsWrapper>
       <NotesSearchWrapper>
         <NotesSearchIcon />
-        <NotesSearchInput placeholder="Search notes..." />
+        <SearchInput placeholder="Search notes..." />
       </NotesSearchWrapper>
       <NotesAddWrapper>
         <NotesAddButton
@@ -76,18 +77,6 @@ const NotesSearchWrapper = styled.div`
 `;
 
 const NotesSearchIcon = styled.div``;
-
-const NotesSearchInput = styled.input`
-  border: none;
-  outline: none;
-  font-size: 0.8rem;
-  padding: 0.5rem;
-  width: 100%;
-  margin: 1rem 0;
-  &::placeholder {
-    color: ${({ theme }) => theme.colors.primaryExtraLight};
-  }
-`;
 
 const NotesAddWrapper = styled.div``;
 

@@ -1,11 +1,10 @@
 import styled from "styled-components";
 
-import { AuthFormState } from "../types/user";
-import { loginFormFields, registerFormFields } from "../assets/data/form";
+import { AuthFormState, DiscussionFormState } from "../types/form";
 
 type FormFieldsProps = {
-  type?: string;
-  formState: AuthFormState;
+  formState: AuthFormState | DiscussionFormState;
+  formFields: Array<{ name: string; type: string; placeholder: string }>;
   handleSetFormState: (
     e: React.ChangeEvent<HTMLInputElement>,
     name: string
@@ -13,21 +12,21 @@ type FormFieldsProps = {
 };
 
 const FormFields = ({
-  type,
   formState,
+  formFields,
   handleSetFormState,
 }: FormFieldsProps) => {
-  const formFields = type === "login" ? loginFormFields : registerFormFields;
-
   return (
     <>
       {formFields.map((field) => (
         <FormInput
           key={field.name}
-          type={field.type}
+          as={field.type === "textarea" ? "textarea" : "input"}
           value={(formState as any)[field.name]}
           placeholder={field.placeholder}
-          onChange={(e) => handleSetFormState(e, field.name)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            handleSetFormState(e, field.name)
+          }
         />
       ))}
     </>
@@ -36,13 +35,15 @@ const FormFields = ({
 
 export default FormFields;
 
-const FormInput = styled.input`
+const FormInput = styled.div<{ as: string }>`
   padding: 0.7rem;
-  background-color: ${({ theme }) => theme.colors.primaryLight};
-  color: ${({ theme }) => theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.primary};
   font-size: 1rem;
+  border: ${({ theme }) => theme.colors.secondary} 1px solid;
   &::placeholder {
-    color: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.primaryExtraLight};
   }
+  ${({ as }) => as === "textarea" && "resize: vertical; height: 20rem;"}
 `;
 

@@ -45,7 +45,9 @@ const NotesList = () => {
 export default NotesList;
 
 const NotesListWrapper = styled.div`
-  width: 30%;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 `;
 
 const Note = styled.li`

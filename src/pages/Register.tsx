@@ -8,7 +8,8 @@ import ToastMessage from "../components/ToastMessage";
 import FormFields from "../components/FormFields";
 
 import { useRegisterUser } from "../hooks/user/useRegisterUser";
-import { AuthFormState } from "../types/user";
+import { AuthFormState } from "../types/form";
+import { registerFormFields } from "../assets/data/form";
 
 const Register = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -74,6 +75,7 @@ const Register = () => {
         />
         <Hr>- OR -</Hr>
         <FormFields
+          formFields={registerFormFields}
           formState={formState}
           handleSetFormState={handleSetFormState}
         />

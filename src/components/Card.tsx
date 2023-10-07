@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 
 type CardProps = {
   children: React.ReactNode;
-  title: string;
+  title?: string;
   style?: React.CSSProperties;
 };
 

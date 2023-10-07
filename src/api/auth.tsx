@@ -1,4 +1,4 @@
-import { AuthFormState } from "../types/user";
+import { AuthFormState } from "../types/form";
 import api from "./axios";
 
 export const authenticateLogin = async (formState: AuthFormState) => {

@@ -85,7 +85,7 @@ const MessagesList = styled.div``;
 const MessagesListItem = styled.div<{ $active?: boolean }>`
   display: flex;
   align-items: center;
-  padding: 0.7rem;
+  padding: 0.7rem 2rem;
   border-bottom: 1px solid ${({ theme }) => theme.colors.secondary};
   cursor: pointer;
 

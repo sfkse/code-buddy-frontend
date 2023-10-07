@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { authenticateLogin } from "../../api/auth";
 import { saveCredentials } from "../../utils/userUtils";
-import { AuthFormState } from "../../types/user";
+import { AuthFormState } from "../../types/form";
 
 export const useLoginUser = (
   formState: AuthFormState,

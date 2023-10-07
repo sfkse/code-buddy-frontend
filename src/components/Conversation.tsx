@@ -74,7 +74,7 @@ const ConversationWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 90vh;
-  overflow: hidden;
+  overflow-y: scroll;
   border-left: 1px solid ${({ theme }) => theme.colors.secondary};
 `;
 

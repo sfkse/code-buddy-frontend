@@ -15,8 +15,7 @@ const Notes = () => {
 export default Notes;
 
 const NotesWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
 `;
 
