@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import { GiTalk } from "react-icons/gi";
-import Card from "./Card";
+
+import Card from "../Card";
 
 const LatestTopics = () => {
   return (

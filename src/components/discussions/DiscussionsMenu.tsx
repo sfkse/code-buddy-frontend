@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import SearchInput from "./SearchInput";
+import { CSSProperties } from "react";
+import { NavLink } from "react-router-dom";
 import {
   AiOutlineQuestionCircle,
   AiTwotoneLike,
@@ -8,6 +9,8 @@ import {
 import { FaRankingStar } from "react-icons/fa6";
 import { MdForum, MdOutlineQuestionAnswer } from "react-icons/md";
 
+import SearchInput from "../SearchInput";
+
 const DiscussionsMenu = () => {
   return (
     <DiscussionsMenuWrapper>
@@ -15,24 +18,31 @@ const DiscussionsMenu = () => {
         <SearchInput placeholder="Search discussions..." />
       </DiscussionsMenuSearchInputWrapper>
       <DiscussionsMenuList>
-        <DiscussionsMenuItem>
+        <NavLinkItem
+          to={"/discussions/questions"}
+          key={"Questions"}
+          style={({ isActive }): CSSProperties => ({
+            fontWeight: isActive ? "bold" : "normal",
+          })}
+        >
           <DiscussionsMenuItemIcon>
             <QuestionsIcon />
           </DiscussionsMenuItemIcon>
           <DiscussionsMenuItemText>Questions</DiscussionsMenuItemText>
-        </DiscussionsMenuItem>
-        <DiscussionsMenuItem>
-          <DiscussionsMenuItemIcon>
-            <TagsIcon />
-          </DiscussionsMenuItemIcon>
-          <DiscussionsMenuItemText>Tags</DiscussionsMenuItemText>
-        </DiscussionsMenuItem>
-        <DiscussionsMenuItem>
+        </NavLinkItem>
+
+        <NavLinkItem
+          to={"/discussions/ranking"}
+          key={"Ranking"}
+          style={({ isActive }): CSSProperties => ({
+            fontWeight: isActive ? "bold" : "normal",
+          })}
+        >
           <DiscussionsMenuItemIcon>
             <RankingIcon />
           </DiscussionsMenuItemIcon>
           <DiscussionsMenuItemText>Ranking</DiscussionsMenuItemText>
-        </DiscussionsMenuItem>
+        </NavLinkItem>
         <DiscussionsMenuPersonalHeader>
           Personal Menu
         </DiscussionsMenuPersonalHeader>
@@ -106,6 +116,30 @@ const YourAnswersIcon = styled(MdOutlineQuestionAnswer)`
 const YourLikesIcon = styled(AiTwotoneLike)`
   color: ${({ theme }) => theme.colors.primaryExtraLight};
   font-size: 1.2rem;
+`;
+
+const NavLinkItem = styled(NavLink)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 2rem;
+  cursor: pointer;
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.secondary};
+
+    ${QuestionsIcon}, ${TagsIcon}, ${RankingIcon}, ${YourQuestionsIcon}, ${YourAnswersIcon}, ${YourLikesIcon} {
+      color: ${({ theme }) => theme.colors.yellow};
+    }
+  }
+
+  &.active {
+    background-color: ${({ theme }) => theme.colors.secondary};
+
+    ${QuestionsIcon}, ${TagsIcon}, ${RankingIcon}, ${YourQuestionsIcon}, ${YourAnswersIcon}, ${YourLikesIcon} {
+      color: ${({ theme }) => theme.colors.yellow};
+    }
+  }
 `;
 
 const DiscussionsMenuItem = styled.li`

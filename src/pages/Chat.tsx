@@ -1,8 +1,10 @@
 import { useEffect } from "react";
-import { postChatMessage } from "../api/chat";
-import Conversation from "../components/Conversation";
-import Messages from "../components/Messages";
 import { styled } from "styled-components";
+
+import Conversation from "../components/chat/Conversation";
+import Messages from "../components/chat/Messages";
+
+import { postChatMessage } from "../api/chat";
 
 const Chat = () => {
   useEffect(() => {

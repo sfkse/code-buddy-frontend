@@ -4,11 +4,11 @@ import { Editor, EditorState } from "draft-js";
 import "draft-js/dist/Draft.css";
 
 import NoteContentToolbar from "./NoteContentToolbar";
-import EditorStyleOptions from "./EditorStyleOptions";
+import EditorStyleOptions from "../EditorStyleOptions";
+import SelectMultiple from "../SelectMultiple";
+import DraftEditor from "../DraftEditor";
 
-import { EDITOR_STYLE_MAP } from "../styles/theme";
-import SelectMultiple from "./SelectMultiple";
-import useSetOnStyle from "../hooks/editor/useSetOnStyle";
+import useSetOnStyle from "../../hooks/editor/useSetOnStyle";
 
 const NotesContent = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -37,14 +37,11 @@ const NotesContent = () => {
           ]}
         />
       </NoteTagsWrapper>
-      <EditorWrapper onClick={() => editorRef.current?.focus()}>
-        <Editor
-          ref={editorRef}
-          editorState={editorState}
-          onChange={handleOnChangeEditor}
-          customStyleMap={EDITOR_STYLE_MAP}
-        />
-      </EditorWrapper>
+      <DraftEditor
+        editorRef={editorRef}
+        editorState={editorState}
+        handleOnChangeEditor={handleOnChangeEditor}
+      />
     </NotesContentWrapper>
   );
 };
@@ -74,14 +71,5 @@ const SelectNoteTags = styled(SelectMultiple)`
   position: absolute;
   z-index: 10;
   margin-bottom: 1rem;
-`;
-
-const EditorWrapper = styled.div`
-  border: 1px solid ${({ theme }) => theme.colors.secondary};
-  padding: 1rem;
-  border-radius: 4px;
-  min-height: 70vh;
-  max-height: 70vh;
-  overflow-y: scroll;
 `;
 

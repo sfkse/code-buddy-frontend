@@ -21,7 +21,7 @@ const FormFields = ({
       {formFields.map((field) => (
         <FormInput
           key={field.name}
-          as={field.type === "textarea" ? "textarea" : "input"}
+          type={field.type}
           value={(formState as any)[field.name]}
           placeholder={field.placeholder}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -35,7 +35,7 @@ const FormFields = ({
 
 export default FormFields;
 
-const FormInput = styled.div<{ as: string }>`
+const FormInput = styled.input`
   padding: 0.7rem;
   background-color: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.primary};
@@ -44,6 +44,5 @@ const FormInput = styled.div<{ as: string }>`
   &::placeholder {
     color: ${({ theme }) => theme.colors.primaryExtraLight};
   }
-  ${({ as }) => as === "textarea" && "resize: vertical; height: 20rem;"}
 `;
 

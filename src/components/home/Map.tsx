@@ -2,14 +2,14 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { styled } from "styled-components";
 import Leaflet from "leaflet";
 
-import UserInfoPopUp from "./UserInfoPopUp";
+import UserInfoPopUp from "../UserInfoPopUp";
 import MapFilter from "./MapFilter";
-import Loader from "./Loader";
-import onlineIcon from "../assets/images/onlineIcon.png";
+import Loader from "../Loader";
+import onlineIcon from "../../assets/images/onlineIcon.png";
 // import offlineIcon from "../assets/images/offlineIcon.png";
 
-import { useFetchAllUsers } from "../hooks/user/useFetchAllUsers";
-import { User } from "../types/user";
+import { useFetchAllUsers } from "../../hooks/user/useFetchAllUsers";
+import { User } from "../../types/user";
 
 type MarkersProps = {
   users: User[];

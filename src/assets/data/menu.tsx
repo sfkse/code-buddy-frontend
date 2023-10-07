@@ -33,7 +33,7 @@ export const menuLinks: MenuLinkProps[] = [
   {
     label: "Discussions",
     icon: <GiDiscussion />,
-    link: "/discussions",
+    link: "/discussions/questions",
   },
   {
     label: "Calender",

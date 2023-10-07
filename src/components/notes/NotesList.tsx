@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import NotesSetup from "./NotesSetup";
 import chroma from "chroma-js";
+
+import NotesSetup from "./NotesSetup";
 
 const NotesList = () => {
   const color1 = chroma("green");

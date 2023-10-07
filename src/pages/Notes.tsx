@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import NotesList from "../components/NotesList";
-import NotesContent from "../components/NotesContent";
+import NotesList from "../components/notes/NotesList";
+import NotesContent from "../components/notes/NotesContent";
 
 const Notes = () => {
   return (

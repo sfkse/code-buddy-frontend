@@ -3,8 +3,8 @@ import { BsFilter } from "react-icons/bs";
 import { HiOutlinePlus } from "react-icons/hi";
 import { AiOutlineTags } from "react-icons/ai";
 
-import Button from "./Button";
-import SearchInput from "./SearchInput";
+import Button from "../Button";
+import SearchInput from "../SearchInput";
 
 type NotesSetupProps = {
   handleAddNote: () => void;

@@ -1,7 +1,8 @@
 import { styled } from "styled-components";
-import Card from "./Card";
-import Button from "./Button";
 import { Link } from "react-router-dom";
+
+import Card from "../Card";
+import Button from "../Button";
 
 const UpcomingEvents = () => {
   return (

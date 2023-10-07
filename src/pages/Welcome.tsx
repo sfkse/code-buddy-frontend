@@ -1,16 +1,18 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { HiCodeBracket } from "react-icons/hi2";
 
 import Loader from "../components/Loader";
-import { useGetCountriesAndCities } from "../hooks/location/useGetCountriesAndCities";
-import { useEffect, useState } from "react";
 import Button from "../components/Button";
-import { useSetUserLocation } from "../hooks/location/useSetUserLocation";
-import { getCoordinatesFromLocation } from "../api/location";
-import { fetchCredentials } from "../utils/userUtils";
-import { UserLocation } from "../types/location";
 import ToastMessage from "../components/ToastMessage";
 import Select from "../components/Select";
+
+import { useGetCountriesAndCities } from "../hooks/location/useGetCountriesAndCities";
+import { useSetUserLocation } from "../hooks/location/useSetUserLocation";
+
+import { UserLocation } from "../types/location";
+import { fetchCredentials } from "../utils/userUtils";
+import { getCoordinatesFromLocation } from "../api/location";
 
 type CountryProps = {
   country: string;

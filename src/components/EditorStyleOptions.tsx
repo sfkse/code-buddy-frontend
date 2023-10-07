@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import {
   BsCodeSlash,
   BsListOl,
@@ -12,7 +13,6 @@ import {
   BsTypeUnderline,
 } from "react-icons/bs";
 import { FiAlignJustify } from "react-icons/fi";
-import styled from "styled-components";
 
 type EditorStyleOptionsProps = {
   handleOnStyle: (style: string) => void;
@@ -53,7 +53,7 @@ const NoteToolbarStyleOptions = styled.div`
   gap: 0.8rem;
   align-items: center;
   color: ${({ theme }) => theme.colors.primaryExtraLight};
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
 `;
 
 const AttachFiles = styled(BsPaperclip)`

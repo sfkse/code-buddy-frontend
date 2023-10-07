@@ -3,7 +3,7 @@ import { HiOutlineStatusOnline, HiOutlineStatusOffline } from "react-icons/hi";
 import { SlOptions } from "react-icons/sl";
 import { RxAvatar } from "react-icons/Rx";
 
-import Card from "./Card";
+import Card from "../Card";
 
 const ContactStatus = () => {
   return (

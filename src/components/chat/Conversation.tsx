@@ -1,8 +1,9 @@
+import { useState } from "react";
 import { styled } from "styled-components";
 import { IoDocumentAttachOutline, IoSendSharp } from "react-icons/io5";
 import { RxAvatar } from "react-icons/Rx";
-import UserInfoPopUp from "./UserInfoPopUp";
-import { useState } from "react";
+
+import UserInfoPopUp from "../UserInfoPopUp";
 
 const userObject = {
   idusers: "c51ce767-114b-4875-8539-76b3b08793ed",

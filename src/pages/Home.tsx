@@ -1,10 +1,10 @@
 import { styled } from "styled-components";
 
-import Map from "../components/Map";
-import ContactStatus from "../components/ContactStatus";
-import UpcomingEvents from "../components/UpcomingEvents";
-import LatestTopics from "../components/LatestTopics";
-import PageHeader from "../components/PageHeader";
+import Map from "../components/home/Map";
+import ContactStatus from "../components/home/ContactStatus";
+import UpcomingEvents from "../components/home/UpcomingEvents";
+import LatestTopics from "../components/home/LatestTopics";
+import PageHeader from "../components/home/PageHeader";
 
 const Home = () => {
   return (

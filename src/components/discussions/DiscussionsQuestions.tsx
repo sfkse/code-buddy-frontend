@@ -6,14 +6,14 @@ import { AiOutlineArrowUp } from "react-icons/ai";
 import { BsArrowUpRight } from "react-icons/bs";
 import { HiOutlineLockClosed } from "react-icons/hi";
 
-import Card from "./Card";
-import Avatar from "./Avatar";
-import Button from "./Button";
-
-const DiscussionsContent = () => {
+import Card from "../Card";
+import Avatar from "../Avatar";
+import Button from "../Button";
+const DiscussionsQuestions = () => {
   const navigate = useNavigate();
+
   return (
-    <DiscussionsContentWrapper>
+    <>
       <DiscussionsContentTabsWrapper>
         <DiscussionsContentTabs>
           <DiscussionsContentTab>
@@ -334,18 +334,11 @@ const DiscussionsContent = () => {
           </Card>
         </DiscussionsContentListItem>
       </DiscussionsContentList>
-    </DiscussionsContentWrapper>
+    </>
   );
 };
 
-export default DiscussionsContent;
-
-const DiscussionsContentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 2rem 2rem 2rem 0;
-`;
+export default DiscussionsQuestions;
 
 const DiscussionsContentTabsWrapper = styled.div`
   display: flex;
