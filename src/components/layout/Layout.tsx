@@ -4,7 +4,7 @@ import { Outlet, useLocation } from "react-router-dom";
 
 import TopBar from "./TopBar";
 import Sidebar from "./Sidebar";
-import { DEVICES, FONT_SIZES } from "../../styles/Theme";
+import { DEVICES, FONT_SIZES } from "../../styles/theme";
 
 const Layout = () => {
   const [toggle, setToggle] = useState(false);
@@ -38,8 +38,7 @@ export default Layout;
 const LayoutWrapper = styled.div`
   display: grid;
   grid-template-columns: 0.18fr 1fr;
-  /* grid-template-rows: 1fr auto; */
-  /* min-height: 100vh; */
+
   @media only screen and (${DEVICES.sm}) {
     font-size: ${FONT_SIZES.body.sm};
   }

@@ -1,36 +1,4 @@
-import { createGlobalStyle, css } from "styled-components";
-
-// const fontWeights = {
-//   hairline: 100,
-//   thin: 200,
-//   light: 300,
-//   normal: 400,
-//   medium: 500,
-//   semibold: 600,
-//   bold: 700,
-//   extrabold: 800,
-//   black: 900,
-// };
-
-// const lineHeights = {
-//   normal: "normal",
-//   none: 1,
-//   shorter: 1.25,
-//   short: 1.375,
-//   base: 1.5,
-//   tall: 1.625,
-//   taller: "2",
-// };
-
-export const menuItemBorder = css`
-  border-left: 4px solid;
-  border-image: linear-gradient(
-      to bottom,
-      ${({ theme }) => theme.colors.yellow},
-      rgba(0, 0, 0)
-    )
-    8%;
-`;
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
   *:where(

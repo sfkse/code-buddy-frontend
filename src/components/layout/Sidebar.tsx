@@ -4,8 +4,7 @@ import { CSSProperties } from "react";
 import { CgClose } from "react-icons/cg";
 import { HiCodeBracket } from "react-icons/hi2";
 
-import { menuItemBorder } from "../../styles/Global";
-import { DEVICES } from "../../styles/theme";
+import { DEVICES, MENU_ITEM_BORDER } from "../../styles/theme";
 import { menuLinks } from "../../assets/data/menu";
 
 type SidebarProps = {
@@ -102,7 +101,7 @@ const NavLinkItem = styled(NavLink)`
   padding: 0.8rem 0.5rem;
 
   &:hover {
-    ${menuItemBorder}
+    ${MENU_ITEM_BORDER}
   }
 `;
 

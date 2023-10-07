@@ -1,3 +1,5 @@
+import { css } from "styled-components";
+
 export const theme = {
   colors: {
     //Text
@@ -21,28 +23,6 @@ export const theme = {
   layout: {
     padding: "2rem 1rem;",
   },
-  // selectStyle: {
-  //   option: (base: object, { isFocused, isSelected }) => ({
-  //     ...base,
-  //     backgroundColor: isSelected
-  //       ? theme.colors.lightPrimaryColor
-  //       : theme.colors.white,
-  //     border: isFocused ? 0 : 0,
-  //     boxShadow: isFocused ? 0 : 0,
-  //     ":focus": {
-  //       border: isFocused ? 0 : 0,
-  //       boxShadow: isFocused ? 0 : 0,
-  //     },
-  //     ":hover": {
-  //       backgroundColor: isFocused ? theme.colors.orange : base.backgroundColor,
-  //       color: theme.colors.secondary,
-  //     },
-  //   }),
-  //   control: (styles) => ({
-  //     ...styles,
-  //     border: `1px solid ${theme.colors.primaryLight}`,
-  //   }),
-  // },
 };
 
 const breakpoints = {
@@ -119,4 +99,14 @@ export const EDITOR_STYLE_MAP = {
     fonwWeight: 500,
   },
 };
+
+export const MENU_ITEM_BORDER = css`
+  border-left: 4px solid;
+  border-image: linear-gradient(
+      to bottom,
+      ${({ theme }) => theme.colors.yellow},
+      rgba(0, 0, 0)
+    )
+    8%;
+`;
 
