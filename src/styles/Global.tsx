@@ -48,6 +48,7 @@ export const GlobalStyles = createGlobalStyle`
   input,
   textarea {
     -webkit-user-select: auto;
+    user-select: auto;
   }
 
   /* revert the 'white-space' property for textarea elements on Safari */
@@ -112,5 +113,14 @@ export const GlobalStyles = createGlobalStyle`
 
   .leaflet-popup-close-button {
     display: none;
-  }`;
+  }
+  
+  #toastui-calendar-time{
+    min-height: 600px;
+  }
+
+  .toastui-calendar-month-daygrid{
+    min-height: 600px;
+  }
+  `;
 

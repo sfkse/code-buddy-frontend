@@ -17,6 +17,7 @@ import AuthWrapper from "./components/AuthWrapper";
 import DiscussionsQuestions from "./components/discussions/DiscussionsQuestions";
 import DiscussionsRanking from "./pages/DiscussionsRanking";
 import DiscussionsQuestionsDetail from "./pages/DiscussionsQuestionsDetail";
+import Calendar from "./pages/Calendar";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
             <Route path="welcome" element={<Welcome />} />
             <Route path="notes" element={<Notes />} />
             <Route path="chat" element={<Chat />} />
+            <Route path="calender" element={<Calendar />} />
             <Route path="events" element={<Events />} />
             <Route path="events/:id" element={<EventDetail />} />
             <Route path="discussions" element={<Discussions />}>

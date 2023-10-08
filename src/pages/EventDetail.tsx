@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import Avatar from "../components/Avatar";
 import Button from "../components/Button";
 import ShapeCircle from "../components/ShapeCircle";
@@ -61,7 +62,11 @@ const EventDetail = () => {
         {/* <EventHost>{event.host}</EventHost> */}
         <EventDescription>{event.description}</EventDescription>
         <EventButtonWrapper>
-          <EventButton title="JOIN" variant="primary" />
+          <EventButton
+            title="JOIN"
+            variant="primary"
+            customStyle={{ width: "100%" }}
+          />
         </EventButtonWrapper>
       </EventInfoWrapper>
       <EventTimelineWrapper>
@@ -157,10 +162,10 @@ const EventTitle = styled.h1`
 `;
 
 const EventDate = styled.div`
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: ${({ theme }) => theme.colors.caution};
   margin: 1rem 0;
-  letter-spacing: 0.5px;
+  font-weight: 500;
 `;
 
 const EventDescription = styled.div`
