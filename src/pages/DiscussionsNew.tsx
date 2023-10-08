@@ -1,6 +1,6 @@
 import { useContext, useRef, useState } from "react";
 import styled, { ThemeContext } from "styled-components";
-import { IoSendSharp } from "react-icons/io5";
+import { RiDraftFill } from "react-icons/ri";
 import "draft-js/dist/Draft.css";
 import { Editor, EditorState } from "draft-js";
 
@@ -11,6 +11,7 @@ import DraftEditor from "../components/DraftEditor";
 import EditorStyleOptions from "../components/EditorStyleOptions";
 
 import useSetOnStyle from "../hooks/editor/useSetOnStyle";
+import { TbCubeSend } from "react-icons/tb";
 
 const DiscussionsNew = () => {
   const [formState, setFormState] = useState({
@@ -76,12 +77,12 @@ const DiscussionsNew = () => {
           handleOnChangeEditor={handleOnChangeEditor}
         />
         <ButtonWrapper>
-          <Button type="submit" title="Save as draft" />
+          <Button type="submit" title="Save as draft" icon={<RiDraftFill />} />
           <Button
             type="submit"
             title="Publish"
             variant="primary"
-            icon={<IoSendSharp />}
+            icon={<TbCubeSend />}
           />
         </ButtonWrapper>
       </DiscussionNewFormWrapper>
@@ -111,9 +112,8 @@ const SelectNoteTags = styled(SelectMultiple)`
 
 const ButtonWrapper = styled.div`
   display: flex;
-  width: 50%;
   gap: 1rem;
-  align-self: flex-end;
+  justify-content: flex-end;
   margin-top: 1rem;
 `;
 

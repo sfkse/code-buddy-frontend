@@ -27,8 +27,10 @@ const NotesSetup = ({ handleAddNote }: NotesSetupProps) => {
       <NotesAddWrapper>
         <NotesAddButton
           onClick={handleAddNote}
+          variant="primary"
           title="ADD NOTE"
           icon={<HiOutlinePlus />}
+          customStyle={{ width: "100%" }}
         />
       </NotesAddWrapper>
     </NotesSetupWrapper>

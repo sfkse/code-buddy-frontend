@@ -9,11 +9,21 @@ import { HiOutlineLockClosed } from "react-icons/hi";
 import Card from "../Card";
 import Avatar from "../Avatar";
 import Button from "../Button";
-const DiscussionsQuestions = () => {
+import { FaRegCircleQuestion } from "react-icons/fa6";
+
+type DiscussionsQuestionsProps = {
+  type: "yourquestions" | "youranswers" | "questions";
+};
+const DiscussionsQuestions = ({ type }: DiscussionsQuestionsProps) => {
   const navigate = useNavigate();
+
+  const handleOpenQuestion = () => {
+    navigate("/discussions/questions/1");
+  };
 
   return (
     <>
+      {type === "yourquestions" && <h1>Your Questions</h1>}
       <DiscussionsContentTabsWrapper>
         <DiscussionsContentTabs>
           <DiscussionsContentTab>
@@ -34,208 +44,12 @@ const DiscussionsQuestions = () => {
         <Button
           title="ASK A QUESTION"
           variant="primary"
+          icon={<FaRegCircleQuestion />}
           onClick={() => navigate("/discussions/newquestion")}
-          customStyle={{ flex: 1 }}
         />
       </DiscussionsContentTabsWrapper>
       <DiscussionsContentList>
-        <DiscussionsContentListItem>
-          <Card>
-            <DiscussionsContentCreatorWrapper>
-              <Avatar name="Sefa" />
-              <DiscussionsContentCreatorDetails>
-                <DiscussionsContentCreatorName>
-                  Sefa
-                </DiscussionsContentCreatorName>
-                <DiscussionsContentCreatorDate>
-                  Today
-                </DiscussionsContentCreatorDate>
-              </DiscussionsContentCreatorDetails>
-            </DiscussionsContentCreatorWrapper>
-            <DiscussionsContentListItemTitle>
-              How to patch KDE on FreeBSD?
-            </DiscussionsContentListItemTitle>
-            <DiscussionsContentListItemDescription>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
-              voluptatibus, quos, accusantium, quibusdam voluptas voluptatem
-              voluptatum quod doloribus consequuntur doloremque quae. Quod
-              voluptatem, quia tempore voluptatibus voluptas molestias
-              consequatur.
-            </DiscussionsContentListItemDescription>
-            <DiscussionsContentListItemProperties>
-              <DiscussionsContentListItemTagsWrapper>
-                <DiscussionsContentListItemTag>
-                  golang
-                </DiscussionsContentListItemTag>
-                <DiscussionsContentListItemTag>
-                  linux
-                </DiscussionsContentListItemTag>
-              </DiscussionsContentListItemTagsWrapper>
-              <DiscussionsContentListStatistics>
-                <DiscussionsContentListSeen>
-                  <DiscussionsContentListSeenIcon />
-                  123
-                </DiscussionsContentListSeen>
-                <DiscussionsContentListAnswers>
-                  <DiscussionsContentListAnswersIcon />
-                  123
-                </DiscussionsContentListAnswers>
-                <DiscussionsContentListVotes>
-                  <DiscussionsContentListVotesIcon />
-                  123
-                </DiscussionsContentListVotes>
-              </DiscussionsContentListStatistics>
-            </DiscussionsContentListItemProperties>
-          </Card>
-        </DiscussionsContentListItem>
-        <DiscussionsContentListItem>
-          <Card>
-            <DiscussionsContentCreatorWrapper>
-              <Avatar name="Sefa" />
-              <DiscussionsContentCreatorDetails>
-                <DiscussionsContentCreatorName>
-                  Sefa
-                </DiscussionsContentCreatorName>
-                <DiscussionsContentCreatorDate>
-                  Today
-                </DiscussionsContentCreatorDate>
-              </DiscussionsContentCreatorDetails>
-            </DiscussionsContentCreatorWrapper>
-            <DiscussionsContentListItemTitle>
-              How to patch KDE on FreeBSD?
-            </DiscussionsContentListItemTitle>
-            <DiscussionsContentListItemDescription>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
-              voluptatibus, quos, accusantium, quibusdam voluptas voluptatem
-              voluptatum quod doloribus consequuntur doloremque quae. Quod
-              voluptatem, quia tempore voluptatibus voluptas molestias
-              consequatur.
-            </DiscussionsContentListItemDescription>
-            <DiscussionsContentListItemProperties>
-              <DiscussionsContentListItemTagsWrapper>
-                <DiscussionsContentListItemTag>
-                  golang
-                </DiscussionsContentListItemTag>
-                <DiscussionsContentListItemTag>
-                  linux
-                </DiscussionsContentListItemTag>
-              </DiscussionsContentListItemTagsWrapper>
-              <DiscussionsContentListStatistics>
-                <DiscussionsContentListSeen>
-                  <DiscussionsContentListSeenIcon />
-                  123
-                </DiscussionsContentListSeen>
-                <DiscussionsContentListAnswers>
-                  <DiscussionsContentListAnswersIcon />
-                  123
-                </DiscussionsContentListAnswers>
-                <DiscussionsContentListVotes>
-                  <DiscussionsContentListVotesIcon />
-                  123
-                </DiscussionsContentListVotes>
-              </DiscussionsContentListStatistics>
-            </DiscussionsContentListItemProperties>
-          </Card>
-        </DiscussionsContentListItem>
-        <DiscussionsContentListItem>
-          <Card>
-            <DiscussionsContentCreatorWrapper>
-              <Avatar name="Sefa" />
-              <DiscussionsContentCreatorDetails>
-                <DiscussionsContentCreatorName>
-                  Sefa
-                </DiscussionsContentCreatorName>
-                <DiscussionsContentCreatorDate>
-                  Today
-                </DiscussionsContentCreatorDate>
-              </DiscussionsContentCreatorDetails>
-            </DiscussionsContentCreatorWrapper>
-            <DiscussionsContentListItemTitle>
-              How to patch KDE on FreeBSD?
-            </DiscussionsContentListItemTitle>
-            <DiscussionsContentListItemDescription>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
-              voluptatibus, quos, accusantium, quibusdam voluptas voluptatem
-              voluptatum quod doloribus consequuntur doloremque quae. Quod
-              voluptatem, quia tempore voluptatibus voluptas molestias
-              consequatur.
-            </DiscussionsContentListItemDescription>
-            <DiscussionsContentListItemProperties>
-              <DiscussionsContentListItemTagsWrapper>
-                <DiscussionsContentListItemTag>
-                  golang
-                </DiscussionsContentListItemTag>
-                <DiscussionsContentListItemTag>
-                  linux
-                </DiscussionsContentListItemTag>
-              </DiscussionsContentListItemTagsWrapper>
-              <DiscussionsContentListStatistics>
-                <DiscussionsContentListSeen>
-                  <DiscussionsContentListSeenIcon />
-                  123
-                </DiscussionsContentListSeen>
-                <DiscussionsContentListAnswers>
-                  <DiscussionsContentListAnswersIcon />
-                  123
-                </DiscussionsContentListAnswers>
-                <DiscussionsContentListVotes>
-                  <DiscussionsContentListVotesIcon />
-                  123
-                </DiscussionsContentListVotes>
-              </DiscussionsContentListStatistics>
-            </DiscussionsContentListItemProperties>
-          </Card>
-        </DiscussionsContentListItem>
-        <DiscussionsContentListItem>
-          <Card>
-            <DiscussionsContentCreatorWrapper>
-              <Avatar name="Sefa" />
-              <DiscussionsContentCreatorDetails>
-                <DiscussionsContentCreatorName>
-                  Sefa
-                </DiscussionsContentCreatorName>
-                <DiscussionsContentCreatorDate>
-                  Today
-                </DiscussionsContentCreatorDate>
-              </DiscussionsContentCreatorDetails>
-            </DiscussionsContentCreatorWrapper>
-            <DiscussionsContentListItemTitle>
-              How to patch KDE on FreeBSD?
-            </DiscussionsContentListItemTitle>
-            <DiscussionsContentListItemDescription>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
-              voluptatibus, quos, accusantium, quibusdam voluptas voluptatem
-              voluptatum quod doloribus consequuntur doloremque quae. Quod
-              voluptatem, quia tempore voluptatibus voluptas molestias
-              consequatur.
-            </DiscussionsContentListItemDescription>
-            <DiscussionsContentListItemProperties>
-              <DiscussionsContentListItemTagsWrapper>
-                <DiscussionsContentListItemTag>
-                  golang
-                </DiscussionsContentListItemTag>
-                <DiscussionsContentListItemTag>
-                  linux
-                </DiscussionsContentListItemTag>
-              </DiscussionsContentListItemTagsWrapper>
-              <DiscussionsContentListStatistics>
-                <DiscussionsContentListSeen>
-                  <DiscussionsContentListSeenIcon />
-                  123
-                </DiscussionsContentListSeen>
-                <DiscussionsContentListAnswers>
-                  <DiscussionsContentListAnswersIcon />
-                  123
-                </DiscussionsContentListAnswers>
-                <DiscussionsContentListVotes>
-                  <DiscussionsContentListVotesIcon />
-                  123
-                </DiscussionsContentListVotes>
-              </DiscussionsContentListStatistics>
-            </DiscussionsContentListItemProperties>
-          </Card>
-        </DiscussionsContentListItem>
-        <DiscussionsContentListItem>
+        <DiscussionsContentListItem onClick={handleOpenQuestion}>
           <Card>
             <DiscussionsContentCreatorWrapper>
               <Avatar name="Sefa" />
@@ -404,6 +218,7 @@ const DiscussionsContentList = styled.ul`
 
 const DiscussionsContentListItem = styled.li`
   margin-bottom: 2rem;
+  cursor: pointer;
 `;
 
 const DiscussionsContentCreatorWrapper = styled.div`

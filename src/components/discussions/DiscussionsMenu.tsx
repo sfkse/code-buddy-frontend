@@ -46,24 +46,42 @@ const DiscussionsMenu = () => {
         <DiscussionsMenuPersonalHeader>
           Personal Menu
         </DiscussionsMenuPersonalHeader>
-        <DiscussionsMenuItem>
+        <NavLinkItem
+          to={"/discussions/yourquestions"}
+          key={"Your Questions"}
+          style={({ isActive }): CSSProperties => ({
+            fontWeight: isActive ? "bold" : "normal",
+          })}
+        >
           <DiscussionsMenuItemIcon>
             <YourQuestionsIcon />
           </DiscussionsMenuItemIcon>
           <DiscussionsMenuItemText>Your Questions</DiscussionsMenuItemText>
-        </DiscussionsMenuItem>
-        <DiscussionsMenuItem>
+        </NavLinkItem>
+        <NavLinkItem
+          to={"/discussions/youranswers"}
+          key={"Your Answers"}
+          style={({ isActive }): CSSProperties => ({
+            fontWeight: isActive ? "bold" : "normal",
+          })}
+        >
           <DiscussionsMenuItemIcon>
             <YourAnswersIcon />
           </DiscussionsMenuItemIcon>
           <DiscussionsMenuItemText>Your Answers</DiscussionsMenuItemText>
-        </DiscussionsMenuItem>
-        <DiscussionsMenuItem>
+        </NavLinkItem>
+        {/* <NavLinkItem
+          to={"/discussions/yourlikes"}
+          key={"Your likes & votes"}
+          style={({ isActive }): CSSProperties => ({
+            fontWeight: isActive ? "bold" : "normal",
+          })}
+        >
           <DiscussionsMenuItemIcon>
             <YourLikesIcon />
           </DiscussionsMenuItemIcon>
           <DiscussionsMenuItemText>Your likes & votes</DiscussionsMenuItemText>
-        </DiscussionsMenuItem>
+        </NavLinkItem> */}
       </DiscussionsMenuList>
     </DiscussionsMenuWrapper>
   );
@@ -134,22 +152,6 @@ const NavLinkItem = styled(NavLink)`
   }
 
   &.active {
-    background-color: ${({ theme }) => theme.colors.secondary};
-
-    ${QuestionsIcon}, ${TagsIcon}, ${RankingIcon}, ${YourQuestionsIcon}, ${YourAnswersIcon}, ${YourLikesIcon} {
-      color: ${({ theme }) => theme.colors.yellow};
-    }
-  }
-`;
-
-const DiscussionsMenuItem = styled.li`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.7rem 2rem;
-  cursor: pointer;
-  &:hover {
     background-color: ${({ theme }) => theme.colors.secondary};
 
     ${QuestionsIcon}, ${TagsIcon}, ${RankingIcon}, ${YourQuestionsIcon}, ${YourAnswersIcon}, ${YourLikesIcon} {

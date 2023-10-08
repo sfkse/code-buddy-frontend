@@ -9,6 +9,7 @@ const Button = ({
   onClick,
   buttonStyle,
   customStyle,
+  iconStyle,
   disabled,
   type,
   variant,
@@ -24,7 +25,7 @@ const Button = ({
       style={style as React.CSSProperties}
       disabled={disabled}
     >
-      <span>{icon}</span> <span>{title}</span>
+      {icon && <Icon style={iconStyle}>{icon}</Icon>} <span>{title}</span>
     </ButtonComponent>
   );
 };
@@ -39,10 +40,10 @@ const ButtonComponent = styled.button<{ $variant?: string }>`
     $variant === "primary" ? theme.colors.yellow : theme.colors.caution};
   color: ${({ theme, $variant }) =>
     $variant === "primary" ? theme.colors.primary : theme.colors.secondary};
-  width: 100%;
+  width: fit-content;
   border: none;
   text-align: center;
-  padding: 0.5rem 1rem;
+  padding: 0.2rem 1rem;
   font-size: 0.8rem;
   font-weight: 700;
   cursor: pointer;
@@ -57,5 +58,11 @@ const ButtonComponent = styled.button<{ $variant?: string }>`
     color: ${({ theme }) => theme.colors.secondary};
     cursor: not-allowed;
   }
+`;
+
+const Icon = styled.span`
+  font-size: 1rem;
+  padding-top: 5px;
+  margin-right: 0.5rem;
 `;
 

@@ -18,7 +18,8 @@ export default Discussions;
 
 const DiscussionsWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 1fr 4fr;
+  grid-column-gap: 0.5rem;
 `;
 
 const DiscussionsContentWrapper = styled.div`

@@ -31,14 +31,23 @@ const App = () => {
             <Route path="events" element={<Events />} />
             <Route path="events/:id" element={<EventDetail />} />
             <Route path="discussions" element={<Discussions />}>
-              <Route path="questions" element={<DiscussionsQuestions />} />
+              <Route
+                path="questions"
+                element={<DiscussionsQuestions type="questions" />}
+              />
               <Route
                 path="questions/:id"
                 element={<DiscussionsQuestionsDetail />}
               />
               <Route path="ranking" element={<DiscussionsRanking />} />
-              <Route path="yourquestions" element={<Discussions />} />
-              <Route path="youranswers" element={<Discussions />} />
+              <Route
+                path="yourquestions"
+                element={<DiscussionsQuestions type="yourquestions" />}
+              />
+              <Route
+                path="youranswers"
+                element={<DiscussionsQuestions type="youranswers" />}
+              />
               <Route path="yourlikes" element={<Discussions />} />
               <Route path="newquestion" element={<DiscussionsNew />} />
             </Route>
