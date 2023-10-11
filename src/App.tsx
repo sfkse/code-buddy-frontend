@@ -18,6 +18,9 @@ import DiscussionsQuestions from "./components/discussions/DiscussionsQuestions"
 import DiscussionsRanking from "./pages/DiscussionsRanking";
 import DiscussionsQuestionsDetail from "./pages/DiscussionsQuestionsDetail";
 import Calendar from "./pages/Calendar";
+import Settings from "./pages/Settings";
+import SettingsAccount from "./pages/SettingsAccount";
+import SettingsPermissions from "./pages/SettingsPermissions";
 
 const App = () => {
   return (
@@ -52,6 +55,15 @@ const App = () => {
               />
               <Route path="yourlikes" element={<Discussions />} />
               <Route path="newquestion" element={<DiscussionsNew />} />
+            </Route>
+            <Route path="/settings" element={<Settings />}>
+              <Route path="account" element={<SettingsAccount />} />
+              <Route path="permissions" element={<SettingsPermissions />} />
+              {/*<Route path="notifications" element={<SettingsNotifications />} /> */}
+              {/* <Route path="privacy" element={<Discussions />} />
+              <Route path="billing" element={<Discussions />} />
+              <Route path="integrations" element={<Discussions />} /> */}
+              <Route path="help" element={<Discussions />} />
             </Route>
           </Route>
           <Route path="/login" element={<Login />} />

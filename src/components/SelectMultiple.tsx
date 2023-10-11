@@ -12,11 +12,16 @@ type ColourOption = {
 type SelectMultipleProps = {
   options: Array<{ color: string; label: string; value: string }>;
   defaultValue?: Array<{ color: string; label: string; value: string }>;
+  placeholder: string;
 };
 
 const animatedComponents = makeAnimated();
 
-const SelectMultiple = ({ options, defaultValue }: SelectMultipleProps) => {
+const SelectMultiple = ({
+  options,
+  placeholder,
+  defaultValue,
+}: SelectMultipleProps) => {
   return (
     <Select
       styles={colourStyles}
@@ -25,12 +30,19 @@ const SelectMultiple = ({ options, defaultValue }: SelectMultipleProps) => {
       isMulti
       defaultValue={defaultValue}
       options={options}
+      placeholder={placeholder}
     />
   );
 };
 
 const colourStyles: StylesConfig<ColourOption, true> = {
-  control: (styles) => ({ ...styles, backgroundColor: "white" }),
+  control: (styles) => ({
+    ...styles,
+    backgroundColor: "white",
+    fontSize: 14,
+    borderColor: "#e0e2db",
+    boxShadow: "none",
+  }),
   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
     const color = chroma(data.color);
 
@@ -45,6 +57,7 @@ const colourStyles: StylesConfig<ColourOption, true> = {
         : undefined,
       color: data.color,
       cursor: isDisabled ? "not-allowed" : "default",
+      fontSize: 14,
 
       ":active": {
         ...styles[":active"],

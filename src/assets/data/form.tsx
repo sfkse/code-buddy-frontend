@@ -44,3 +44,24 @@ export const registerFormFields = [
   },
 ];
 
+export const accountSettingsFormFields = [
+  {
+    label: "Email*",
+    placeholder: "email@example.com",
+    type: "email",
+    name: "email",
+  },
+  {
+    label: "Fistname*",
+    placeholder: "Fellow",
+    type: "text",
+    name: "firstName",
+  },
+  {
+    label: "Lastname*",
+    placeholder: "Coders",
+    type: "text",
+    name: "lastName",
+  },
+];
+

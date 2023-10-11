@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
+import { RiUserAddFill } from "react-icons/ri";
 
 import Button from "./Button";
+
 import { User } from "../types/user";
 import { transformToHashtags } from "../utils/stringUtils";
 
@@ -30,8 +32,13 @@ const UserInfoPopUp = ({ user, type }: UserInfoPopUpProps) => {
       </UserTagsWrapper>
       {type !== "noAction" && (
         <Actions>
-          <Button title="CALL" />
-          <Button title="MESSAGE" />
+          <Button
+            title="CONNECT"
+            variant="primary"
+            icon={<RiUserAddFill />}
+            iconStyle={{ marginRight: 0 }}
+            fullWidth
+          />
         </Actions>
       )}
     </PopUpWrapper>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Calendar from "@toast-ui/calendar"; /* ES6 module in Node.js environment */
-import "@toast-ui/calendar/dist/toastui-calendar.min.css"; // Stylesheet for calendar
+import Calendar from "@toast-ui/calendar";
+import "@toast-ui/calendar/dist/toastui-calendar.min.css";
 import "tui-date-picker/dist/tui-date-picker.css";
 import "tui-time-picker/dist/tui-time-picker.css";
 

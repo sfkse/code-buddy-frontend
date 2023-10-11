@@ -12,6 +12,7 @@ const Button = ({
   iconStyle,
   disabled,
   type,
+  fullWidth,
   variant,
 }: ButtonProps) => {
   const style =
@@ -21,9 +22,10 @@ const Button = ({
     <ButtonComponent
       type={type || "button"}
       onClick={onClick}
-      $variant={variant}
       style={style as React.CSSProperties}
       disabled={disabled}
+      $variant={variant}
+      $fullWidth={fullWidth}
     >
       {icon && <Icon style={iconStyle}>{icon}</Icon>} <span>{title}</span>
     </ButtonComponent>
@@ -32,7 +34,10 @@ const Button = ({
 
 export default Button;
 
-const ButtonComponent = styled.button<{ $variant?: string }>`
+const ButtonComponent = styled.button<{
+  $variant?: string;
+  $fullWidth?: boolean;
+}>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,7 +45,7 @@ const ButtonComponent = styled.button<{ $variant?: string }>`
     $variant === "primary" ? theme.colors.yellow : theme.colors.caution};
   color: ${({ theme, $variant }) =>
     $variant === "primary" ? theme.colors.primary : theme.colors.secondary};
-  width: fit-content;
+  width: ${({ $fullWidth }) => ($fullWidth ? "100%" : "fit-content")};
   border: none;
   text-align: center;
   padding: 0.2rem 1rem;

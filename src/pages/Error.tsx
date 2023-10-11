@@ -19,7 +19,7 @@ const Error = () => {
       <ErrorPageButton
         onClick={handleReturnHome}
         title="RETURN HOME"
-        customStyle={{ width: "100%" }}
+        fullWidth
         icon={<ReturnIcon />}
       />
     </ErrorPageWrapper>

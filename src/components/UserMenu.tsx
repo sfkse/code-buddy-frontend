@@ -2,11 +2,13 @@ import { styled } from "styled-components";
 
 import DropdownMenu from "./DropdownMenu";
 import { useLogoutUser } from "../hooks/user/useLogoutUser";
+import { useNavigate } from "react-router-dom";
 
 const UserMenu = () => {
   const { logoutUser } = useLogoutUser();
+  const navigate = useNavigate();
   const dropdownMenuContent = [
-    { text: "Settings", onClick: () => console.log("settings") },
+    { text: "Settings", onClick: () => navigate("/settings") },
     { text: "Logout", onClick: () => logoutUser() },
   ];
 

@@ -16,8 +16,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <GlobalStyles />
       <ThemeProvider theme={theme}>
+        <GlobalStyles />
         <BrowserRouter>
           <App />
         </BrowserRouter>

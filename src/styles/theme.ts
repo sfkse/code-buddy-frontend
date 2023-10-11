@@ -8,6 +8,7 @@ export const theme = {
     primaryExtraLight: "#19171670",
     secondary: "#e0e2db",
     yellow: "#e6af2e",
+    yellowLight: "#eec76d",
     white: "white",
     danger: "#ED2121",
     caution: "#F73423",

@@ -30,7 +30,7 @@ const NotesSetup = ({ handleAddNote }: NotesSetupProps) => {
           variant="primary"
           title="ADD NOTE"
           icon={<HiOutlinePlus />}
-          customStyle={{ width: "100%" }}
+          fullWidth
         />
       </NotesAddWrapper>
     </NotesSetupWrapper>

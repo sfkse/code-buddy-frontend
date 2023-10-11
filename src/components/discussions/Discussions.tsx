@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { Outlet } from "react-router-dom";
 
-import DiscussionsMenu from "./DiscussionsMenu";
+import PageMenu from "./PageMenu";
+import { discussionsMenuLinks } from "../../assets/data/menu";
 
 const Discussions = () => {
   return (
     <DiscussionsWrapper>
-      <DiscussionsMenu />
+      <PageMenu pageMenuLinks={discussionsMenuLinks} page="discussions" />
       <DiscussionsContentWrapper>
         <Outlet />
       </DiscussionsContentWrapper>

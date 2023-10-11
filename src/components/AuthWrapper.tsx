@@ -18,6 +18,7 @@ const AuthWrapper = ({ children }: AuthWrapperProps) => {
   // Send user to login page if not logged in
   if (
     !credentials &&
+    location.pathname !== "/" &&
     location.pathname !== "/login" &&
     location.pathname !== "/register"
   )

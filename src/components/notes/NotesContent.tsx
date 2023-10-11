@@ -30,6 +30,7 @@ const NotesContent = () => {
       </NoteContentToolbarWrapper>
       <NoteTagsWrapper>
         <SelectNoteTags
+          placeholder="Tag your note..."
           options={[
             { color: "green", label: "General", value: "General" },
             { color: "red", label: "Work", value: "Work" },

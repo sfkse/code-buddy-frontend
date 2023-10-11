@@ -115,12 +115,17 @@ export const GlobalStyles = createGlobalStyle`
     display: none;
   }
   
+  /* Toast UI Calendar */
   #toastui-calendar-time{
     min-height: 600px;
   }
 
   .toastui-calendar-month-daygrid{
     min-height: 600px;
+  }
+
+  .react-switch-handle{
+    border: 1px solid ${({ theme }) => theme.colors.secondary};
   }
   `;
 

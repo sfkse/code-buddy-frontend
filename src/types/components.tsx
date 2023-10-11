@@ -7,6 +7,7 @@ export type ButtonProps = {
   iconStyle?: React.CSSProperties;
   icon?: React.ReactElement;
   disabled?: boolean;
+  fullWidth?: boolean;
   onClick?: () => void;
 };
 

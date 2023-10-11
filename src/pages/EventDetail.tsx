@@ -62,11 +62,7 @@ const EventDetail = () => {
         {/* <EventHost>{event.host}</EventHost> */}
         <EventDescription>{event.description}</EventDescription>
         <EventButtonWrapper>
-          <EventButton
-            title="JOIN"
-            variant="primary"
-            customStyle={{ width: "100%" }}
-          />
+          <EventButton title="JOIN" variant="primary" fullWidth />
         </EventButtonWrapper>
       </EventInfoWrapper>
       <EventTimelineWrapper>

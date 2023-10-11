@@ -63,7 +63,10 @@ const DiscussionsNew = () => {
   return (
     <DiscussionNewContentWrapper>
       <DiscussionNewFormWrapper>
-        <SelectNoteTags options={fetchTags()} />
+        <SelectDiscussionTags
+          options={fetchTags()}
+          placeholder="Select tags..."
+        />
         <FormFields
           formFields={formFields}
           formState={formState}
@@ -104,7 +107,7 @@ const DiscussionNewFormWrapper = styled.form`
   gap: 1rem;
 `;
 
-const SelectNoteTags = styled(SelectMultiple)`
+const SelectDiscussionTags = styled(SelectMultiple)`
   position: absolute;
   z-index: 10;
   margin-bottom: 1rem;
