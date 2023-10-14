@@ -77,6 +77,7 @@ const ConversationWrapper = styled.div`
   height: 90vh;
   overflow-y: scroll;
   border-left: 1px solid ${({ theme }) => theme.colors.secondary};
+  padding: 1rem;
 `;
 
 const ConversationHeader = styled.div`

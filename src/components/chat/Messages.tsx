@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import { RxAvatar } from "react-icons/Rx";
 import { TbSearch } from "react-icons/tb";
+import { DEVICES } from "../../styles/theme";
 
 const Messages = () => {
   return (
@@ -46,6 +47,12 @@ const MessagesWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow-y: scroll;
+
+  @media only screen and (${DEVICES.sm}) {
+    max-height: 50vh;
+    overflow-y: scroll;
+  }
 `;
 
 const MessagesHeader = styled.div`
@@ -97,6 +104,10 @@ const MessagesListItem = styled.div<{ $active?: boolean }>`
     $active && {
       backgroundColor: theme.colors.secondary,
     }}
+
+  @media only screen and (${DEVICES.md}) {
+    padding: 0.7rem 1rem;
+  }
 `;
 
 const MessagesListItemAvatar = styled(RxAvatar)`

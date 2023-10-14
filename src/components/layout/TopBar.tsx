@@ -1,28 +1,23 @@
 import { styled } from "styled-components";
 import { CgMenuLeftAlt } from "react-icons/cg";
+
 import Actions from "../Actions";
 import UserMenu from "../UserMenu";
+
 import { DEVICES } from "../../styles/theme";
-import Button from "../Button";
-import { BiMailSend } from "react-icons/bi";
 
 type TopBarProps = {
-  handleOnToggle: () => void;
+  handleOnToggle: (toggle: boolean) => void;
 };
 
 const TopBar = ({ handleOnToggle }: TopBarProps) => {
   return (
     <TopBarWrapper>
       <SidebarToggle>
-        <ToggleHamburger onClick={handleOnToggle}>
+        <ToggleHamburger onClick={() => handleOnToggle(true)}>
           <CgMenuLeftAlt />
         </ToggleHamburger>
       </SidebarToggle>
-      <InviteFriendsLink
-        variant="secondary"
-        title="Invite Friends"
-        icon={<BiMailSend />}
-      />
       <ActionsWrapper>
         <Actions />
         <UserMenu />
@@ -35,25 +30,14 @@ export default TopBar;
 
 const TopBarWrapper = styled.div`
   display: flex;
-  max-height: 4rem;
-  grid-area: 1 / 2 / 2 / -1;
-  padding: 0 2rem;
-  min-width: 100%;
-  justify-content: space-between;
   align-items: center;
+  justify-content: flex-end;
+  padding: 0.3rem 1rem;
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
   @media only screen and (${DEVICES.md}) {
-    grid-area: 1 / 1 / 2 / 3;
     justify-content: space-between;
+    width: 100vw;
   }
-`;
-
-const InviteFriendsLink = styled(Button)`
-  display: block;
-  text-decoration: none;
-  color: ${({ theme }) => theme.colors.primary};
-  /* @media only screen and (${DEVICES.md}) {
-  } */
 `;
 
 const ActionsWrapper = styled.div`
@@ -76,7 +60,7 @@ const SidebarToggle = styled.div`
 const ToggleHamburger = styled.span`
   display: none;
   @media only screen and (${DEVICES.md}) {
-    display: block;
+    display: flex;
     cursor: pointer;
     font-size: 1.5rem;
   }

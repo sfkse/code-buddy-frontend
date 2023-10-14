@@ -2,6 +2,7 @@ import styled from "styled-components";
 import chroma from "chroma-js";
 
 import NotesSetup from "./NotesSetup";
+import { DEVICES } from "../../styles/theme";
 
 const NotesList = () => {
   const color1 = chroma("green");
@@ -11,47 +12,68 @@ const NotesList = () => {
     console.log("Add note");
   };
   return (
-    <NotesListWrapper>
+    <NoteListWrapper>
       <NotesSetup handleAddNote={handleAddNote} />
-      <Note>
-        <NotePropertiesWrapper>
-          <NoteTag $color={color1}>General</NoteTag>
-          <NoteDate>Today</NoteDate>
-        </NotePropertiesWrapper>
-        <NoteTitle>My first note</NoteTitle>
-        <NoteContent>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
-          voluptatibus, quos, accusantium, quibusdam voluptas voluptatem
-          voluptatum quod doloribus consequuntur doloremque quae. Quod
-          voluptatem, quia tempore voluptatibus voluptas molestias consequatur.
-        </NoteContent>
-      </Note>
-      <Note>
-        <NotePropertiesWrapper>
-          <NoteTag $color={color2}>Primary</NoteTag>
-          <NoteDate>Today</NoteDate>
-        </NotePropertiesWrapper>
-        <NoteTitle>My first note</NoteTitle>
-        <NoteContent>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
-          voluptatibus, quos, accusantium, quibusdam voluptas voluptatem
-          voluptatum quod doloribus consequuntur doloremque quae. Quod
-          voluptatem, quia tempore voluptatibus voluptas molestias consequatur.
-        </NoteContent>
-      </Note>
-    </NotesListWrapper>
+      <NotesListItemWrapper>
+        <NoteListItem>
+          <NotePropertiesWrapper>
+            <NoteTag $color={color1}>General</NoteTag>
+            <NoteDate>Today</NoteDate>
+          </NotePropertiesWrapper>
+          <NoteTitle>My first note</NoteTitle>
+          <NoteContent>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
+            voluptatibus, quos, accusantium, quibusdam voluptas voluptatem
+            voluptatum quod doloribus consequuntur doloremque quae. Quod
+            voluptatem, quia tempore voluptatibus voluptas molestias
+            consequatur.
+          </NoteContent>
+        </NoteListItem>
+        <NoteListItem>
+          <NotePropertiesWrapper>
+            <NoteTag $color={color2}>Primary</NoteTag>
+            <NoteDate>Today</NoteDate>
+          </NotePropertiesWrapper>
+          <NoteTitle>My first note</NoteTitle>
+          <NoteContent>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
+            voluptatibus, quos, accusantium, quibusdam voluptas voluptatem
+            voluptatum quod doloribus consequuntur doloremque quae. Quod
+            voluptatem, quia tempore voluptatibus voluptas molestias
+            consequatur.
+          </NoteContent>
+        </NoteListItem>
+      </NotesListItemWrapper>
+    </NoteListWrapper>
   );
 };
 
 export default NotesList;
 
-const NotesListWrapper = styled.div`
+const NoteListWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  border-right: 1px solid ${({ theme }) => theme.colors.secondary};
+
+  @media only screen and (${DEVICES.md}) {
+    padding: 1rem;
+    border-right: none;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.secondary};
+  }
 `;
 
-const Note = styled.li`
+const NotesListItemWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  overflow-y: scroll;
+  @media only screen and (${DEVICES.md}) {
+    max-height: 40vh;
+    overflow-y: scroll;
+  }
+`;
+
+const NoteListItem = styled.li`
   padding: 1rem 2rem;
   list-style: none;
   cursor: pointer;

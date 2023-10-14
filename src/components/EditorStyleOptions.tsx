@@ -14,6 +14,8 @@ import {
 } from "react-icons/bs";
 import { FiAlignJustify } from "react-icons/fi";
 
+import { DEVICES } from "../styles/theme";
+
 type EditorStyleOptionsProps = {
   handleOnStyle: (style: string) => void;
 };
@@ -53,7 +55,12 @@ const NoteToolbarStyleOptions = styled.div`
   gap: 0.8rem;
   align-items: center;
   color: ${({ theme }) => theme.colors.primaryExtraLight};
-  /* margin-bottom: 1rem; */
+
+  @media only screen and (${DEVICES.md}) {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    flex-wrap: wrap;
+  }
 `;
 
 const AttachFiles = styled(BsPaperclip)`

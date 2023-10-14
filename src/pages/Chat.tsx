@@ -1,16 +1,11 @@
-import { useEffect } from "react";
 import { styled } from "styled-components";
 
 import Conversation from "../components/chat/Conversation";
 import Messages from "../components/chat/Messages";
 
-import { postChatMessage } from "../api/chat";
+import { DEVICES } from "../styles/theme";
 
 const Chat = () => {
-  useEffect(() => {
-    postChatMessage({ message: "Hello World" });
-  }, []);
-
   return (
     <ChatWrapper>
       <Messages />
@@ -23,7 +18,11 @@ export default Chat;
 
 const ChatWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1fr 3fr;
-  height: 100vh;
+  grid-template-columns: 1fr 2.5fr;
+  padding-bottom: 2rem;
+
+  @media only screen and (${DEVICES.sm}) {
+    grid-template-columns: 1fr;
+  }
 `;
 

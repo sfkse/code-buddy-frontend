@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { BsFillTrash3Fill, BsPrinter, BsShare } from "react-icons/bs";
 import { FiSave } from "react-icons/fi";
+import { DEVICES } from "../../styles/theme";
 
 type NoteContentToolbarProps = {
   handleDeleteNote: () => void;
@@ -30,6 +31,10 @@ const NoteToolbarWrapper = styled.div`
   gap: 0.8rem;
   align-items: center;
   color: ${({ theme }) => theme.colors.primaryExtraLight};
+
+  @media only screen and (${DEVICES.md}) {
+    font-size: 1rem;
+  }
 `;
 
 const NoteToolbarConfigOptions = styled.div`

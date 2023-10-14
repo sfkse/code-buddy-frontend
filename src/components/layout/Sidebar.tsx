@@ -1,24 +1,34 @@
+import { CSSProperties, useEffect } from "react";
 import { styled } from "styled-components";
 import { NavLink } from "react-router-dom";
-import { CSSProperties } from "react";
 import { CgClose } from "react-icons/cg";
 import { HiCodeBracket } from "react-icons/hi2";
+import { BiMailSend } from "react-icons/bi";
 
 import { DEVICES, MENU_ITEM_BORDER } from "../../styles/theme";
 import { menuLinks } from "../../assets/data/menu";
+import Button from "../Button";
 
 type SidebarProps = {
   toggle: boolean;
-  handleToggle: () => void;
+  handleOnToggle: (toggle: boolean) => void;
 };
 
-const Sidebar = ({ toggle, handleToggle }: SidebarProps) => {
+const Sidebar = ({ toggle, handleOnToggle }: SidebarProps) => {
+  useEffect(() => {
+    if (toggle) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [toggle]);
+
   return (
     <SidebarWrapper $toggleSidebar={toggle}>
       <Logo>
         FELLOW <HiCodeBracketStyle /> CODERS
       </Logo>
-      <CgCloseIcon onClick={handleToggle} />
+      <CgCloseIcon onClick={() => handleOnToggle(false)} />
       <MenuItemWrapper>
         {menuLinks.map((link) => (
           <NavLinkItem
@@ -28,11 +38,18 @@ const Sidebar = ({ toggle, handleToggle }: SidebarProps) => {
               fontWeight: isActive ? "bold" : "normal",
               color: isActive ? "#fff" : "#ccc",
             })}
+            onClick={() => handleOnToggle(false)}
           >
             {link.icon}
             {link.label}
           </NavLinkItem>
         ))}
+        <Button
+          variant="secondary"
+          title="Invite Friends"
+          icon={<BiMailSend />}
+          customStyle={{ marginTop: "1rem" }}
+        />
       </MenuItemWrapper>
     </SidebarWrapper>
   );
@@ -48,15 +65,16 @@ const SidebarWrapper = styled.div<{
   color: ${({ theme }) => theme.colors.white};
   padding: ${({ theme }) => theme.layout.padding};
   padding-bottom: 0;
+  height: 100%;
   @media only screen and (${DEVICES.md}) {
     position: absolute;
-    left: ${(props) => (props.$toggleSidebar ? "-100%" : "0")};
+    left: ${(props) => (props.$toggleSidebar ? "0" : "-100%")};
     top: 0;
-    right: ${(props) => (props.$toggleSidebar ? "100%" : "0")};
+    right: ${(props) => (props.$toggleSidebar ? "0" : "100%")};
     bottom: 0;
-    z-index: 500;
-    transition: left 0.3s ease-in 0s, right 0.3s ease-in 0s;
-    overflow-y: ${(props) => (props.$toggleSidebar ? "hidden" : "scroll")};
+    z-index: 1500;
+    min-height: 100vh;
+    transition: left 0.5s ease-in 0s, right 0.3s ease-in 0s;
   }
 `;
 
@@ -78,6 +96,9 @@ const Logo = styled.h1`
   font-weight: 700;
   color: ${({ theme }) => theme.colors.white};
   margin-bottom: 1rem;
+  @media only screen and (${DEVICES.md}) {
+    font-size: 0.8rem;
+  }
 `;
 
 const HiCodeBracketStyle = styled(HiCodeBracket)`
@@ -89,6 +110,15 @@ const HiCodeBracketStyle = styled(HiCodeBracket)`
 
 const MenuItemWrapper = styled.div`
   margin-top: 2rem;
+  @media only screen and (${DEVICES.md}) {
+    height: 80%;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5rem;
+  }
 `;
 
 const NavLinkItem = styled(NavLink)`
@@ -102,6 +132,15 @@ const NavLinkItem = styled(NavLink)`
 
   &:hover {
     ${MENU_ITEM_BORDER}
+  }
+
+  @media only screen and (${DEVICES.md}) {
+    padding: 0.8rem 0;
+    font-size: 0.8rem;
+
+    &:hover {
+      border: none;
+    }
   }
 `;
 

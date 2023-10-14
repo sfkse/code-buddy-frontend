@@ -9,6 +9,7 @@ import SelectMultiple from "../SelectMultiple";
 import DraftEditor from "../DraftEditor";
 
 import useSetOnStyle from "../../hooks/editor/useSetOnStyle";
+import { DEVICES } from "../../styles/theme";
 
 const NotesContent = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -51,7 +52,11 @@ export default NotesContent;
 
 const NotesContentWrapper = styled.div`
   width: 100%;
-  padding: 2rem 2rem 2rem 0;
+  padding: 2rem;
+
+  @media only screen and (${DEVICES.md}) {
+    padding: 1rem;
+  }
 `;
 
 const NoteContentToolbarWrapper = styled.div`
@@ -60,6 +65,11 @@ const NoteContentToolbarWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  @media only screen and (${DEVICES.md}) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 const NoteTagsWrapper = styled.div`
   margin-bottom: 1rem;

@@ -6,6 +6,8 @@ import { AiOutlineTags } from "react-icons/ai";
 import Button from "../Button";
 import SearchInput from "../SearchInput";
 
+import { DEVICES } from "../../styles/theme";
+
 type NotesSetupProps = {
   handleAddNote: () => void;
 };
@@ -44,11 +46,13 @@ const NotesSetupWrapper = styled.div`
   flex-direction: column;
   margin-bottom: 2rem;
   padding: 2rem;
+  @media only screen and (${DEVICES.md}) {
+    padding: 1rem 0;
+  }
 `;
 
 const NotesOptionsWrapper = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   color: ${({ theme }) => theme.colors.primaryExtraLight};
@@ -66,10 +70,18 @@ const NotesOptions = styled.div`
 const NotesOptionFilterIcon = styled(BsFilter)`
   margin-right: 0.3rem;
   cursor: pointer;
+
+  @media only screen and (${DEVICES.md}) {
+    font-size: 1rem;
+  }
 `;
 
 const NotesOptionTagsIcon = styled(AiOutlineTags)`
   cursor: pointer;
+
+  @media only screen and (${DEVICES.md}) {
+    font-size: 1rem;
+  }
 `;
 
 const NotesSearchWrapper = styled.div`
