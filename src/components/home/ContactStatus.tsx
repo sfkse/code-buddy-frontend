@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { HiOutlineStatusOnline, HiOutlineStatusOffline } from "react-icons/hi";
 import { SlOptions } from "react-icons/sl";
-import { RxAvatar } from "react-icons/Rx";
+import { RxAvatar } from "react-icons/rx";
 
 import Card from "../Card";
 

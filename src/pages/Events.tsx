@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Outlet, useNavigate } from "react-router-dom";
-import { PiSneakerMove, PiTimer } from "react-icons/Pi";
-import { ImLocation2 } from "react-icons/Im";
+import { PiSneakerMove, PiTimer } from "react-icons/pi";
+import { ImLocation2 } from "react-icons/im";
 
 import Card from "../components/Card";
 import Button from "../components/Button";

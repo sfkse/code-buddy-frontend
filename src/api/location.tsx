@@ -1,7 +1,7 @@
 import axios from "axios";
 import api from "./axios";
 
-import { API_KEY_GEOCODE } from "../config/config.dev.json";
+import { API_KEY_GEOCODE } from "../config/config.json";
 import { UserLocation } from "../types/location";
 
 export const getCoordinatesFromLocation = async (

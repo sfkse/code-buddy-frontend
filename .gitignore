@@ -25,4 +25,4 @@ dist-ssr
 
 # Files
 # Add config.dev.json file here
-*config.dev.json
+*config.json

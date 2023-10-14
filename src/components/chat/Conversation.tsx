@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { styled } from "styled-components";
 import { IoDocumentAttachOutline, IoSendSharp } from "react-icons/io5";
-import { RxAvatar } from "react-icons/Rx";
+import { RxAvatar } from "react-icons/rx";
 
 import UserInfoPopUp from "../UserInfoPopUp";
 

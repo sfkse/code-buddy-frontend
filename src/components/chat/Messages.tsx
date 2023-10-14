@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { RxAvatar } from "react-icons/Rx";
+import { RxAvatar } from "react-icons/rx";
 import { TbSearch } from "react-icons/tb";
 import { DEVICES } from "../../styles/theme";
 
