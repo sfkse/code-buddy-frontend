@@ -11,7 +11,7 @@ import Error from "./pages/Error";
 import Register from "./pages/Register";
 import DiscussionsNew from "./pages/DiscussionsNew";
 
-import Discussions from "./components/discussions/Discussions";
+import Discussions from "./pages/Discussions";
 import Layout from "./components/layout/Layout";
 import AuthWrapper from "./components/AuthWrapper";
 import DiscussionsQuestions from "./components/discussions/DiscussionsQuestions";

@@ -1,29 +1,29 @@
 import styled from "styled-components";
 
-import useCalendar from "../../hooks/calendar/useCalendar";
-import { useEffect } from "react";
+// import useCalendar from "../../hooks/calendar/useCalendar";
+// import { useEffect } from "react";
 
-type CalendarUIProps = {
-  view: string;
-};
+// type CalendarUIProps = {
+//   view: string;
+// };
 
-type CalendarSelectDateTimeProps = {
-  start: Date;
-  end: Date;
-};
+// type CalendarSelectDateTimeProps = {
+//   start: Date;
+//   end: Date;
+// };
 
-const CalendarUI = ({ view }: CalendarUIProps) => {
-  const { calendar, events } = useCalendar(view);
+const CalendarUI = () => {
+  // const { calendar, events } = useCalendar(view);
 
-  useEffect(() => {
-    calendar?.createEvents(events);
-  }, [events, calendar]);
+  // useEffect(() => {
+  //   calendar?.createEvents(events);
+  // }, [events, calendar]);
 
-  useEffect(() => {
-    calendar?.on("selectDateTime", (e: CalendarSelectDateTimeProps) => {
-      console.log(e.start, e.end);
-    });
-  }, [calendar]);
+  // useEffect(() => {
+  //   calendar?.on("selectDateTime", (e: CalendarSelectDateTimeProps) => {
+  //     console.log(e.start, e.end);
+  //   });
+  // }, [calendar]);
   return <CalendarContainer id="calendar"></CalendarContainer>;
 };
 

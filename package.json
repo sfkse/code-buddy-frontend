@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview --port 3001"
   },
   "dependencies": {
     "@dicebear/collection": "^7.0.1",
@@ -55,3 +55,4 @@
     "**/draft-js/immutable": "3.8.2"
   }
 }
+

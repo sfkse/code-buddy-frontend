@@ -14,7 +14,7 @@ const CalendarContent = () => {
   return (
     <CalendarWrapper>
       <Button onClick={handleSwitchView} title="Month" variant="primary" />
-      <CalendarUI view={view} />
+      <CalendarUI />
     </CalendarWrapper>
   );
 };

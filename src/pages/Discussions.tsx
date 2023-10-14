@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { Outlet } from "react-router-dom";
 
-import PageMenu from "./PageMenu";
-import { discussionsMenuLinks } from "../../assets/data/menu";
+import PageMenu from "../components/discussions/PageMenu";
+import { discussionsMenuLinks } from "../assets/data/menu";
 
 const Discussions = () => {
   return (

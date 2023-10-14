@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import Calendar from "@toast-ui/calendar";
 import "@toast-ui/calendar/dist/toastui-calendar.min.css";
 import "tui-date-picker/dist/tui-date-picker.css";
 import "tui-time-picker/dist/tui-time-picker.css";
@@ -30,38 +28,39 @@ const events = [
   // },
 ];
 
-const useCalendar = (view: string) => {
-  const [calendar, setCalendar] = useState<Calendar | null>(null);
-  useEffect(() => {
-    const calendarInstance = new Calendar("#calendar", {
-      defaultView: view,
-      useFormPopup: true,
-      useDetailPopup: true,
-      timezone: {
-        zones: [
-          {
-            timezoneName: "Europe/London",
-            displayLabel: "London",
-          },
-        ],
-      },
-      calendars: [
-        {
-          id: "cal1",
-          name: "Personal",
-          backgroundColor: "#03bd9e",
-        },
-        {
-          id: "cal2",
-          name: "Work",
-          backgroundColor: "#00a9ff",
-        },
-      ],
-    });
-    setCalendar(calendarInstance);
-    // calendar.createEvents(events);
-  }, [view]);
-  return { calendar, events };
+const useCalendar = () => {
+  // const [calendar, setCalendar] = useState<Calendar | null>(null);
+  // useEffect(() => {
+  //   const calendarInstance = new Calendar("#calendar", {
+  //     defaultView: view,
+  //     useFormPopup: true,
+  //     useDetailPopup: true,
+  //     timezone: {
+  //       zones: [
+  //         {
+  //           timezoneName: "Europe/London",
+  //           displayLabel: "London",
+  //         },
+  //       ],
+  //     },
+  //     calendars: [
+  //       {
+  //         id: "cal1",
+  //         name: "Personal",
+  //         backgroundColor: "#03bd9e",
+  //       },
+  //       {
+  //         id: "cal2",
+  //         name: "Work",
+  //         backgroundColor: "#00a9ff",
+  //       },
+  //     ],
+  //   });
+  //   setCalendar(calendarInstance);
+  //   // calendar.createEvents(events);
+  // }, [view]);
+  // return { calendar, events };
+  return { events };
 };
 
 export default useCalendar;
