@@ -23,7 +23,6 @@ const NotesWrapper = styled.div`
 
   @media only screen and (${DEVICES.md}) {
     grid-template-columns: 1fr;
-    font-size: 2rem;
   }
 `;
 

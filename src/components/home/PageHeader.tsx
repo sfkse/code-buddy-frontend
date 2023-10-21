@@ -11,7 +11,7 @@ const PageHeader = (props: PageHeaderProps) => {
 export default PageHeader;
 
 const Header = styled.span`
-  font-size: 2rem;
+  font-size: ${({ theme }) => theme.font.heading.lg};
   font-weight: 700;
   margin: 1rem 0;
   align-self: flex-start;

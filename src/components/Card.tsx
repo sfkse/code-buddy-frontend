@@ -31,7 +31,7 @@ const CardWrapper = styled.div`
 `;
 
 const CardTitle = styled.div`
-  font-size: 1.2rem;
+  font-size: ${({ theme }) => theme.font.body.xl};
   margin-bottom: 0.6rem;
   font-weight: 500;
   color: ${({ theme }) => theme.colors.primary};

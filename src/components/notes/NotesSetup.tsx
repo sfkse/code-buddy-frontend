@@ -59,7 +59,7 @@ const NotesOptionsWrapper = styled.div`
 `;
 
 const NotesCount = styled.span`
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
 `;
 
 const NotesOptions = styled.div`
@@ -72,7 +72,7 @@ const NotesOptionFilterIcon = styled(BsFilter)`
   cursor: pointer;
 
   @media only screen and (${DEVICES.md}) {
-    font-size: 1rem;
+    font-size: ${({ theme }) => theme.font.body.base};
   }
 `;
 
@@ -80,7 +80,7 @@ const NotesOptionTagsIcon = styled(AiOutlineTags)`
   cursor: pointer;
 
   @media only screen and (${DEVICES.md}) {
-    font-size: 1rem;
+    font-size: ${({ theme }) => theme.font.body.base};
   }
 `;
 

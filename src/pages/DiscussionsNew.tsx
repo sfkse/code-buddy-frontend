@@ -75,6 +75,7 @@ const DiscussionsNew = () => {
 
         <EditorStyleOptions handleOnStyle={handleOnStyle} />
         <DraftEditor
+          size="sm"
           editorRef={editorRef}
           editorState={editorState}
           handleOnChangeEditor={handleOnChangeEditor}

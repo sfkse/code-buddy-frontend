@@ -13,7 +13,7 @@ export default SearchInput;
 const SearchInputComponent = styled.input`
   border: none;
   outline: none;
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   padding: 0.5rem;
   width: 100%;
   margin: 1rem 0;

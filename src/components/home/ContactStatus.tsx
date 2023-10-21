@@ -70,11 +70,11 @@ const ContactLogo = styled(RxAvatar)`
 `;
 
 const ContactName = styled.div`
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
 `;
 
 const ContactStatusText = styled.div`
-  font-size: 0.9rem;
+  font-size: ${({ theme }) => theme.font.body.sm};
   display: flex;
   align-items: center;
   color: ${({ theme }) => theme.colors.primaryLight};

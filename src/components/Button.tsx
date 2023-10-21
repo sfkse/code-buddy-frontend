@@ -49,7 +49,7 @@ const ButtonComponent = styled.button<{
   border: none;
   text-align: center;
   padding: 0.2rem 1rem;
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
@@ -66,7 +66,7 @@ const ButtonComponent = styled.button<{
 `;
 
 const Icon = styled.span`
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
   padding-top: 5px;
   margin-right: 0.5rem;
 `;

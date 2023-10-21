@@ -69,7 +69,14 @@ const Login = () => {
           formState={formState}
           handleSetFormState={handleSetFormState}
         />
-        <Button type="submit" disabled={isLoading} title="LOGIN" />
+        <Button
+          type="submit"
+          disabled={isLoading}
+          title="LOGIN"
+          fullWidth
+          variant="primary"
+          customStyle={{ padding: "0.5rem 0", fontSize: "1rem" }}
+        />
         <RegisterText>
           Don't you have an account? Create one &nbsp;
           <RegisterLink onClick={() => navigate("/register")}>
@@ -111,14 +118,14 @@ const FormWrapper = styled.form`
 
 const Hr = styled.p`
   text-align: center;
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   font-weight: 700;
   color: ${({ theme }) => theme.colors.secondary};
 `;
 
 const RegisterText = styled.p`
   text-align: center;
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   font-weight: 700;
   color: ${({ theme }) => theme.colors.secondary};
 `;

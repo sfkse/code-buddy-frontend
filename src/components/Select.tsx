@@ -32,7 +32,7 @@ const SelectContainer = styled.select`
   border: none;
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.white};
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
   font-weight: 700;
   outline: none;
   cursor: pointer;

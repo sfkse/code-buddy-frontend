@@ -17,9 +17,30 @@ export const theme = {
       "0px 2px 2px rgba(21, 21, 23, 0.04), 0px 0px 2px rgba(21, 21, 23, 0.04);",
   },
   font: {
-    fontInter: "Inter",
-    smallFont: ".8rem",
-    extraSmallFont: ".65rem",
+    body: {
+      xs: "0.75rem",
+      sm: "0.875rem",
+      base: "1rem",
+      lg: "1.125rem",
+      xl: "1.25rem",
+      "2xl": "1.5rem",
+      "3xl": "1.875rem",
+      "4xl": "2.25rem",
+      "5xl": "3rem",
+      "6xl": "4rem",
+    },
+    heading: {
+      xs: "1rem",
+      sm: "1.25rem",
+      base: "1.5rem",
+      lg: "1.875rem",
+      xl: "2.25rem",
+      "2xl": "3rem",
+      "3xl": "3.75rem",
+      "4xl": "4.5rem",
+      "5xl": "6rem",
+      "6xl": "8rem",
+    },
   },
   layout: {
     padding: "2rem 1rem;",
@@ -42,33 +63,6 @@ export const DEVICES = {
   lg: `(max-width: ${breakpoints.lg})`,
   xl: `(max-width: ${breakpoints.xl})`,
   "2xl": `(min-width: ${breakpoints["2xl"]})`,
-};
-
-export const FONT_SIZES = {
-  body: {
-    xs: "0.75rem",
-    sm: "0.875rem",
-    base: "1rem",
-    lg: "1.125rem",
-    xl: "1.25rem",
-    "2xl": "1.5rem",
-    "3xl": "1.875rem",
-    "4xl": "2.25rem",
-    "5xl": "3rem",
-    "6xl": "4rem",
-  },
-  heading: {
-    xs: "1rem",
-    sm: "1.25rem",
-    base: "1.5rem",
-    lg: "1.875rem",
-    xl: "2.25rem",
-    "2xl": "3rem",
-    "3xl": "3.75rem",
-    "4xl": "4.5rem",
-    "5xl": "6rem",
-    "6xl": "8rem",
-  },
 };
 
 export const GRADIENT_BUTTON_STYLE = {

@@ -100,7 +100,7 @@ const ConversationContactWrapper = styled.div`
 `;
 
 const ConversationContactAvatar = styled(RxAvatar)`
-  font-size: 2rem;
+  font-size: ${({ theme }) => theme.font.heading.lg};
 `;
 
 const ConversationContactInfoWrapper = styled.div`
@@ -110,13 +110,13 @@ const ConversationContactInfoWrapper = styled.div`
 
 const ConversationContactName = styled.div`
   margin-left: 0.3rem;
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   font-weight: 700;
 `;
 
 const ConversationContactLastSeen = styled.div`
   margin-left: 0.3rem;
-  font-size: 0.7rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   color: ${({ theme }) => theme.colors.primaryLight};
 `;
 
@@ -158,7 +158,7 @@ const ConversationSenderMessageContent = styled.div`
 `;
 
 const ConversationSenderMessageContentMessage = styled.p`
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   color: ${({ theme }) => theme.colors.white};
 `;
 
@@ -180,7 +180,7 @@ const ConversationReceiverMessageContent = styled.div`
 `;
 
 const ConversationReceiverMessageContentMessage = styled.p`
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   color: ${({ theme }) => theme.colors.primary};
 `;
 
@@ -194,7 +194,7 @@ const ConversationMessageInputWrapper = styled.div`
 
 const ConversationMessageInput = styled.input`
   flex: 1;
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   border: none;
   outline: none;
   border-radius: 4px;
@@ -206,7 +206,7 @@ const ConversationMessageInput = styled.input`
 `;
 
 const ConversationMessageFileInputIcon = styled(IoDocumentAttachOutline)`
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
   color: ${({ theme }) => theme.colors.primaryLight};
   cursor: pointer;
 `;
@@ -219,7 +219,7 @@ const ConversationMessageIconsDivider = styled.div`
 `;
 const ConversationMessageInputIcon = styled(IoSendSharp)`
   margin-left: 0.3rem;
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
   cursor: pointer;
 `;
 

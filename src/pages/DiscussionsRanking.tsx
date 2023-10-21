@@ -54,25 +54,25 @@ const DiscussionsRankingWrapper = styled.div`
 `;
 
 const DiscussionsRankingHeaderTitle = styled.h3`
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
   font-weight: bold;
   color: ${({ theme }) => theme.colors.primary};
 `;
 
 const DiscussionsRankingHeaderBadges = styled.div`
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
   font-weight: bold;
   color: ${({ theme }) => theme.colors.primary};
 `;
 
 const DiscussionsRankingHeaderTopicsCreated = styled.div`
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
   font-weight: bold;
   color: ${({ theme }) => theme.colors.primary};
 `;
 
 const DiscussionsRankingHeaderReplies = styled.div`
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
   font-weight: bold;
   color: ${({ theme }) => theme.colors.primary};
 `;
@@ -81,23 +81,24 @@ const DiscussionsRankingListItemTitleWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
   color: ${({ theme }) => theme.colors.primary};
 `;
 
 const DiscussionsRankingListItemBadges = styled.div`
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
   color: ${({ theme }) => theme.colors.primary};
 `;
 
 const DiscussionsRankingListItemTopicsCreated = styled.div`
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
   color: ${({ theme }) => theme.colors.primary};
 `;
 
 const DiscussionsRankingListItemReplies = styled.div`
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
   color: ${({ theme }) => theme.colors.primary};
 `;
 
 // const DiscussionsContent = () => {
+

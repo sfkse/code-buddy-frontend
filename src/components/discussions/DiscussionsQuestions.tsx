@@ -5,11 +5,12 @@ import { BiMessage, BiSolidHot, BiTimer } from "react-icons/bi";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { BsArrowUpRight } from "react-icons/bs";
 import { HiOutlineLockClosed } from "react-icons/hi";
+import { FaRegCircleQuestion } from "react-icons/fa6";
 
 import Card from "../Card";
 import Avatar from "../Avatar";
 import Button from "../Button";
-import { FaRegCircleQuestion } from "react-icons/fa6";
+import { DEVICES } from "../../styles/theme";
 
 type DiscussionsQuestionsProps = {
   type: "yourquestions" | "youranswers" | "questions";
@@ -98,55 +99,6 @@ const DiscussionsQuestions = ({ type }: DiscussionsQuestionsProps) => {
             </DiscussionsContentListItemProperties>
           </Card>
         </DiscussionsContentListItem>
-        <DiscussionsContentListItem>
-          <Card>
-            <DiscussionsContentCreatorWrapper>
-              <Avatar name="Sefa" />
-              <DiscussionsContentCreatorDetails>
-                <DiscussionsContentCreatorName>
-                  Sefa
-                </DiscussionsContentCreatorName>
-                <DiscussionsContentCreatorDate>
-                  Today
-                </DiscussionsContentCreatorDate>
-              </DiscussionsContentCreatorDetails>
-            </DiscussionsContentCreatorWrapper>
-            <DiscussionsContentListItemTitle>
-              How to patch KDE on FreeBSD?
-            </DiscussionsContentListItemTitle>
-            <DiscussionsContentListItemDescription>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
-              voluptatibus, quos, accusantium, quibusdam voluptas voluptatem
-              voluptatum quod doloribus consequuntur doloremque quae. Quod
-              voluptatem, quia tempore voluptatibus voluptas molestias
-              consequatur.
-            </DiscussionsContentListItemDescription>
-            <DiscussionsContentListItemProperties>
-              <DiscussionsContentListItemTagsWrapper>
-                <DiscussionsContentListItemTag>
-                  golang
-                </DiscussionsContentListItemTag>
-                <DiscussionsContentListItemTag>
-                  linux
-                </DiscussionsContentListItemTag>
-              </DiscussionsContentListItemTagsWrapper>
-              <DiscussionsContentListStatistics>
-                <DiscussionsContentListSeen>
-                  <DiscussionsContentListSeenIcon />
-                  123
-                </DiscussionsContentListSeen>
-                <DiscussionsContentListAnswers>
-                  <DiscussionsContentListAnswersIcon />
-                  123
-                </DiscussionsContentListAnswers>
-                <DiscussionsContentListVotes>
-                  <DiscussionsContentListVotesIcon />
-                  123
-                </DiscussionsContentListVotes>
-              </DiscussionsContentListStatistics>
-            </DiscussionsContentListItemProperties>
-          </Card>
-        </DiscussionsContentListItem>
       </DiscussionsContentList>
     </>
   );
@@ -157,42 +109,47 @@ export default DiscussionsQuestions;
 const DiscussionsContentTabsWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   width: 100%;
   margin-bottom: 2rem;
+
+  @media only screen and (${DEVICES.md}) {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
 `;
 
-const DiscussionsContentTabs = styled.ul`
+const DiscussionsContentTabs = styled.div`
   display: flex;
-  list-style: none;
-  flex: 4;
+  /* flex: 4; */
   margin: 0;
   padding: 0;
 `;
 
 const NewTabIcon = styled(BiTimer)`
   color: ${({ theme }) => theme.colors.primaryExtraLight};
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
 `;
 
 const TopTabIcon = styled(BsArrowUpRight)`
   color: ${({ theme }) => theme.colors.primaryExtraLight};
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
 `;
 
 const HotTabIcon = styled(BiSolidHot)`
   color: ${({ theme }) => theme.colors.primaryExtraLight};
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
 `;
 
 const ClosedTabIcon = styled(HiOutlineLockClosed)`
   color: ${({ theme }) => theme.colors.primaryExtraLight};
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
 `;
 
-const DiscussionsContentTab = styled.li`
+const DiscussionsContentTab = styled.div`
   padding: 1rem;
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   display: flex;
   align-items: center;
   gap: 0.3rem;
@@ -208,22 +165,30 @@ const DiscussionsContentTab = styled.li`
       color: ${({ theme }) => theme.colors.primary};
     }
   }
+
+  @media only screen and (${DEVICES.md}) {
+    padding: 0.5rem;
+    font-size: ${({ theme }) => theme.font.body.xs};
+  }
 `;
 
-const DiscussionsContentList = styled.ul`
-  list-style: none;
+const DiscussionsContentList = styled.div`
   margin: 0;
   padding: 0;
+
+  @media only screen and (${DEVICES.lg}) {
+    padding-left: 1rem;
+  }
 `;
 
-const DiscussionsContentListItem = styled.li`
+const DiscussionsContentListItem = styled.div`
   margin-bottom: 2rem;
   cursor: pointer;
+  width: 100%;
 `;
 
 const DiscussionsContentCreatorWrapper = styled.div`
   display: flex;
-
   align-items: center;
   margin-bottom: 0.5rem;
 `;
@@ -234,13 +199,13 @@ const DiscussionsContentCreatorDetails = styled.div`
 `;
 
 const DiscussionsContentCreatorName = styled.span`
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   font-weight: 600;
   margin-left: 0.5rem;
 `;
 
 const DiscussionsContentCreatorDate = styled.span`
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   font-weight: 600;
   margin-left: 0.5rem;
   color: ${({ theme }) => theme.colors.primaryExtraLight};
@@ -249,20 +214,19 @@ const DiscussionsContentCreatorDate = styled.span`
 const DiscussionsContentListItemTitle = styled.h3`
   margin: 0;
   margin-bottom: 0.5rem;
-  font-size: 1.2rem;
+  font-size: ${({ theme }) => theme.font.body.xl};
   font-weight: 500;
 `;
 
 const DiscussionsContentListItemDescription = styled.p`
   margin: 0;
   margin-bottom: 0.5rem;
-  font-size: 0.9rem;
+  font-size: ${({ theme }) => theme.font.body.sm};
   color: ${({ theme }) => theme.colors.primaryLight};
 `;
 
 const DiscussionsContentListItemProperties = styled.div`
   display: flex;
-
   justify-content: space-between;
   margin-bottom: 0.5rem;
   color: ${({ theme }) => theme.colors.primaryExtraLight};
@@ -270,12 +234,11 @@ const DiscussionsContentListItemProperties = styled.div`
 
 const DiscussionsContentListItemTagsWrapper = styled.div`
   display: flex;
-
   gap: 0.5rem;
 `;
 
 const DiscussionsContentListItemTag = styled.span`
-  font-size: 0.65rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   border-radius: 0.2rem;
   color: ${({ theme }) => theme.colors.secondary};
   background-color: ${({ theme }) => theme.colors.caution};
@@ -291,33 +254,33 @@ const DiscussionsContentListStatistics = styled.div`
 const DiscussionsContentListSeen = styled.div`
   display: flex;
   align-items: center;
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
 `;
 
 const DiscussionsContentListSeenIcon = styled(GrFormView)`
   color: ${({ theme }) => theme.colors.primaryExtraLight};
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
 `;
 
 const DiscussionsContentListAnswers = styled.div`
   display: flex;
   align-items: center;
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
 `;
 
 const DiscussionsContentListAnswersIcon = styled(BiMessage)`
   color: ${({ theme }) => theme.colors.primaryExtraLight};
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
 `;
 
 const DiscussionsContentListVotes = styled.div`
   display: flex;
   align-items: center;
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
 `;
 
 const DiscussionsContentListVotesIcon = styled(AiOutlineArrowUp)`
   color: ${({ theme }) => theme.colors.primaryExtraLight};
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
 `;
 

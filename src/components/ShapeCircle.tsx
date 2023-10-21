@@ -60,7 +60,7 @@ const ShapeWrapper = styled.div<{
 const ShapeText = styled.p`
   text-transform: uppercase;
   text-align: center;
-  font-size: 0.7rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   padding: 1rem;
 `;
 

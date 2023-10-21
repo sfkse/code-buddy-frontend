@@ -1,33 +1,57 @@
 import { styled } from "styled-components";
-import { BsCheck2 } from "react-icons/bs";
-import { useState } from "react";
+import { Checkbox } from "@mui/material";
 
-type Buttontype = {
-  $checked: boolean;
-  onClick: () => void;
-};
 const MapFilter = () => {
-  const [filters, setFilters] = useState({
-    online: true,
-    offline: true,
-  });
-
   return (
     <FilterButtonsWrapper>
-      <Button
-        onClick={() => setFilters({ ...filters, online: !filters.online })}
-        $checked={filters.online}
-      >
-        <CheckIcon />
-        Online
-      </Button>
-      <Button
-        onClick={() => setFilters({ ...filters, offline: !filters.offline })}
-        $checked={filters.offline}
-      >
-        <CheckIcon />
-        Offline
-      </Button>
+      <Label htmlFor="checkbox">Online</Label>
+      <Checkbox
+        id="checkbox"
+        aria-label="checkbox"
+        defaultChecked
+        size="small"
+        sx={{
+          padding: 0,
+          color: "#191716",
+          "&.Mui-checked": { color: "#e6af2e" },
+        }}
+      />
+      <Label htmlFor="offline">Offline</Label>
+      <Checkbox
+        id="offline"
+        aria-label="checkbox"
+        defaultChecked
+        size="small"
+        sx={{
+          padding: 0,
+          color: "#191716",
+          "&.Mui-checked": { color: "#e6af2e" },
+        }}
+      />
+      <Label htmlFor="friends">Friends</Label>
+      <Checkbox
+        id="friends"
+        aria-label="checkbox"
+        defaultChecked
+        size="small"
+        sx={{
+          padding: 0,
+          color: "#191716",
+          "&.Mui-checked": { color: "#e6af2e" },
+        }}
+      />
+      <Label htmlFor="all">Show all</Label>
+      <Checkbox
+        id="all"
+        aria-label="checkbox"
+        defaultChecked
+        size="small"
+        sx={{
+          padding: 0,
+          color: "#191716",
+          "&.Mui-checked": { color: "#e6af2e" },
+        }}
+      />
     </FilterButtonsWrapper>
   );
 };
@@ -36,30 +60,14 @@ export default MapFilter;
 
 const FilterButtonsWrapper = styled.div`
   display: flex;
-  gap: 0.5rem;
-`;
-
-const CheckIcon = styled(BsCheck2)`
-  font-size: 1rem;
-`;
-
-const Button = styled.button<Buttontype>`
-  display: flex;
   align-items: center;
-  justify-content: center;
-  background-color: ${({ theme, $checked }) =>
-    $checked ? theme.colors.primary : theme.colors.white};
-  border: 1px solid ${({ theme }) => theme.colors.primary};
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: ${({ theme, $checked }) =>
-    $checked ? theme.colors.white : theme.colors.primary};
+  justify-content: flex-start;
+  font-size: ${({ theme }) => theme.font.body.sm};
+  margin-bottom: 1rem;
+`;
+
+const Label = styled.label`
   cursor: pointer;
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.primary};
-    color: ${({ theme }) => theme.colors.white};
-  }
+  margin-left: 0.5rem;
 `;
 

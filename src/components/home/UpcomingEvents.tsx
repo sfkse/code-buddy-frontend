@@ -57,13 +57,13 @@ const EventsSecondCol = styled.div`
 `;
 
 const EventName = styled.div`
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
 `;
 
 const ShowMore = styled(Link)`
   display: flex;
   justify-content: center;
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   color: ${({ theme }) => theme.colors.primary};
   cursor: pointer;
   &:hover {

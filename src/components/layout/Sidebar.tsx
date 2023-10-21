@@ -83,7 +83,7 @@ const CgCloseIcon = styled(CgClose)`
   position: absolute;
   top: 1rem;
   right: 1rem;
-  font-size: 1.5rem;
+  font-size: ${({ theme }) => theme.font.heading.base};
   cursor: pointer;
 
   @media only screen and (${DEVICES.md}) {
@@ -92,12 +92,12 @@ const CgCloseIcon = styled(CgClose)`
 `;
 
 const Logo = styled.h1`
-  font-size: 1.2rem;
+  font-size: ${({ theme }) => theme.font.body.xl};
   font-weight: 700;
   color: ${({ theme }) => theme.colors.white};
   margin-bottom: 1rem;
   @media only screen and (${DEVICES.md}) {
-    font-size: 0.8rem;
+    font-size: ${({ theme }) => theme.font.body.xs};
   }
 `;
 
@@ -105,7 +105,7 @@ const HiCodeBracketStyle = styled(HiCodeBracket)`
   color: ${({ theme }) => theme.colors.yellow};
   font-weight: 900;
   padding-top: 6px;
-  font-size: 1.2rem;
+  font-size: ${({ theme }) => theme.font.body.xl};
 `;
 
 const MenuItemWrapper = styled.div`
@@ -117,13 +117,13 @@ const MenuItemWrapper = styled.div`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    font-size: 1.5rem;
+    font-size: ${({ theme }) => theme.font.heading.base};
   }
 `;
 
 const NavLinkItem = styled(NavLink)`
   list-style: none;
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
   cursor: pointer;
   display: flex;
   align-items: flex-end;
@@ -136,7 +136,7 @@ const NavLinkItem = styled(NavLink)`
 
   @media only screen and (${DEVICES.md}) {
     padding: 0.8rem 0;
-    font-size: 0.8rem;
+    font-size: ${({ theme }) => theme.font.body.xs};
 
     &:hover {
       border: none;

@@ -48,13 +48,13 @@ const MenuItem = styled.li`
 `;
 
 const MenuItemTitle = styled.h4`
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   font-weight: 700;
   color: ${({ theme }) => theme.colors.primary};
 `;
 
 const MenuItemText = styled.p`
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   color: ${({ theme }) => theme.colors.primary};
 `;
 

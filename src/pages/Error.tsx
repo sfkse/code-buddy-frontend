@@ -45,14 +45,14 @@ const ErrorPageTitle = styled.h1`
 `;
 
 const ErrorPageMessage = styled.p`
-  font-size: 1.5rem;
+  font-size: ${({ theme }) => theme.font.heading.base};
   color: ${({ theme }) => theme.colors.primary};
 `;
 
 const ErrorPageButton = styled(Button)``;
 
 const ReturnIcon = styled(IoReturnDownBackSharp)`
-  font-size: 1.5rem;
+  font-size: ${({ theme }) => theme.font.heading.base};
   margin-right: 0.5rem;
   padding-top: 4px;
 `;

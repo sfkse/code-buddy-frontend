@@ -62,7 +62,7 @@ const ToggleHamburger = styled.span`
   @media only screen and (${DEVICES.md}) {
     display: flex;
     cursor: pointer;
-    font-size: 1.5rem;
+    font-size: ${({ theme }) => theme.font.heading.base};
   }
 `;
 

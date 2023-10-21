@@ -79,7 +79,14 @@ const Register = () => {
           formState={formState}
           handleSetFormState={handleSetFormState}
         />
-        <Button type="submit" disabled={isLoading} title="REGISTER" />
+        <Button
+          type="submit"
+          disabled={isLoading}
+          title="REGISTER"
+          fullWidth
+          variant="primary"
+          customStyle={{ padding: "0.5rem 0", fontSize: "1rem" }}
+        />
         <LoginText>
           Do you already have an account? Login &nbsp;
           <LoginLink onClick={() => navigate("/login")}>here</LoginLink>
@@ -101,7 +108,6 @@ export default Register;
 const AuthPageWrapper = styled.div`
   min-width: 100vw;
   min-height: 100vh;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -119,14 +125,14 @@ const FormWrapper = styled.form`
 
 const Hr = styled.p`
   text-align: center;
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   font-weight: 700;
   color: ${({ theme }) => theme.colors.secondary};
 `;
 
 const LoginText = styled.p`
   text-align: center;
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   font-weight: 700;
   color: ${({ theme }) => theme.colors.secondary};
 `;

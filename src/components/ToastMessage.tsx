@@ -48,7 +48,7 @@ const ToastMessageWrapper = styled.p`
   text-align: center;
   color: ${({ theme }) => theme.colors.white};
   background-color: ${({ theme }) => theme.colors.danger};
-  font-size: 0.9rem;
+  font-size: ${({ theme }) => theme.font.body.sm};
   font-weight: 700;
   padding: 0.5rem;
   /* animation: ${slideAnimation} 2.5s ease-in-out forwards; */

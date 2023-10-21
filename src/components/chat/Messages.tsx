@@ -63,7 +63,7 @@ const MessagesHeader = styled.div`
 `;
 
 const MessagesHeaderTitle = styled.h3`
-  font-size: 1.2rem;
+  font-size: ${({ theme }) => theme.font.body.xl};
   font-weight: 700;
 `;
 
@@ -127,7 +127,7 @@ const MessagesListItemContentName = styled.h4`
 `;
 
 const MessagesListItemContentMessage = styled.p<{ $unread?: boolean }>`
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
 
   ${({ $unread, theme }) =>
     $unread && {
@@ -154,11 +154,11 @@ const MessagesListItemUnreadStatus = styled.div`
   background-color: ${({ theme }) => theme.colors.yellow};
   color: ${({ theme }) => theme.colors.white};
   font-weight: 700;
-  font-size: 0.6rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
 `;
 
 const MessagestListItemTime = styled.span`
-  font-size: 0.7rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   color: ${({ theme }) => theme.colors.primaryLight};
 `;
 

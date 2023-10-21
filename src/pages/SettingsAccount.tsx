@@ -65,7 +65,7 @@ const SettingsAccountWrapper = styled.div`
 `;
 
 const SettingsAccountTitle = styled.h2`
-  font-size: 1.5rem;
+  font-size: ${({ theme }) => theme.font.heading.base};
   font-weight: bold;
   margin-bottom: 1rem;
 `;
@@ -84,18 +84,18 @@ const SettingsAccountItem = styled.div`
 `;
 
 const SettingsAccountLabel = styled.label`
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
 `;
 
 const SettingsAccountInput = styled.input`
   padding: 0.5rem;
   border: 1px solid ${({ theme }) => theme.colors.secondary};
   border-radius: 0.25rem;
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.primaryExtraLight};
-    font-size: 0.8rem;
+    font-size: ${({ theme }) => theme.font.body.xs};
   }
 `;
 

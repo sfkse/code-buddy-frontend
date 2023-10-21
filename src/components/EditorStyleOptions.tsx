@@ -58,7 +58,7 @@ const NoteToolbarStyleOptions = styled.div`
 
   @media only screen and (${DEVICES.md}) {
     margin: 0.5rem 0;
-    font-size: 1rem;
+    font-size: ${({ theme }) => theme.font.body.base};
     flex-wrap: wrap;
   }
 `;

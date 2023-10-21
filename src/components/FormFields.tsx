@@ -39,7 +39,7 @@ const FormInput = styled.input`
   padding: 0.7rem;
   background-color: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.primary};
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
   border: ${({ theme }) => theme.colors.secondary} 1px solid;
   &::placeholder {
     color: ${({ theme }) => theme.colors.primaryExtraLight};

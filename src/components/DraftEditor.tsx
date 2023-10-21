@@ -34,8 +34,8 @@ const EditorWrapper = styled.div<{ $size: string | undefined }>`
   border: 1px solid ${({ theme }) => theme.colors.secondary};
   padding: 1rem;
   border-radius: 4px;
-  min-height: ${({ $size }) => ($size === "sm" ? "10rem" : "70vh")};
-  max-height: ${({ $size }) => ($size === "sm" ? "10rem" : "70vh")};
+  min-height: ${({ $size }) => ($size === "sm" ? "15rem" : "70vh")};
+  max-height: ${({ $size }) => ($size === "sm" ? "15rem" : "70vh")};
   overflow-y: scroll;
 `;
 

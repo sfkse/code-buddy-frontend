@@ -180,7 +180,7 @@ const WelcomWrapper = styled.div`
 const Logo = styled.h1`
   position: absolute;
   left: 1rem;
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
   font-weight: 700;
   color: ${({ theme }) => theme.colors.white};
 `;
@@ -201,14 +201,14 @@ const WelcomeInnerWrapper = styled.div`
 `;
 
 const WelcomeHeader = styled.h1`
-  font-size: 2rem;
+  font-size: ${({ theme }) => theme.font.heading.lg};
   font-weight: 700;
   color: ${({ theme }) => theme.colors.white};
   margin-bottom: 1rem;
 `;
 
 const WelcomeText = styled.p`
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
   font-weight: 400;
   color: ${({ theme }) => theme.colors.secondary};
 `;

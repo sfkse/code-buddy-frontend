@@ -50,7 +50,7 @@ const LatestTopicsSecondCol = styled.div`
 const LatestTopicsName = styled.a``;
 
 const LatestTopicsText = styled.div`
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   color: #b3b3b3;
 `;
 

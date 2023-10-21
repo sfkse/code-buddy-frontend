@@ -57,7 +57,7 @@ const SettingsPermissionsWrapper = styled.div`
 `;
 
 const SettingsPermissionsTitle = styled.h2`
-  font-size: 1.5rem;
+  font-size: ${({ theme }) => theme.font.heading.base};
   font-weight: bold;
   margin-bottom: 1rem;
 `;
@@ -76,6 +76,6 @@ const SettingsPermissionsContentItem = styled.div`
 `;
 
 const SettingsPermissionsContentItemTitle = styled.label`
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
 `;
 

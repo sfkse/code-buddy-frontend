@@ -33,7 +33,7 @@ const NoteToolbarWrapper = styled.div`
   color: ${({ theme }) => theme.colors.primaryExtraLight};
 
   @media only screen and (${DEVICES.md}) {
-    font-size: 1rem;
+    font-size: ${({ theme }) => theme.font.body.base};
   }
 `;
 

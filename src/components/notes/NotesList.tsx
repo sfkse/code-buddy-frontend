@@ -92,7 +92,7 @@ const NotePropertiesWrapper = styled.div`
 `;
 
 const NoteTag = styled.span<{ $color: chroma.Color }>`
-  font-size: 0.65rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   border-radius: 0.2rem;
   color: ${({ $color }) => $color.css()};
   background-color: ${({ $color }) => $color?.alpha(0.3).css()};
@@ -101,20 +101,20 @@ const NoteTag = styled.span<{ $color: chroma.Color }>`
 `;
 
 const NoteDate = styled.span`
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   color: ${({ theme }) => theme.colors.text};
 `;
 
 const NoteTitle = styled.h3`
   margin: 0;
   margin-bottom: 0.5rem;
-  font-size: 1.2rem;
+  font-size: ${({ theme }) => theme.font.body.xl};
   font-weight: 900;
 `;
 
 const NoteContent = styled.p`
   margin: 0;
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   color: ${({ theme }) => theme.colors.text};
   overflow: hidden;
   display: -webkit-box;

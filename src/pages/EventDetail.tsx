@@ -151,14 +151,14 @@ const EventAudienceIconsWrapper = styled.div`
 `;
 
 const EventTitle = styled.h1`
-  font-size: 1.5rem;
+  font-size: ${({ theme }) => theme.font.heading.base};
   font-weight: 700;
   color: ${({ theme }) => theme.colors.primary};
   margin-bottom: 1rem;
 `;
 
 const EventDate = styled.div`
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   color: ${({ theme }) => theme.colors.caution};
   margin: 1rem 0;
   font-weight: 500;
@@ -166,7 +166,7 @@ const EventDate = styled.div`
 
 const EventDescription = styled.div`
   margin: 3rem 0;
-  font-size: 0.9rem;
+  font-size: ${({ theme }) => theme.font.body.sm};
   line-height: 1.5rem;
   color: ${({ theme }) => theme.colors.primaryLight};
   letter-spacing: 0.5px;
@@ -190,7 +190,7 @@ const EventTimelineWrapper = styled.div`
 `;
 
 const EventTimelineHeader = styled.div`
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
   font-weight: 700;
   color: ${({ theme }) => theme.colors.primary};
   border-bottom: 2px solid ${({ theme }) => theme.colors.secondary};
@@ -214,13 +214,13 @@ const EventTimelineItem = styled.div`
 
 const EventTimelineItemDetailsWrapper = styled.div`
   flex: 1;
-  font-size: 0.9rem;
+  font-size: ${({ theme }) => theme.font.body.sm};
   color: ${({ theme }) => theme.colors.primaryExtraLight};
   letter-spacing: 0.5px;
 `;
 
 const EventTimelineItemTitle = styled.div`
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
   font-weight: 700;
   color: ${({ theme }) => theme.colors.primary};
   margin-bottom: 0.3rem;
@@ -230,7 +230,7 @@ const EventTimelineItemSpeakerAndTimeWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
 `;
 
 const EventTimelineItemSpeaker = styled.div`

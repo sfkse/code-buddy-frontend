@@ -62,13 +62,13 @@ const CalendarTaskListItem = styled.a`
 `;
 
 const CalendarTaskListTitle = styled.h3`
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
   font-weight: 600;
   padding-left: 1rem;
 `;
 
 const CalendarTaskListDescription = styled.p`
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
   font-weight: 400;
   color: #666;
   display: flex;
@@ -78,12 +78,12 @@ const CalendarTaskListDescription = styled.p`
 
 const CalendarTaskListDescriptionIcon = styled(BsCircleFill)`
   color: ${(props) => props.theme.colors.primary};
-  font-size: 0.6rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   color: ${(props) => props.theme.colors.yellow};
 `;
 
 const CalendarTaskListDescriptionText = styled.span`
-  font-size: 0.75rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   font-weight: 400;
   color: #666;
   display: flex;
@@ -91,7 +91,7 @@ const CalendarTaskListDescriptionText = styled.span`
 `;
 
 const CalendarTaskListDescriptionTime = styled.span`
-  font-size: 0.6875rem;
+  font-size: ${({ theme }) => theme.font.body.xs}875rem;
   font-weight: 400;
   color: ${(props) => props.theme.colors.primaryExtraLight};
   margin-right: 0.5rem;

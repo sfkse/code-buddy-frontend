@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
 import { Editor, EditorState } from "draft-js";
+import { FiSave } from "react-icons/fi";
 
 import Card from "../components/Card";
 import DraftEditor from "../components/DraftEditor";
@@ -8,9 +9,9 @@ import EditorStyleOptions from "../components/EditorStyleOptions";
 import Button from "../components/Button";
 import DiscussionComments from "../components/discussions/DiscussionComments";
 import Avatar from "../components/Avatar";
+import UserInfoPopUp from "../components/UserInfoPopUp";
 
 import useSetOnStyle from "../hooks/editor/useSetOnStyle";
-import UserInfoPopUp from "../components/UserInfoPopUp";
 
 const userObject = {
   idusers: "c51ce767-114b-4875-8539-76b3b08793ed",
@@ -116,13 +117,10 @@ const DiscussionsQuestionsDetail = () => {
           handleOnChangeEditor={handleOnChangeEditor}
         />
         <Button
+          title="SAVE"
+          icon={<FiSave />}
           variant="primary"
-          title="Submit"
-          customStyle={{
-            width: "10%",
-            alignSelf: "flex-end",
-            marginTop: "1rem",
-          }}
+          customStyle={{ alignSelf: "flex-end", marginTop: "1rem" }}
         />
       </DiscussionsQuestionsDetailSuggestionsWrapper>
       <DiscussionComments />
@@ -156,7 +154,7 @@ const DiscussionsQuestionsDetailContentHeaderTitleWrapper = styled.div`
 `;
 
 const DiscussionsQuestionsDetailContentHeaderTitle = styled.h1`
-  font-size: 1.5rem;
+  font-size: ${({ theme }) => theme.font.heading.base};
   font-weight: 700;
 `;
 
@@ -198,13 +196,13 @@ const DiscussionsQuestionUserPopUpWrapper = styled.div<{
 `;
 
 const DiscussionsQuestionsDetailContentHeaderInfoAuthorName = styled.span`
-  font-size: 0.9rem;
+  font-size: ${({ theme }) => theme.font.body.sm};
   font-weight: 700;
   margin-left: 0.5rem;
 `;
 
 const DiscussionsQuestionsDetailContentHeaderInfoDate = styled.span`
-  font-size: 0.9rem;
+  font-size: ${({ theme }) => theme.font.body.sm};
   font-weight: 400;
 `;
 
@@ -214,7 +212,7 @@ const DiscussionsQuestionsDetailContentHeaderTags = styled.div`
 `;
 
 const DiscussionsQuestionsDetailContentHeaderTag = styled.span`
-  font-size: 0.6rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   font-weight: 400;
   padding: 0.5rem;
   background-color: ${({ theme }) => theme.colors.caution};
@@ -235,7 +233,7 @@ const DiscussionsQuestionsDetailContentBody = styled.div`
 `;
 
 const DiscussionsQuestionsDetailContentBodyText = styled.p`
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
   font-weight: 400;
   line-height: 1.5;
   margin-bottom: 1rem;
@@ -249,7 +247,7 @@ const DiscussionsQuestionsDetailSuggestionsWrapper = styled.div`
 `;
 
 const DiscussionsQuestionsDetailSuggestionsTitle = styled.h2`
-  font-size: 1.2rem;
+  font-size: ${({ theme }) => theme.font.body.xl};
   font-weight: 700;
   margin: 2rem 0;
 `;

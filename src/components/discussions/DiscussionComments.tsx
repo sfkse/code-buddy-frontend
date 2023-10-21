@@ -92,14 +92,14 @@ const DiscussionCommentHeaderWrapper = styled.div`
 const DiscussionCommentHeaderTitleWrapper = styled.div``;
 
 const DiscussionCommentHeaderTitle = styled.span`
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
   font-weight: 700;
   display: flex;
   align-items: center;
 `;
 
 const DiscussionCommentHeaderTitleUsername = styled.span`
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   font-weight: 500;
   margin-left: 0.5rem;
 `;
@@ -107,14 +107,14 @@ const DiscussionCommentHeaderTitleUsername = styled.span`
 const DiscussionCommentHeaderInfoWrapper = styled.div``;
 
 const DiscussionCommentHeaderInfoDate = styled.span`
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   font-weight: 400;
 `;
 
 const DiscussionCommentBodyWrapper = styled.div``;
 
 const DiscussionCommentBodyText = styled.p`
-  font-size: 0.9rem;
+  font-size: ${({ theme }) => theme.font.body.sm};
   font-weight: 400;
 `;
 
@@ -145,7 +145,7 @@ const DiscussionCommentVotesUp = styled.div`
 `;
 
 const DiscussionCommentVotesUpIcon = styled(CgArrowUpO)`
-  font-size: 1.5rem;
+  font-size: ${({ theme }) => theme.font.heading.base};
   color: ${({ theme }) => theme.colors.primary};
 `;
 
@@ -156,12 +156,12 @@ const DiscussionCommentVotesDown = styled.div`
 `;
 
 const DiscussionCommentVotesDownIcon = styled(CgArrowDownO)`
-  font-size: 1.5rem;
+  font-size: ${({ theme }) => theme.font.heading.base};
   color: ${({ theme }) => theme.colors.primary};
 `;
 
 const DiscussionCommentVotesCount = styled.span`
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   font-weight: 400;
 `;
 
@@ -175,13 +175,13 @@ const DiscussionCommentOptions = styled.div`
 `;
 
 const DiscussionCommenShowComments = styled(BsChevronDoubleDown)`
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
   margin-right: 2px;
   color: ${({ theme }) => theme.colors.yellow};
 `;
 
 const DiscussionCommentReplyIcon = styled(BsReplyFill)`
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
   margin: 0 2px;
   color: ${({ theme }) => theme.colors.yellow};
 `;
@@ -189,7 +189,7 @@ const DiscussionCommentReplyIcon = styled(BsReplyFill)`
 const DiscussionCommentOptionsIcon = styled.div`
   display: flex;
   align-items: center;
-  font-size: 0.8rem;
+  font-size: ${({ theme }) => theme.font.body.xs};
   cursor: pointer;
 `;
 

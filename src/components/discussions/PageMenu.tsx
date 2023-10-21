@@ -3,6 +3,7 @@ import React, { CSSProperties } from "react";
 import { NavLink } from "react-router-dom";
 
 import SearchInput from "../SearchInput";
+import { DEVICES } from "../../styles/theme";
 
 type PageMenuLinkProps = {
   label: string;
@@ -47,6 +48,17 @@ const PageMenuWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
+
+  @media only screen and (${DEVICES.md}) {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 100%;
+    z-index: 10;
+    background-color: ${({ theme }) => theme.colors.white};
+  }
 `;
 
 const PageMenuSearchInputWrapper = styled.div`
@@ -81,6 +93,6 @@ const PageMenuItemIcon = styled.div`
 
 const PageMenuItemText = styled.span`
   color: ${({ theme }) => theme.colors.primaryLight};
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.font.body.base};
 `;
 

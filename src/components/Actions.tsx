@@ -21,7 +21,7 @@ export default Actions;
 const IconsWrapper = styled.div`
   position: relative;
   display: flex;
-  font-size: 1.2rem;
+  font-size: ${({ theme }) => theme.font.body.xl};
   padding: 1.12rem 0.5rem;
   color: ${({ theme }) => theme.colors.yellow};
   cursor: pointer;
