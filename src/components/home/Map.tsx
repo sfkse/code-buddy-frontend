@@ -5,9 +5,10 @@ import Leaflet from "leaflet";
 import UserInfoPopUp from "../UserInfoPopUp";
 import MapFilter from "./MapFilter";
 import Loader from "../Loader";
+import ToastMessage from "../ToastMessage";
+
 import onlineIcon from "../../assets/images/onlineIcon.png";
 // import offlineIcon from "../assets/images/offlineIcon.png";
-
 import { useFetchAllUsers } from "../../hooks/user/useFetchAllUsers";
 import { User } from "../../types/user";
 
@@ -47,13 +48,12 @@ const Markers = ({ users }: MarkersProps) => {
 const Map = () => {
   const { users, isLoading, error } = useFetchAllUsers();
 
-  if (error instanceof Error) {
-    return <span>Error: {error.message}</span>;
-  }
-
   return (
     <Loader isLoading={isLoading}>
       <>
+        {error ? (
+          <ToastMessage text={error instanceof Error ? error.message : ""} />
+        ) : null}
         <MapFilter />
         <MapWrapper>
           <MapContainer

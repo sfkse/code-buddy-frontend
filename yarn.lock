@@ -1830,6 +1830,22 @@
   dependencies:
     "@types/trusted-types" "*"
 
+"@types/draft-convert@^2.1.6":
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/@types/draft-convert/-/draft-convert-2.1.6.tgz#7c356fe61ad423133f6869d222c2a5ce0e19f85b"
+  integrity sha512-jds9YBK/o+a9dhclsnFLYUYl/LMPJmuVb4mPKjsHbMPM16EX1z+c08o18pJ1PXlM1E844PE6NX+eWrJNdCoAuQ==
+  dependencies:
+    "@types/draft-js" "*"
+    "@types/react" "*"
+
+"@types/draft-js@*":
+  version "0.11.14"
+  resolved "https://registry.yarnpkg.com/@types/draft-js/-/draft-js-0.11.14.tgz#f13fd390a5a7152b422c52ebe4179284a57e6d46"
+  integrity sha512-N1xweePxsHlTze4M6OcQZXIpIfWxbqE/76Nwvw3LCrwEvMOtNUpYN7z3vGsw0d7ND7O/5c/FChPuYxRuuE2rSQ==
+  dependencies:
+    "@types/react" "*"
+    immutable "~3.7.4"
+
 "@types/draft-js@^0.11.13":
   version "0.11.13"
   resolved "https://registry.yarnpkg.com/@types/draft-js/-/draft-js-0.11.13.tgz#6b14115a2c3404248701c4d773feeb0b69ff81f7"
@@ -1850,6 +1866,13 @@
   dependencies:
     "@types/react" "*"
     hoist-non-react-statics "^3.3.0"
+
+"@types/html-to-draftjs@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@types/html-to-draftjs/-/html-to-draftjs-1.4.2.tgz#3d9841dbab08575877646c84044408ae02ac8004"
+  integrity sha512-jRg2ceCMAq66LTm0oum3ZlMcXtEIR5g7I7xmBMu1mk3DCRCJwD0HAkZyzXWlO6H09xbZ0B4ZnQk+h/uU37RwJg==
+  dependencies:
+    "@types/draft-js" "*"
 
 "@types/json-schema@^7.0.11", "@types/json-schema@^7.0.12":
   version "7.0.13"
@@ -2457,6 +2480,18 @@ dompurify@^2.3.8:
   version "2.4.7"
   resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.4.7.tgz#277adeb40a2c84be2d42a8bcd45f582bfa4d0cfc"
   integrity sha512-kxxKlPEDa6Nc5WJi+qRgPbOAbgTpSULL+vI3NUXsZMlkJxTqYI9wg5ZTay2sFrdZRWHPWNi+EdAhcJf81WtoMQ==
+
+draft-js-export-html@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/draft-js-export-html/-/draft-js-export-html-1.4.1.tgz#7cdad970c6f7f2cdd19ce4c1f5073fdf0f313b4d"
+  integrity sha512-G4VGBSalPowktIE4wp3rFbhjs+Ln9IZ2FhXeHjsZDSw0a2+h+BjKu5Enq+mcsyVb51RW740GBK8Xbf7Iic51tw==
+  dependencies:
+    draft-js-utils "^1.4.0"
+
+draft-js-utils@^1.4.0:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/draft-js-utils/-/draft-js-utils-1.4.1.tgz#a59c792ad621f7050292031a237d524708a6d509"
+  integrity sha512-xE81Y+z/muC5D5z9qWmKfxEW1XyXfsBzSbSBk2JRsoD0yzMGGHQm/0MtuqHl/EUDkaBJJLjJ2EACycoDMY/OOg==
 
 draft-js@^0.11.7:
   version "0.11.7"
@@ -3176,6 +3211,11 @@ minimatch@^3.0.5, minimatch@^3.1.1, minimatch@^3.1.2:
   integrity sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==
   dependencies:
     brace-expansion "^1.1.7"
+
+moment@^2.29.4:
+  version "2.29.4"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
+  integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
 
 ms@2.1.2:
   version "2.1.2"

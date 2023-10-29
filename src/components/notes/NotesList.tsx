@@ -1,50 +1,124 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import chroma from "chroma-js";
+import moment from "moment";
 
 import NotesSetup from "./NotesSetup";
-import { DEVICES } from "../../styles/theme";
+import ToastMessage from "../ToastMessage";
+import Loader from "../Loader";
 
-const NotesList = () => {
+import useAddUserNote from "../../hooks/notes/useAddUserNote";
+
+import { DEVICES } from "../../styles/theme";
+import { Note, Tags } from "../../types/notes";
+import { fetchCredentials } from "../../utils/userUtils";
+import { createDefaultContent, getPlainContent } from "../../utils/editorUtils";
+
+type NotesListProps = {
+  notes: Note[];
+  selectedNote?: Note;
+  handleOnClickNote: (id: Note["idnotes"]) => void;
+};
+
+const NotesList = ({
+  notes,
+  selectedNote,
+  handleOnClickNote,
+}: NotesListProps) => {
+  const userID = fetchCredentials();
+  const [searchValue, setSearchValue] = useState<string>("");
+  const [filteredNotes, setFilteredNotes] = useState<Note[]>(notes);
+  const { mutate, error, isLoading } = useAddUserNote({
+    title: "New note(Draft)",
+    content: createDefaultContent(),
+    tags: [{ label: "Draft", value: "Draft" }],
+    type: -1,
+    owner: userID,
+  });
+
+  useEffect(() => {
+    setFilteredNotes(notes);
+  }, [notes]);
+
   const color1 = chroma("green");
-  const color2 = chroma("red");
+  // const color2 = chroma("red");
+
+  const fetchNoteListText = (note: Note) => {
+    const htmlContent = getPlainContent(note);
+
+    const text =
+      htmlContent.length > 100
+        ? getPlainContent(note).slice(0, 100) + "..."
+        : htmlContent;
+    return text;
+  };
 
   const handleAddNote = () => {
-    console.log("Add note");
+    mutate();
   };
+  const handleOnChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchValue(value);
+    if (value.length > 0) {
+      const filteredNotes = notes.filter(
+        (note) =>
+          note.title.toLowerCase().includes(value.toLowerCase()) ||
+          fetchNoteListText(note).toLowerCase().includes(value.toLowerCase())
+      );
+      setFilteredNotes(filteredNotes);
+    } else {
+      setFilteredNotes(notes);
+    }
+  };
+
   return (
-    <NoteListWrapper>
-      <NotesSetup handleAddNote={handleAddNote} />
-      <NotesListItemWrapper>
-        <NoteListItem>
-          <NotePropertiesWrapper>
-            <NoteTag $color={color1}>General</NoteTag>
-            <NoteDate>Today</NoteDate>
-          </NotePropertiesWrapper>
-          <NoteTitle>My first note</NoteTitle>
-          <NoteContent>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
-            voluptatibus, quos, accusantium, quibusdam voluptas voluptatem
-            voluptatum quod doloribus consequuntur doloremque quae. Quod
-            voluptatem, quia tempore voluptatibus voluptas molestias
-            consequatur.
-          </NoteContent>
-        </NoteListItem>
-        <NoteListItem>
-          <NotePropertiesWrapper>
-            <NoteTag $color={color2}>Primary</NoteTag>
-            <NoteDate>Today</NoteDate>
-          </NotePropertiesWrapper>
-          <NoteTitle>My first note</NoteTitle>
-          <NoteContent>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
-            voluptatibus, quos, accusantium, quibusdam voluptas voluptatem
-            voluptatum quod doloribus consequuntur doloremque quae. Quod
-            voluptatem, quia tempore voluptatibus voluptas molestias
-            consequatur.
-          </NoteContent>
-        </NoteListItem>
-      </NotesListItemWrapper>
-    </NoteListWrapper>
+    <Loader isLoading={isLoading}>
+      {error ? (
+        <ToastMessage text={error instanceof Error ? error.message : ""} />
+      ) : null}
+      <NoteListWrapper>
+        <NotesSetup
+          searchValue={searchValue}
+          handleOnChangeSearch={handleOnChangeSearch}
+          count={notes.length}
+          handleAddNote={handleAddNote}
+        />
+        <NotesListItemWrapper>
+          {filteredNotes.length > 0 &&
+            filteredNotes.map((note: Note) => (
+              <NoteListItem
+                $active={selectedNote?.idnotes === note.idnotes}
+                key={note.idnotes}
+                onClick={() => handleOnClickNote(note.idnotes)}
+              >
+                <NotePropertiesWrapper $ifTagsExists={note.tags.length > 0}>
+                  <NoteTagsWrapper>
+                    {note.tags.length > 0 &&
+                      note.tags.map((tag: Tags) => (
+                        <NoteTag key={tag.value} $color={color1}>
+                          {tag.label}
+                        </NoteTag>
+                      ))}
+                  </NoteTagsWrapper>
+                  <NoteDate>
+                    {moment.unix(note.updated).format("YYYY-MM-DD")}
+                  </NoteDate>
+                </NotePropertiesWrapper>
+                <NoteTitle>
+                  {note.title.length > 30
+                    ? note.title.slice(0, 30) + "..."
+                    : note.title}
+                </NoteTitle>
+                <NoteContent
+                  dangerouslySetInnerHTML={{
+                    __html: fetchNoteListText(note),
+                  }}
+                ></NoteContent>
+              </NoteListItem>
+            ))}
+        </NotesListItemWrapper>
+      </NoteListWrapper>
+    </Loader>
   );
 };
 
@@ -54,11 +128,12 @@ const NoteListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   border-right: 1px solid ${({ theme }) => theme.colors.secondary};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.secondary};
+  border-bottom-right-radius: 4px;
 
   @media only screen and (${DEVICES.md}) {
     padding: 1rem;
     border-right: none;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.secondary};
   }
 `;
 
@@ -67,32 +142,43 @@ const NotesListItemWrapper = styled.div`
   flex-direction: column;
   height: 80vh;
   overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   @media only screen and (${DEVICES.md}) {
     max-height: 40vh;
-    overflow-y: scroll;
   }
 `;
 
-const NoteListItem = styled.li`
+const NoteListItem = styled.li<{ $active: boolean }>`
   padding: 1rem 2rem;
   list-style: none;
   cursor: pointer;
+  background-color: ${({ theme, $active }) =>
+    $active ? theme.colors.secondary : "transparent"};
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.secondary};
   }
 `;
 
-const NotePropertiesWrapper = styled.div`
+const NotePropertiesWrapper = styled.div<{ $ifTagsExists: boolean | null }>`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: ${({ $ifTagsExists }) =>
+    $ifTagsExists ? "space-between" : "flex-end"};
   margin-bottom: 0.5rem;
   color: ${({ theme }) => theme.colors.primaryExtraLight};
 `;
 
+const NoteTagsWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;
+
 const NoteTag = styled.span<{ $color: chroma.Color }>`
-  font-size: ${({ theme }) => theme.font.body.xs};
+  font-size: ${({ theme }) => theme.font.body.xxs};
   border-radius: 0.2rem;
   color: ${({ $color }) => $color.css()};
   background-color: ${({ $color }) => $color?.alpha(0.3).css()};
@@ -103,6 +189,7 @@ const NoteTag = styled.span<{ $color: chroma.Color }>`
 const NoteDate = styled.span`
   font-size: ${({ theme }) => theme.font.body.xs};
   color: ${({ theme }) => theme.colors.text};
+  justify-self: end;
 `;
 
 const NoteTitle = styled.h3`
@@ -114,6 +201,7 @@ const NoteTitle = styled.h3`
 
 const NoteContent = styled.p`
   margin: 0;
+  word-break: break-all;
   font-size: ${({ theme }) => theme.font.body.xs};
   color: ${({ theme }) => theme.colors.text};
   overflow: hidden;

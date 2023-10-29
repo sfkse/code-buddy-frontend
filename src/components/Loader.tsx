@@ -32,7 +32,6 @@ export default Loader;
 
 //When isLoading through, mouse events are not triggered.
 const LoaderWrapper = styled.div<{ $isLoading?: boolean }>`
-  position: relative;
   pointer-events: ${({ $isLoading }) => ($isLoading ? "none" : "auto")};
 `;
 

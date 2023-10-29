@@ -10,13 +10,21 @@ import { DEVICES } from "../../styles/theme";
 
 type NotesSetupProps = {
   handleAddNote: () => void;
+  count: number;
+  searchValue: string;
+  handleOnChangeSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const NotesSetup = ({ handleAddNote }: NotesSetupProps) => {
+const NotesSetup = ({
+  handleAddNote,
+  searchValue,
+  handleOnChangeSearch,
+  count,
+}: NotesSetupProps) => {
   return (
     <NotesSetupWrapper>
       <NotesOptionsWrapper>
-        <NotesCount>42 Notes</NotesCount>
+        <NotesCount>{count} Notes</NotesCount>
         <NotesOptions>
           <NotesOptionFilterIcon />
           <NotesOptionTagsIcon />
@@ -24,7 +32,11 @@ const NotesSetup = ({ handleAddNote }: NotesSetupProps) => {
       </NotesOptionsWrapper>
       <NotesSearchWrapper>
         <NotesSearchIcon />
-        <SearchInput placeholder="Search notes..." />
+        <SearchInput
+          searchValue={searchValue}
+          handleOnChangeSearch={handleOnChangeSearch}
+          placeholder="Search notes..."
+        />
       </NotesSearchWrapper>
       <NotesAddWrapper>
         <NotesAddButton

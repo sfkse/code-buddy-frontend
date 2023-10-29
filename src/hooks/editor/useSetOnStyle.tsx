@@ -1,7 +1,7 @@
 import { EditorState, RichUtils } from "draft-js";
 
 const useSetOnStyle = (
-  setEditorState: React.Dispatch<EditorState>,
+  setEditorState: (editorState: EditorState) => void,
   editorState: EditorState
 ) => {
   // TODO: Add attach functionality

@@ -13,6 +13,7 @@ type SelectMultipleProps = {
   options: Array<{ color: string; label: string; value: string }>;
   defaultValue?: Array<{ color: string; label: string; value: string }>;
   placeholder: string;
+  handleOnChangeSelect: (e: any) => void;
 };
 
 const animatedComponents = makeAnimated();
@@ -21,9 +22,11 @@ const SelectMultiple = ({
   options,
   placeholder,
   defaultValue,
+  handleOnChangeSelect,
 }: SelectMultipleProps) => {
   return (
     <Select
+      onChange={handleOnChangeSelect}
       styles={colourStyles}
       closeMenuOnSelect={false}
       components={animatedComponents}

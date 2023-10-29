@@ -12,7 +12,7 @@ export const useRegisterUser = (
 ) => {
   const navigate = useNavigate();
 
-  const { mutate, data, error, isLoading } = useMutation({
+  const { mutate, data, error, isLoading, reset } = useMutation({
     mutationFn: () => authenticateRegister(formState),
     onSuccess: (data) => {
       if (data) {
@@ -20,7 +20,10 @@ export const useRegisterUser = (
         return navigate("/welcome");
       }
     },
-    onError: (error: any) => setErrorMessage(error.response.data.message),
+    onError: (error: any) => {
+      setErrorMessage(error.response.data.message);
+      reset();
+    },
     onSettled: () =>
       setFormState({
         email: "",

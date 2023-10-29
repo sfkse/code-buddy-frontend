@@ -12,7 +12,7 @@ export const useLoginUser = (
 ) => {
   const navigate = useNavigate();
 
-  const { mutate, error, data, isLoading } = useMutation({
+  const { mutate, error, data, isLoading, reset } = useMutation({
     mutationFn: () => authenticateLogin(formState),
     onSuccess: (data) => {
       if (data) {
@@ -25,7 +25,10 @@ export const useLoginUser = (
         email: "",
         password: "",
       }),
-    onError: (error: any) => setErrorMessage(error.response.data.message),
+    onError: (error: any) => {
+      setErrorMessage(error.response.data.message);
+      reset();
+    },
   });
 
   return { mutate, data, error, isLoading };

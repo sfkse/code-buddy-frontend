@@ -37,5 +37,8 @@ const EditorWrapper = styled.div<{ $size: string | undefined }>`
   min-height: ${({ $size }) => ($size === "sm" ? "15rem" : "70vh")};
   max-height: ${({ $size }) => ($size === "sm" ? "15rem" : "70vh")};
   overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 

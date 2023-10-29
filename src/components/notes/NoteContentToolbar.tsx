@@ -5,14 +5,18 @@ import { DEVICES } from "../../styles/theme";
 
 type NoteContentToolbarProps = {
   handleDeleteNote: () => void;
+  handleOnClickSave: () => void;
 };
 
-const NoteContentToolbar = ({ handleDeleteNote }: NoteContentToolbarProps) => {
+const NoteContentToolbar = ({
+  handleDeleteNote,
+  handleOnClickSave,
+}: NoteContentToolbarProps) => {
   return (
     <>
       <NoteToolbarWrapper>
         <NoteToolbarConfigOptions>
-          <NoteToolbarConfigOptionSave />
+          <NoteToolbarConfigOptionSave onClick={handleOnClickSave} />
           <NoteToolbarConfigOptionShare />
           <NoteToolbarConfigOptionPrint />
           <NoteToolbarConfigOptionDelete onClick={handleDeleteNote} />
@@ -33,7 +37,7 @@ const NoteToolbarWrapper = styled.div`
   color: ${({ theme }) => theme.colors.primaryExtraLight};
 
   @media only screen and (${DEVICES.md}) {
-    font-size: ${({ theme }) => theme.font.body.base};
+    font-size: 1rem;
   }
 `;
 

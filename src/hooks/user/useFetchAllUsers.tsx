@@ -5,7 +5,6 @@ export const useFetchAllUsers = () => {
   const {
     data: users,
     isLoading,
-    isError,
     error,
   } = useQuery({
     queryKey: ["allUsers"],
@@ -14,6 +13,6 @@ export const useFetchAllUsers = () => {
 
   if (error instanceof Error) error;
 
-  return { users, isLoading, isError, error };
+  return { users, isLoading, error };
 };
 

@@ -20,7 +20,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   // AUTHENTICATION
-  const { mutate, isLoading } = useLoginUser(
+  const { mutate, error, isLoading } = useLoginUser(
     formState,
     setFormState,
     setErrorMessage
@@ -50,48 +50,51 @@ const Login = () => {
     }));
   };
 
-  const handleSetResetMessage = () => {
-    setErrorMessage("");
-  };
-
   return (
-    <AuthPageWrapper>
-      <FormWrapper onSubmit={handleLogin}>
-        <Button
-          title="Login With Github"
-          icon={<BsGithub />}
-          buttonStyle="gradient"
-          onClick={handleGithubLogin}
-        />
-        <Hr>- OR -</Hr>
-        <FormFields
-          formFields={loginFormFields}
-          formState={formState}
-          handleSetFormState={handleSetFormState}
-        />
-        <Button
-          type="submit"
-          disabled={isLoading}
-          title="LOGIN"
-          fullWidth
-          variant="primary"
-          customStyle={{ padding: "0.5rem 0", fontSize: "1rem" }}
-        />
-        <RegisterText>
-          Don't you have an account? Create one &nbsp;
-          <RegisterLink onClick={() => navigate("/register")}>
-            here
-          </RegisterLink>
-        </RegisterText>
-      </FormWrapper>
-
-      {errorMessage ? (
+    <>
+      {error || errorMessage ? (
         <ToastMessage
-          text={errorMessage}
-          handleSetResetMessage={handleSetResetMessage}
+          text={
+            error instanceof Error
+              ? error.response.data.message
+              : errorMessage
+              ? errorMessage
+              : ""
+          }
+          setResetErrorMessage={setErrorMessage}
         />
       ) : null}
-    </AuthPageWrapper>
+      <AuthPageWrapper>
+        <FormWrapper onSubmit={handleLogin}>
+          <Button
+            title="Login With Github"
+            icon={<BsGithub />}
+            buttonStyle="gradient"
+            onClick={handleGithubLogin}
+          />
+          <Hr>- OR -</Hr>
+          <FormFields
+            formFields={loginFormFields}
+            formState={formState}
+            handleSetFormState={handleSetFormState}
+          />
+          <Button
+            type="submit"
+            disabled={isLoading || error || errorMessage}
+            title="LOGIN"
+            fullWidth
+            variant="primary"
+            customStyle={{ padding: "0.5rem 0", fontSize: "1rem" }}
+          />
+          <RegisterText>
+            Don't you have an account? Create one &nbsp;
+            <RegisterLink onClick={() => navigate("/register")}>
+              here
+            </RegisterLink>
+          </RegisterText>
+        </FormWrapper>
+      </AuthPageWrapper>
+    </>
   );
 };
 
