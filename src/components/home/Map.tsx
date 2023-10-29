@@ -52,7 +52,9 @@ const Map = () => {
     <Loader isLoading={isLoading}>
       <>
         {error ? (
-          <ToastMessage text={error instanceof Error ? error.message : ""} />
+          <ToastMessage
+            text={error instanceof Error ? error.response.data.message : ""}
+          />
         ) : null}
         <MapFilter />
         <MapWrapper>

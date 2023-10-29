@@ -140,7 +140,7 @@ const NoteListWrapper = styled.div`
 const NotesListItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 80vh;
+  height: 62.5vh;
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;

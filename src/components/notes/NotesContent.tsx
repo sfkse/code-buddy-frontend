@@ -10,7 +10,7 @@ import EditorStyleOptions from "../EditorStyleOptions";
 import DraftEditor from "../DraftEditor";
 import ToastMessage from "../ToastMessage";
 import Loader from "../Loader";
-import SelectNoteTags from "./SelectNoteTags";
+import SelectMultipleOptions from "./SelectMultipleOptions";
 
 import useSetOnStyle from "../../hooks/editor/useSetOnStyle";
 import useSaveUserNote from "../../hooks/user/useSaveUserNote";
@@ -183,7 +183,7 @@ const NotesContent = ({ selectedNote, setSelectedNote }: NotesContentProps) => {
           />
         </NoteTagsWrapper>
         <NoteTitle
-          placeholder="Enter a title"
+          placeholder="Enter a title..."
           value={formState.currentState.title}
           onChange={handleOnChangeTitle}
         />
@@ -227,7 +227,7 @@ const NoteTagsWrapper = styled.div`
   z-index: 10;
 `;
 
-const SelectNoteTag = styled(SelectNoteTags)`
+const SelectNoteTag = styled(SelectMultipleOptions)`
   position: absolute;
   z-index: 10;
   margin-bottom: 1rem;
@@ -242,6 +242,11 @@ const NoteTitle = styled.input`
   border: 1px solid ${({ theme }) => theme.colors.secondary};
   &:focus {
     outline: none;
+  }
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.primaryExtraLight};
+    font-weight: normal;
+    font-size: 0.9rem;
   }
 `;
 

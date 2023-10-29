@@ -1,3 +1,5 @@
+import { UserAccountSettingsFormFields } from "../../types/user";
+
 export const loginFormFields = [
   {
     placeholder: "Email",
@@ -44,7 +46,7 @@ export const registerFormFields = [
   },
 ];
 
-export const accountSettingsFormFields = [
+export const accountSettingsFormFields: UserAccountSettingsFormFields[] = [
   {
     label: "Email*",
     placeholder: "email@example.com",
@@ -55,13 +57,13 @@ export const accountSettingsFormFields = [
     label: "Fistname*",
     placeholder: "Fellow",
     type: "text",
-    name: "firstName",
+    name: "firstname",
   },
   {
     label: "Lastname*",
     placeholder: "Coders",
     type: "text",
-    name: "lastName",
+    name: "lastname",
   },
 ];
 

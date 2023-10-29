@@ -23,7 +23,7 @@ type SelectNoteTagsProps = {
   handleOnChangeSelect: (e: any) => void;
 };
 
-const SelectNoteTags = ({
+const SelectMultipleOptions = ({
   placeholder,
   options,
   value,
@@ -56,5 +56,5 @@ const SelectNoteTags = ({
   );
 };
 
-export default SelectNoteTags;
+export default SelectMultipleOptions;
 

@@ -3,10 +3,29 @@ export interface User {
   email: string;
   firstname: string;
   lastname: string;
-  created_at: number;
-  updated_at: number;
-  user_type: number;
+  created: number;
+  updated: number;
+  user_type?: number;
   location: string;
-  skills: string;
+  skills: UserSkills[];
+}
+export interface UserAccountSettings {
+  email: string;
+  firstname: string;
+  lastname: string;
+  skills: UserSkills[];
+  location: string;
+}
+
+export interface UserSkills {
+  label: string;
+  value: string;
+}
+
+export interface UserAccountSettingsFormFields {
+  label: string;
+  placeholder: string;
+  type: string;
+  name: string;
 }
 
