@@ -48,7 +48,7 @@ const EventDetail = () => {
             </EventDateAndTitleWrapper>
             <EventShareWrapper>
               <CopyToClipboard
-                text={`${config.APP_BASE_URL}/events/${event.idevents}`}
+                text={`${config.APP_BASE_URL}/events/${event?.idevents}`}
                 onCopy={() => setTimeout(() => setCopied(false), 3000)}
               >
                 <EventShareButton

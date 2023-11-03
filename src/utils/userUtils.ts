@@ -11,18 +11,18 @@ export const saveCredentials = (
 
 //FETCH USER CREDENTIALS
 export const fetchCredentials = (): string => {
-  const userKeyObj = JSON.parse(localStorage.getItem("credentials") || "");
+  const userKeyObj = localStorage.getItem("credentials")
+    ? JSON.parse(localStorage.getItem("credentials"))
+    : "";
 
   return userKeyObj.key;
 };
 
 export const transformSkillsToHashtags = (skills: string) => {
-  console.log(skills);
   const parsedSkills = JSON.parse(skills) as UserSkills[];
 
   const extractedSkills = parsedSkills.map((skill: any) => skill.label);
   const hashtagAdded = extractedSkills.join("#");
-  console.log(hashtagAdded);
   return `#${hashtagAdded}`;
 };
 

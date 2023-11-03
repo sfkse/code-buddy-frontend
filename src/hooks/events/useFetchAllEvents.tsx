@@ -10,8 +10,8 @@ const useFetchAllEvents = () => {
   });
 
   if (error instanceof Error) error;
-
-  return { events: data, isLoading, error };
+  const events = data ? data : [];
+  return { events, isLoading, error };
 };
 
 export default useFetchAllEvents;

@@ -18,7 +18,6 @@ export const getSingleEvent = async (id: string) => {
 
 //TODO: Fix this.
 export const joinSingleEvent = async (idEvent: string, idUser: string) => {
-  console.log(idEvent, idUser);
   const { data } = await api.post(`/events/single/${idEvent}/join`, {
     idUser: [JSON.stringify(idUser)],
   });

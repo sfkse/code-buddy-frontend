@@ -16,10 +16,7 @@ import { formatEventDate } from "../utils/eventsUtils";
 const Events = () => {
   const { events, isLoading, error } = useFetchAllEvents();
   const navigate = useNavigate();
-  const handleNavigateToEvent = () => {
-    navigate("1");
-  };
-  console.log(events);
+
   return (
     <Loader isLoading={isLoading}>
       {error ? (

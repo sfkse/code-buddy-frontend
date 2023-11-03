@@ -106,11 +106,9 @@ const EventNew = () => {
       const options = { timeZone: "Europe/Berlin", timeStyle: "medium" };
       const formatter = new Intl.DateTimeFormat("en-US", options);
       const cetTime = formatter.format(e.$d).split(":");
-      console.log(cetTime);
       const formattedTime =
         cetTime.slice(0, 2).join(":") + " " + cetTime[2].split(" ")[1];
       value = formattedTime;
-      console.log(value);
     } else {
       value = e.target.value;
     }
@@ -141,7 +139,6 @@ const EventNew = () => {
     });
   };
 
-  console.log(formState.currentState.timeline);
   const timeSlot = formState.currentState.timeline.map((slot, index) => (
     <EventNewTimeline key={index}>
       <Provider dateAdapter={AdapterDayjs}>

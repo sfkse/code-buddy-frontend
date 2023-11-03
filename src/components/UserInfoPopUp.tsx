@@ -14,9 +14,7 @@ type UserInfoPopUpProps = {
 };
 
 const UserInfoPopUp = ({ user, type }: UserInfoPopUpProps) => {
-  const [skills, setSkills] = useState<string>("");
   const parsedLocation = JSON.parse(user.location);
-  console.log(user);
   // useEffect(() => {
   //   if (user.skills) setSkills(transformSkillsToHashtags(user.skills));
   // }, [user.skills]);

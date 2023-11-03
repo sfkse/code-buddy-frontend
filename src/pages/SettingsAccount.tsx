@@ -54,13 +54,12 @@ const SettingsAccount = () => {
     setFormState({ ...formState, [field.name]: e.target.value });
   };
   const handleOnChangeSkills = (e: any) => {
-    console.log(e);
     setFormState({ ...formState, skills: e });
   };
   const handleOnSubmit = () => {
     mutate();
   };
-  console.log(formState);
+
   return (
     <Loader isLoading={isLoading}>
       {errorUserUpdate ? (

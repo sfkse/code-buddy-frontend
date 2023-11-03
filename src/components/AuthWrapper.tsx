@@ -10,12 +10,7 @@ const AuthWrapper = ({ children }: AuthWrapperProps) => {
   const credentials = localStorage.getItem("credentials")
     ? JSON.parse(localStorage.getItem("credentials") || "")
     : null;
-  console.log(
-    !credentials &&
-      location.pathname !== "/" &&
-      location.pathname !== "/login" &&
-      location.pathname !== "/register"
-  );
+
   window.scrollTo({
     top: 0,
     behavior: "smooth",
