@@ -12,3 +12,9 @@ export interface DiscussionFormState {
   title: string;
   description: string;
 }
+
+export interface EventFormState {
+  title: string;
+  description: string;
+}
+

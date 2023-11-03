@@ -1,96 +1,130 @@
 import styled from "styled-components";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 import Avatar from "../components/Avatar";
 import Button from "../components/Button";
 import ShapeCircle from "../components/ShapeCircle";
-
+import useFetchSingleEvent from "../hooks/events/useFetchSingleEvent";
+import { useLocation } from "react-router-dom";
+import ToastMessage from "../components/ToastMessage";
+import {
+  formatEventDate,
+  getContentFromEditorState,
+} from "../utils/eventsUtils";
+import { EventParticipant, EventTimeline } from "../types/events";
+import config from "../config/config.json";
+import { useState } from "react";
+import useJoinEvent from "../hooks/events/useJoinEvent";
+import { fetchCredentials } from "../utils/userUtils";
+import Loader from "../components/Loader";
 const EventDetail = () => {
-  const event = {
-    id: 1,
-    title: "Title",
-    date: "2021-09-01",
-    host: "Sefa",
-    description: `Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus 
-    deserunt exercitationem fugiat, hic 
-    laudantium necessitatibus quibusdam et repellendus corrupti, veritatis, tempore voluptatem facilis 
-    porro rem excepturi nobis quidem! Dignissimos, debitis.
-    Suscipit autem necessitatibus deleniti minus, officiis voluptate nisi? In laudantium ex neque alias ea 
-    optio doloremque cupiditate velit quod repellendus.
-    Esse, fuga earum tenetur iusto dolores amet eligendi repellendus voluptate?
-    Suscipit iste sed, voluptate perspiciatis esse consequatur omnis dolor exercitationem rerum accusamus 
-    totam nemo similique deserunt, harum, 
-    est necessitatibus deleniti ipsam ab aperiam dolorum at quae! Dolor quos eius consectetur!
-    Consequatur dolor dicta ipsa! Laudantium quod eius nulla non culpa, similique error ea eveniet fugit eaque
-    in fuga repellendus voluptas ullam labore placeat possimus. Officiis quam voluptatibus hic temporibus doloribus?
-    Pariatur velit perferendis reprehenderit nam totam consequuntur, assumenda voluptas enim qui est, voluptates, 
-    quis excepturi.
-    Fuga ratione, minus vitae provident consequuntur error aliquid voluptas atque! Sit asperiores omnis labore numquam.`,
-    image: "https://picsum.photos/1000/200",
-    fee: 10000,
-    is_online: false,
-    is_free: false,
-    is_canceled: false,
-  };
+  const [copied, setCopied] = useState(false);
+  const location = useLocation();
+  const { event, isLoading, error } = useFetchSingleEvent(
+    location.pathname.split("/")[2]
+  );
+  const { mutate } = useJoinEvent(event?.idevents);
 
+  const handleJoinEvent = () => {
+    mutate({ idEvent: event?.idevents, idUser: fetchCredentials() });
+  };
   return (
-    <EventDetailWrapper>
-      <EventImageWrapper>
-        <EventImage src={event.image} />
-        <EventFeeLabel>FREE</EventFeeLabel>
-      </EventImageWrapper>
-      <EventInfoWrapper>
-        <EventHeaderWrapper>
-          <EventDateAndTitleWrapper>
-            <EventDate>7th Mar, 2024 | 6.30 PM</EventDate>
-            <EventTitle>CLEAN ARCHITECTURE MASTERCLASS</EventTitle>
-          </EventDateAndTitleWrapper>
-          <EventShareWrapper>
-            <EventShareButton title="Invite via email" />
-          </EventShareWrapper>
-        </EventHeaderWrapper>
-        <EventAudienceIconsWrapper>
-          <Avatar name="Sefa" />
+    <Loader isLoading={isLoading}>
+      <EventDetailWrapper>
+        {error ? (
+          <ToastMessage
+            text={error instanceof Error ? error.response.data.message : ""}
+          />
+        ) : null}
+        <EventImageWrapper>
+          <EventImage src={event?.image || "https://picsum.photos/1000/200"} />
+          <EventFeeLabel>FREE</EventFeeLabel>
+        </EventImageWrapper>
+        <EventInfoWrapper>
+          <EventHeaderWrapper>
+            <EventDateAndTitleWrapper>
+              <EventDate>{formatEventDate(event?.date)}</EventDate>
+              <EventTitle>{event?.title}</EventTitle>
+            </EventDateAndTitleWrapper>
+            <EventShareWrapper>
+              <CopyToClipboard
+                text={`${config.APP_BASE_URL}/events/${event.idevents}`}
+                onCopy={() => setTimeout(() => setCopied(false), 3000)}
+              >
+                <EventShareButton
+                  onClick={() => setCopied(true)}
+                  title={copied ? "Copied!" : "Invite friends"}
+                />
+              </CopyToClipboard>
+            </EventShareWrapper>
+          </EventHeaderWrapper>
+          <EventAudienceIconsWrapper>
+            {/* //TODO: Fix this. Save db or another table */}
+            {/* {event?.participants &&
+              JSON.parse(event?.participants)
+                .slice(0, 4)
+                .map((participant: EventParticipant) => (
+                  <Avatar overlap name={participant.name} />
+                ))} */}
+            {/* <Avatar name="Sefa" />
           <Avatar overlap name="seda" />
           <Avatar overlap name="sena" />
           <Avatar overlap name="hansa" />
           <Avatar overlap name="kerem" />
           <Avatar overlap name="erdem" />
-          <Avatar overlap name="arda" />
-          <ShapeCircle type="text" overlap content="+10" />
-        </EventAudienceIconsWrapper>
+          <Avatar overlap name="arda" /> */}
+            {event?.participants && (
+              <ShapeCircle
+                type="text"
+                overlap
+                content={`+${event?.participants.length - 4}`}
+              />
+            )}
+          </EventAudienceIconsWrapper>
 
-        {/* <EventHost>{event.host}</EventHost> */}
-        <EventDescription>{event.description}</EventDescription>
-        <EventButtonWrapper>
-          <EventButton title="JOIN" variant="primary" fullWidth />
-        </EventButtonWrapper>
-      </EventInfoWrapper>
-      <EventTimelineWrapper>
-        <EventTimelineHeader> Timeline </EventTimelineHeader>
-        <EventTimeline>
-          <EventTimelineItem>
-            <ShapeCircleItem type="text" content="9:00 AM" />
-            <EventTimelineItemDetailsWrapper>
-              <EventTimelineItemTitle>Opening ceremony</EventTimelineItemTitle>
-              <EventTimelineItemSpeakerAndTimeWrapper>
-                <EventTimelineItemSpeaker>By Sefa</EventTimelineItemSpeaker>
-                <EventTimelineItemTime>9:00 AM - 9:30 AM</EventTimelineItemTime>
-              </EventTimelineItemSpeakerAndTimeWrapper>
-            </EventTimelineItemDetailsWrapper>
-          </EventTimelineItem>
-          <EventTimelineItem>
-            <ShapeCircleItem type="text" content="9:00 AM" />
-            <EventTimelineItemDetailsWrapper>
-              <EventTimelineItemTitle>Opening ceremony</EventTimelineItemTitle>
-              <EventTimelineItemSpeakerAndTimeWrapper>
-                <EventTimelineItemSpeaker>By Sefa</EventTimelineItemSpeaker>
-                <EventTimelineItemTime>9:00 AM - 9:30 AM</EventTimelineItemTime>
-              </EventTimelineItemSpeakerAndTimeWrapper>
-            </EventTimelineItemDetailsWrapper>
-          </EventTimelineItem>
-        </EventTimeline>
-      </EventTimelineWrapper>
-    </EventDetailWrapper>
+          {/* <EventHost>{event?.host}</EventHost> */}
+          <EventDescription>
+            {event?.description &&
+              getContentFromEditorState(event?.description)}
+          </EventDescription>
+          <EventButtonWrapper>
+            <EventButton
+              title="JOIN"
+              variant="primary"
+              fullWidth
+              customStyle={{ padding: "0.5rem" }}
+              onClick={handleJoinEvent}
+            />
+          </EventButtonWrapper>
+        </EventInfoWrapper>
+        <EventTimelineWrapper>
+          <EventTimelineHeader> Timeline </EventTimelineHeader>
+          <EventTimelineContent>
+            {event?.timeline &&
+              JSON.parse(JSON.parse(event?.timeline)).map(
+                (timeline: EventTimeline) => (
+                  <EventTimelineItem key={timeline.id}>
+                    <ShapeCircleItem type="text" content={timeline.time} />
+                    <EventTimelineItemDetailsWrapper>
+                      <EventTimelineItemTitle>
+                        {timeline.description}
+                      </EventTimelineItemTitle>
+                      {/* <EventTimelineItemSpeakerAndTimeWrapper>
+                      <EventTimelineItemSpeaker>
+                        By Sefa
+                      </EventTimelineItemSpeaker>
+                      <EventTimelineItemTime>
+                        9:00 AM - 9:30 AM
+                      </EventTimelineItemTime>
+                    </EventTimelineItemSpeakerAndTimeWrapper> */}
+                    </EventTimelineItemDetailsWrapper>
+                  </EventTimelineItem>
+                )
+              )}
+          </EventTimelineContent>
+        </EventTimelineWrapper>
+      </EventDetailWrapper>
+    </Loader>
   );
 };
 
@@ -131,6 +165,7 @@ const EventFeeLabel = styled.span`
 const EventInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 const EventHeaderWrapper = styled.div`
@@ -197,7 +232,7 @@ const EventTimelineHeader = styled.div`
   padding: 0.5rem;
 `;
 
-const EventTimeline = styled.div`
+const EventTimelineContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -217,11 +252,13 @@ const EventTimelineItemDetailsWrapper = styled.div`
   font-size: ${({ theme }) => theme.font.body.sm};
   color: ${({ theme }) => theme.colors.primaryExtraLight};
   letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
 `;
 
 const EventTimelineItemTitle = styled.div`
   font-size: ${({ theme }) => theme.font.body.base};
-  font-weight: 700;
+  /* font-weight: 700; */
   color: ${({ theme }) => theme.colors.primary};
   margin-bottom: 0.3rem;
 `;

@@ -35,13 +35,14 @@ const Sidebar = ({ toggle, handleOnToggle }: SidebarProps) => {
             to={link.link}
             key={link.label}
             style={({ isActive }): CSSProperties => ({
-              fontWeight: isActive ? "bold" : "normal",
-              color: isActive ? "#fff" : "#ccc",
+              fontWeight: isActive && !link.soon ? "bold" : "normal",
+              color: isActive && !link.soon ? "#fff" : "#ccc",
             })}
             onClick={() => handleOnToggle(false)}
           >
             {link.icon}
             {link.label}
+            {link.soon && <SoonLabel>Soon</SoonLabel>}
           </NavLinkItem>
         ))}
         <Button
@@ -126,7 +127,7 @@ const NavLinkItem = styled(NavLink)`
   font-size: ${({ theme }) => theme.font.body.base};
   cursor: pointer;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: 5px;
   padding: 0.8rem 0.5rem;
 
@@ -142,5 +143,20 @@ const NavLinkItem = styled(NavLink)`
       border: none;
     }
   }
+`;
+
+const SoonLabel = styled.span`
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.primary};
+  padding: 0.01rem 0.2rem;
+  border-radius: 3px;
+  background: rgb(224, 15, 15);
+  background: linear-gradient(
+    90deg,
+    rgba(224, 15, 15, 1) 0%,
+    rgba(214, 114, 8, 1) 35%,
+    rgba(255, 244, 0, 1) 100%
+  );
 `;
 

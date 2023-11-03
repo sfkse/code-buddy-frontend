@@ -4,7 +4,6 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Welcome from "./pages/Welcome";
 import Notes from "./pages/Notes";
-import Chat from "./pages/Chat";
 import Events from "./pages/Events";
 import EventDetail from "./pages/EventDetail";
 import Error from "./pages/Error";
@@ -21,6 +20,9 @@ import Calendar from "./pages/Calendar";
 import Settings from "./pages/Settings";
 import SettingsAccount from "./pages/SettingsAccount";
 import SettingsPermissions from "./pages/SettingsPermissions";
+import EventCreate from "./components/events/EventCreate";
+import EventNew from "./components/events/EventNew";
+import UserEvents from "./components/events/UserEvents";
 
 const App = () => {
   return (
@@ -31,10 +33,15 @@ const App = () => {
             <Route index element={<Home />} />
             <Route path="welcome" element={<Welcome />} />
             <Route path="notes" element={<Notes />} />
-            <Route path="chat" element={<Chat />} />
+            {/* <Route path="chat" element={<Chat />} /> */}
             <Route path="calender" element={<Calendar />} />
             <Route path="events" element={<Events />} />
             <Route path="events/:id" element={<EventDetail />} />
+            <Route path="events" element={<EventCreate />}>
+              <Route path="create" element={<EventNew />} />
+              <Route path="published" element={<UserEvents />} />
+              <Route path="joined" element={<EventCreate />} />
+            </Route>
             <Route path="discussions" element={<Discussions />}>
               <Route
                 path="questions"

@@ -2,78 +2,54 @@ import styled from "styled-components";
 import { Outlet, useNavigate } from "react-router-dom";
 import { PiSneakerMove, PiTimer } from "react-icons/Pi";
 import { ImLocation2 } from "react-icons/Im";
-import Card from "../components/Card";
-import Button from "../components/Button";
-import Avatar from "../components/Avatar";
-import { DEVICES } from "../styles/theme";
+import Card from "../Card";
+import Button from "../Button";
+import Avatar from "../Avatar";
+import { DEVICES } from "../../styles/theme";
 import { BsCalendar2Event } from "react-icons/bs";
-import useFetchAllEvents from "../hooks/events/useFetchAllEvents";
-import Loader from "../components/Loader";
-import ToastMessage from "../components/ToastMessage";
-import { Event } from "../types/events";
-import { formatEventDate } from "../utils/eventsUtils";
 
-const Events = () => {
-  const { events, isLoading, error } = useFetchAllEvents();
+const UserEvents = () => {
   const navigate = useNavigate();
   const handleNavigateToEvent = () => {
     navigate("1");
   };
-  console.log(events);
+
   return (
-    <Loader isLoading={isLoading}>
-      {error ? (
-        <ToastMessage
-          text={error instanceof Error ? error.response.data.message : ""}
-        />
-      ) : null}
+    <>
       <EventsWrapper>
-        <EventsHeaderWrapper>
-          <EventsHeader>Popular events</EventsHeader>
-          <Button
-            title="CREATE AN EVENT"
-            variant="primary"
-            icon={<BsCalendar2Event />}
-            onClick={() => navigate("/events/create")}
-          />
-        </EventsHeaderWrapper>
         <EventsListWrapper>
-          {events?.map((event: Event) => (
-            <CardWrapper>
-              <Card title={event.title}>
-                <EventImage
-                  $image={event.image || "https://picsum.photos/1000/200"}
+          <CardWrapper>
+            <Card title="Introducing new innovation asdasdasd">
+              <EventImage />
+              <EventDate>
+                <TimerIcon /> 2021-1025th Jan, 2024 | 10:15 AM
+              </EventDate>
+              <EventLocation>
+                <LocationIcon /> Stockholm, Stockholm
+              </EventLocation>
+              <EventAudienceAndLinkWrapper>
+                <EventAudienceIconsWrapper>
+                  <Avatar name="Jessica" />
+                  <Avatar overlap name="Henry" />
+                  <Avatar overlap name="Susanne" />
+                  <Avatar overlap name="Bath" />
+                </EventAudienceIconsWrapper>
+                <EventButton
+                  icon={<PiSneakerMoveIcon />}
+                  customStyle={{ flex: 1 }}
+                  onClick={handleNavigateToEvent}
                 />
-                <EventDate>
-                  <TimerIcon /> {formatEventDate(event.date)}
-                </EventDate>
-                <EventLocation>
-                  <LocationIcon /> {event.location}
-                </EventLocation>
-                <EventAudienceAndLinkWrapper>
-                  <EventAudienceIconsWrapper>
-                    {event.participants &&
-                      event.participants.map((participant) => (
-                        <Avatar overlap name={participant.name} />
-                      ))}
-                  </EventAudienceIconsWrapper>
-                  <EventButton
-                    icon={<PiSneakerMoveIcon />}
-                    customStyle={{ flex: 1 }}
-                    onClick={() => navigate(`/events/${event.idevents}`)}
-                  />
-                </EventAudienceAndLinkWrapper>
-              </Card>
-            </CardWrapper>
-          ))}
+              </EventAudienceAndLinkWrapper>
+            </Card>
+          </CardWrapper>
         </EventsListWrapper>
       </EventsWrapper>
       <Outlet />
-    </Loader>
+    </>
   );
 };
 
-export default Events;
+export default UserEvents;
 
 const EventsWrapper = styled.div`
   display: flex;
@@ -115,12 +91,9 @@ const EventsListWrapper = styled.div`
   gap: 2rem;
 `;
 
-const EventImage = styled.div<{ $image: string }>`
+const EventImage = styled.div`
   width: 100%;
   height: 8rem;
-  background-image: url(${({ $image }) => $image});
-  background-size: cover;
-  background-position: center;
   background-color: ${({ theme }) => theme.colors.primary};
 `;
 

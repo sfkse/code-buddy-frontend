@@ -20,7 +20,7 @@ const Markers = ({ users }: MarkersProps) => {
 
   return (
     <>
-      {users.map((user) => (
+      {users.map((user: User) => (
         <Marker
           key={user.idusers}
           icon={

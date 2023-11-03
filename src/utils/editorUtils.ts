@@ -1,6 +1,7 @@
 import {
   ContentState,
   EditorState,
+  RawDraftContentState,
   convertFromRaw,
   convertToRaw,
 } from "draft-js";

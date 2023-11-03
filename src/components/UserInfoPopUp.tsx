@@ -4,8 +4,8 @@ import { RiUserAddFill } from "react-icons/ri";
 
 import Button from "./Button";
 
-import { User } from "../types/user";
-import { transformToHashtags } from "../utils/stringUtils";
+import { User, UserSkills } from "../types/user";
+import { transformSkillsToHashtags } from "../utils/userUtils";
 
 type UserInfoPopUpProps = {
   user: User;
@@ -14,11 +14,12 @@ type UserInfoPopUpProps = {
 };
 
 const UserInfoPopUp = ({ user, type }: UserInfoPopUpProps) => {
-  const [skills, setSkills] = useState<string[]>([]);
+  const [skills, setSkills] = useState<string>("");
   const parsedLocation = JSON.parse(user.location);
-  useEffect(() => {
-    if (user.skills) setSkills(transformToHashtags(user.skills));
-  }, [user.skills]);
+  console.log(user);
+  // useEffect(() => {
+  //   if (user.skills) setSkills(transformSkillsToHashtags(user.skills));
+  // }, [user.skills]);
 
   return (
     <PopUpWrapper>
@@ -26,9 +27,7 @@ const UserInfoPopUp = ({ user, type }: UserInfoPopUpProps) => {
       <UserLocation>{`${parsedLocation.city}, ${parsedLocation.country}`}</UserLocation>
       <UserFullName>{`${user.firstname} ${user.lastname}`}</UserFullName>
       <UserTagsWrapper>
-        {skills.map((skill: string) => (
-          <UserTags key={skill}>{`${skill} `}</UserTags>
-        ))}
+        {transformSkillsToHashtags(user.skills)}
       </UserTagsWrapper>
       {type !== "noAction" && (
         <Actions>
@@ -74,7 +73,12 @@ const UserLocation = styled.span`
 
 const UserFullName = styled.span``;
 
-const UserTagsWrapper = styled.div``;
+const UserTagsWrapper = styled.div`
+  color: ${({ theme }) => theme.colors.primaryExtraLight};
+  margin: 0.5rem;
+  word-break: break-all;
+  text-align: center;
+`;
 
 const UserTags = styled.span`
   display: inline-block;

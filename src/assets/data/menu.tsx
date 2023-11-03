@@ -2,19 +2,23 @@ import { FaRegStickyNote, FaRocketchat } from "react-icons/fa";
 import { GiCalendar, GiDiscussion } from "react-icons/gi";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { SiGotomeeting } from "react-icons/si";
-import { FaRankingStar } from "react-icons/fa6";
+import { FaCompassDrafting, FaRankingStar } from "react-icons/fa6";
 import { AiOutlineQuestionCircle } from "react-icons/ai";
 import {
   MdForum,
+  MdOutlineEventAvailable,
   MdOutlineQuestionAnswer,
   MdOutlineSecurity,
+  MdPublishedWithChanges,
   MdSupervisorAccount,
 } from "react-icons/md";
+import { BsCalendar2Event } from "react-icons/bs";
 
 type MenuLinkProps = {
   label: string;
   icon: JSX.Element;
   link: string;
+  soon?: boolean;
 };
 
 type PageMenuLinks = {
@@ -35,9 +39,10 @@ export const menuLinks: MenuLinkProps[] = [
     link: "/notes",
   },
   {
-    label: "Chat",
+    label: "Live Chat",
     icon: <FaRocketchat />,
-    link: "/chat",
+    link: "#",
+    soon: true,
   },
   {
     label: "Events",
@@ -89,6 +94,29 @@ export const settingsMenuLinks: PageMenuLinks[] = [
     label: "Permissions",
     icon: <MdOutlineSecurity />,
     to: "/settings/permissions",
+  },
+];
+
+export const eventCreateMenuLinks: PageMenuLinks[] = [
+  {
+    label: "New Event",
+    icon: <BsCalendar2Event />,
+    to: "/events/create",
+  },
+  {
+    label: "My Events",
+    icon: <MdPublishedWithChanges />,
+    to: "/events/published",
+  },
+  {
+    label: "Joined Events",
+    icon: <MdOutlineEventAvailable />,
+    to: "/events/joined",
+  },
+  {
+    label: "Drafts",
+    icon: <FaCompassDrafting />,
+    to: "/events/joined",
   },
 ];
 

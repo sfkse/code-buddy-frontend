@@ -6,17 +6,21 @@ import { RxAvatar } from "react-icons/rx";
 import UserInfoPopUp from "../UserInfoPopUp";
 
 const userObject = {
-  idusers: "c51ce767-114b-4875-8539-76b3b08793ed",
+  idusers: "8e3727c7-b8ef-475d-a2af-d7dc382ee949",
   active: 1,
-  email: "new@gmail.com",
-  firstname: "New",
-  lastname: "Devops",
-  user_type: 0,
-  updated_at: 1695989048,
-  created_at: 1695989048,
+  email: "sf55@gmail.com",
+  firstname: "hansa",
+  lastname: "köse",
+  password: "$2b$10$XhDzUolFIB3ARtoQ2BTwluUGCADdXoO3mjnh2CPgV5.Z3RDkvv5m.",
+  usertype: 0,
+  updated: 1698587680,
+  created: 1698587680,
   location:
-    '{"lat":34.5260109,"lon":69.1776838,"city":"Kabul","country":"Afghanistan"}',
-  skills: "devOps",
+    '{"lat":59.3251172,"lon":18.0710935,"city":"Stockholm","country":"Sweden"}',
+  skills:
+    '[{"label":"sefa","value":"sefa","__isNew__":true},{"label":"asd","value":"asd","__isNew__":true},{"label":"sefas","value":"sefas","__isNew__":true},{"label":"hansa","value":"hansa","__isNew__":true},{"label":"kemla","value":"kemla","__isNew__":true}]',
+  online: 0,
+  lastseen: null,
 };
 
 const Conversation = () => {

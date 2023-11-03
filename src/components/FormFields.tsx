@@ -1,9 +1,15 @@
 import styled from "styled-components";
 
-import { AuthFormState, DiscussionFormState } from "../types/form";
+import {
+  AuthFormState,
+  DiscussionFormState,
+  EventFormState,
+} from "../types/form";
+
+type FormStateTypes = AuthFormState | DiscussionFormState | EventFormState;
 
 type FormFieldsProps = {
-  formState: AuthFormState | DiscussionFormState;
+  formState: FormStateTypes;
   formFields: Array<{ name: string; type: string; placeholder: string }>;
   handleSetFormState: (
     e: React.ChangeEvent<HTMLInputElement>,
