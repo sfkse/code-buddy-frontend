@@ -1,13 +1,15 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateSingleUser } from "../../api/user";
-import { User, UserAccountSettings } from "../../types/user";
+import { UserAccountSettings } from "../../types/user";
 
-const useUpdateSingleUser = (iduser: string, userData: UserAccountSettings) => {
+const useUpdateSingleUser = (iduser: string) => {
   const queryClient = useQueryClient();
-  const { mutate, error, data, isLoading, reset } = useMutation({
-    mutationFn: () => updateSingleUser(iduser, userData),
+
+  const { mutate, error, isPending, reset } = useMutation({
+    mutationFn: (userData: UserAccountSettings) =>
+      updateSingleUser(iduser, userData),
     onSuccess: () => {
-      queryClient.invalidateQueries(["singleUser", iduser]);
+      queryClient.invalidateQueries({ queryKey: ["authUser"] });
     },
     // onSettled: () =>
     //   setFormState({
@@ -15,12 +17,16 @@ const useUpdateSingleUser = (iduser: string, userData: UserAccountSettings) => {
     //     password: "",
     //   }),
     onError: (error: any) => {
-      //   setErrorMessage(error.response.data.message);
-      //   reset();
+      // setErrorMessage(error.response.data.message);
+      reset();
       console.log(error);
     },
   });
-  return { mutate, errorUserUpdate: error, isLoadingUserUpdate: isLoading };
+  console.log(isPending);
+
+  if (error instanceof Error) error;
+
+  return { mutate, error, isPending };
 };
 
 export default useUpdateSingleUser;

@@ -20,9 +20,7 @@ const Events = () => {
   return (
     <Loader isLoading={isLoading}>
       {error ? (
-        <ToastMessage
-          text={error instanceof Error ? error.response.data.message : ""}
-        />
+        <ToastMessage text={error instanceof Error ? error.message : ""} />
       ) : null}
       <EventsWrapper>
         <EventsHeaderWrapper>

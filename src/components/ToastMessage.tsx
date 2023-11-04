@@ -62,5 +62,6 @@ const ToastMessageWrapper = styled.p<{ $isVisible?: boolean }>`
   padding: 0.5rem;
   display: ${({ $isVisible }) => ($isVisible ? "block" : "none")};
   animation: ${slideAnimation} 2.5s ease-in-out forwards;
+  z-index: 1000;
 `;
 

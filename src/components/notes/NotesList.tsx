@@ -11,31 +11,28 @@ import useAddUserNote from "../../hooks/notes/useAddUserNote";
 
 import { DEVICES } from "../../styles/theme";
 import { Note, Tags } from "../../types/notes";
-import { fetchCredentials } from "../../utils/userUtils";
 import { createDefaultContent, getPlainContent } from "../../utils/editorUtils";
+import { useNavigate } from "react-router-dom";
 
 type NotesListProps = {
+  isAuthenticated: boolean;
+  idOwner: Note["owner"];
   notes: Note[];
   selectedNote?: Note;
   handleOnClickNote: (id: Note["idnotes"]) => void;
 };
 
 const NotesList = ({
+  isAuthenticated,
+  idOwner,
   notes,
   selectedNote,
   handleOnClickNote,
 }: NotesListProps) => {
-  const userID = fetchCredentials();
   const [searchValue, setSearchValue] = useState<string>("");
   const [filteredNotes, setFilteredNotes] = useState<Note[]>(notes);
-  const { mutate, error, isLoading } = useAddUserNote({
-    title: "New note(Draft)",
-    content: createDefaultContent(),
-    tags: [{ label: "Draft", value: "Draft" }],
-    type: -1,
-    owner: userID,
-  });
-
+  const { mutate, error, isPending } = useAddUserNote();
+  const navigate = useNavigate();
   useEffect(() => {
     setFilteredNotes(notes);
   }, [notes]);
@@ -54,7 +51,17 @@ const NotesList = ({
   };
 
   const handleAddNote = () => {
-    mutate();
+    if (!isAuthenticated) {
+      localStorage.setItem("redirect", "/notes");
+      return navigate("/login");
+    }
+    mutate({
+      title: "New note(Draft)",
+      content: createDefaultContent(),
+      tags: [{ label: "Draft", value: "Draft" }],
+      type: -1,
+      owner: idOwner,
+    });
   };
   const handleOnChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -72,7 +79,7 @@ const NotesList = ({
   };
 
   return (
-    <Loader isLoading={isLoading}>
+    <Loader isLoading={isPending}>
       {error ? (
         <ToastMessage text={error instanceof Error ? error.message : ""} />
       ) : null}

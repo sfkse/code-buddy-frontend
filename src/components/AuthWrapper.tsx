@@ -1,5 +1,6 @@
-import React from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import { redirect, useLocation } from "react-router-dom";
+import { useFetchAuthUser } from "../hooks/user/useFetchAuthUser";
+import { isUserActivated, isUserAuthenticated } from "../utils/userUtils";
 
 type AuthWrapperProps = {
   children?: React.ReactNode;
@@ -7,38 +8,59 @@ type AuthWrapperProps = {
 
 const AuthWrapper = ({ children }: AuthWrapperProps) => {
   const location = useLocation();
-  const credentials = localStorage.getItem("credentials")
-    ? JSON.parse(localStorage.getItem("credentials") || "")
-    : null;
+  const { authUser, error } = useFetchAuthUser();
+  const userAuthenticated = isUserAuthenticated(authUser);
+  const userActivated = isUserActivated(authUser);
+
+  const unprotectedPaths = [
+    "^/404",
+    "^/",
+    "^/login",
+    "^/register",
+    "^/events",
+    "^/notes",
+  ];
+
+  const isProtectedPath = unprotectedPaths.some((path) =>
+    location.pathname.match(path)
+  );
 
   window.scrollTo({
     top: 0,
     behavior: "smooth",
   });
-  // Send user to login page if not logged in
-  if (
-    !credentials &&
-    location.pathname !== "/" &&
-    location.pathname !== "/login" &&
-    location.pathname !== "/register"
-  )
-    return <Navigate to="/login" />;
+  // useEffect(() => {
 
-  // Send user to welcome page if not activated
-  if (credentials && !credentials.activated && location.pathname !== "/welcome")
-    return <Navigate to="/welcome" />;
+  if (error) {
+    redirect("/login");
+  }
 
-  // Send user to home page if logged in
-  if (
-    credentials &&
-    credentials.activated &&
-    (location.pathname === "/welcome" ||
-      location.pathname === "/register" ||
-      location.pathname === "/login")
-  )
-    return <Navigate to="/" />;
+  if (!userAuthenticated) {
+    redirect("/login");
+  }
 
+  if (userAuthenticated && !userActivated && isProtectedPath) {
+    redirect("/welcome");
+  }
+
+  if (!userAuthenticated && !userActivated && isProtectedPath) {
+    redirect("/login");
+  }
+  // }, [userAuthenticated, userActivated, isProtectedPath, error]);
+
+  // // console.log(user);
+  // console.log(userAuthenticated, userActivated);
+  // // Send user to welcome page if not activated
+  // if (userAuthenticated && !userActivated) {
+  //   return navigate("/welcome");
+  // }
+
+  // // Send user to home page if logged in
+  // else if (!userAuthenticated && !userActivated && isProtectedPath) {
+  //   return navigate("/login");
+  // } else {
   return <>{children}</>;
+  // }
 };
 
 export default AuthWrapper;

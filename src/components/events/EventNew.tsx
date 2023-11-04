@@ -20,7 +20,7 @@ import { Tags } from "../../types/notes";
 import { TimePicker } from "@mui/x-date-pickers";
 import { EVENT_STATUS } from "../../utils/eventsUtils";
 import Loader from "../Loader";
-import { fetchCredentials } from "../../utils/userUtils";
+import { fetchAuth } from "../../utils/userUtils";
 import ToastMessage from "../ToastMessage";
 
 const EventNew = () => {
@@ -45,7 +45,7 @@ const EventNew = () => {
     }));
   };
 
-  const { mutate, error, isLoading } = useSaveEvent();
+  const { mutate, error, isPending } = useSaveEvent();
 
   const { handleOnStyle } = useSetOnStyle(
     setEditorState,
@@ -134,7 +134,7 @@ const EventNew = () => {
       date: Math.floor(new Date(formState.currentState.date).getTime() / 1000),
       location: formState.currentState.location,
       timeline: JSON.stringify(formState.currentState.timeline),
-      creator: fetchCredentials(),
+      creator: fetchAuth(),
       type: type,
     });
   };
@@ -155,11 +155,9 @@ const EventNew = () => {
   ));
 
   return (
-    <Loader isLoading={isLoading}>
+    <Loader isLoading={isPending}>
       {error ? (
-        <ToastMessage
-          text={error instanceof Error ? error.response.data.message : ""}
-        />
+        <ToastMessage text={error instanceof Error ? error.message : ""} />
       ) : null}
       <EventNewContentWrapper>
         <EventNewFormWrapper>

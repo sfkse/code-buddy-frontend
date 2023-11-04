@@ -56,7 +56,7 @@ const Login = () => {
         <ToastMessage
           text={
             error instanceof Error
-              ? error.response.data.message
+              ? error.message
               : errorMessage
               ? errorMessage
               : ""

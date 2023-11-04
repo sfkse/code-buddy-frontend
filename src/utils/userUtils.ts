@@ -1,21 +1,23 @@
-import { UserSkills } from "../types/user";
+import { User, UserSkills } from "../types/user";
 
 //SAVE USER CREDENTIALS
-export const saveCredentials = (
-  userID: string,
-  activated: boolean = true
-): void => {
-  const userCredentials = JSON.stringify({ key: userID, activated });
-  localStorage.setItem("credentials", userCredentials);
+export const saveAuth = (authenticated: boolean): void => {
+  localStorage.setItem("auth", JSON.stringify(authenticated));
 };
 
 //FETCH USER CREDENTIALS
-export const fetchCredentials = (): string => {
-  const userKeyObj = localStorage.getItem("credentials")
-    ? JSON.parse(localStorage.getItem("credentials"))
-    : "";
+export const fetchAuth = (): string => {
+  return JSON.parse(localStorage.getItem("auth") || "false");
+};
 
-  return userKeyObj.key;
+//FETCH USER AUTHENTICATION STATUS
+export const isUserAuthenticated = (user: User): boolean => {
+  return Boolean(user && Object.keys(user).length > 0);
+};
+
+//FETCH USER ACTIVATION STATUS
+export const isUserActivated = (user: User): boolean => {
+  return Boolean(user && Object.keys(user).length > 0 && user.registered);
 };
 
 export const transformSkillsToHashtags = (skills: string) => {

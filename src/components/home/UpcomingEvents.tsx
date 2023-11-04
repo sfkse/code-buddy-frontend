@@ -15,9 +15,7 @@ const UpcomingEvents = () => {
   return (
     <>
       {error ? (
-        <ToastMessage
-          text={error instanceof Error ? error.response.data.message : ""}
-        />
+        <ToastMessage text={error instanceof Error ? error.message : ""} />
       ) : null}
       <Card
         title="Upcoming Events"
@@ -29,7 +27,7 @@ const UpcomingEvents = () => {
       >
         {events.length > 0 &&
           events.slice(0, 3).map((event: Event) => (
-            <EventsRow>
+            <EventsRow key={event.idevents}>
               <EventsFirstCol>
                 <EventName>{event.title}</EventName>
               </EventsFirstCol>

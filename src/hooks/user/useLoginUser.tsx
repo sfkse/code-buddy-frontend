@@ -1,8 +1,7 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
 import { authenticateLogin } from "../../api/auth";
-import { saveCredentials } from "../../utils/userUtils";
 import { AuthFormState } from "../../types/form";
 
 export const useLoginUser = (
@@ -10,14 +9,14 @@ export const useLoginUser = (
   setFormState: React.Dispatch<React.SetStateAction<AuthFormState>>,
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>
 ) => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
-
-  const { mutate, error, data, isLoading, reset } = useMutation({
+  const { mutate, error, data, isPending, reset } = useMutation({
     mutationFn: () => authenticateLogin(formState),
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       if (data) {
-        saveCredentials(data.data.user.idusers);
-        return navigate("/");
+        queryClient.invalidateQueries({ queryKey: ["authUser"] });
+        return navigate(localStorage.getItem("redirect") || "/");
       }
     },
     onSettled: () =>
@@ -31,6 +30,6 @@ export const useLoginUser = (
     },
   });
 
-  return { mutate, data, error, isLoading };
+  return { mutate, data, error, isPending };
 };
 

@@ -1,4 +1,4 @@
-import styled, { ThemeContext } from "styled-components";
+import styled from "styled-components";
 import { FiSave } from "react-icons/fi";
 
 import Button from "../components/Button";
@@ -6,8 +6,7 @@ import Button from "../components/Button";
 import { accountSettingsFormFields } from "../assets/data/form";
 import SelectMultipleOptions from "../components/notes/SelectMultipleOptions";
 import { useEffect, useState } from "react";
-import { fetchCredentials } from "../utils/userUtils";
-import { useFetchSingleUser } from "../hooks/user/useFetchSingleUser";
+import { useFetchAuthUser } from "../hooks/user/useFetchAuthUser";
 import {
   UserAccountSettings,
   UserAccountSettingsFormFields,
@@ -24,28 +23,20 @@ const SettingsAccount = () => {
     skills: [],
     location: "",
   });
-  const userID = fetchCredentials();
-  const { user, isLoading, error } = useFetchSingleUser(userID);
-  const { mutate, data, errorUserUpdate, isLoadingUserUpdate } =
-    useUpdateSingleUser(userID, {
-      email: formState.email,
-      firstname: formState.firstname,
-      lastname: formState.lastname,
-      skills: formState.skills,
-      location: formState.location,
-    });
+  const { authUser } = useFetchAuthUser();
+  const { mutate, error, isPending } = useUpdateSingleUser(authUser.idusers);
 
   useEffect(() => {
-    if (Object.keys(user).length > 0) {
+    if (Object.keys(authUser).length > 0) {
       setFormState({
-        email: user.email,
-        firstname: user.firstname,
-        lastname: user.lastname,
-        skills: user.skills,
-        location: user.location,
+        email: authUser.email,
+        firstname: authUser.firstname,
+        lastname: authUser.lastname,
+        skills: authUser.skills,
+        location: authUser.location,
       });
     }
-  }, [user]);
+  }, [authUser]);
 
   const handleOnChangeFields = (
     e: any,
@@ -57,51 +48,59 @@ const SettingsAccount = () => {
     setFormState({ ...formState, skills: e });
   };
   const handleOnSubmit = () => {
-    mutate();
+    mutate({
+      email: formState.email,
+      firstname: formState.firstname,
+      lastname: formState.lastname,
+      skills: formState.skills,
+      location: formState.location,
+    });
   };
-
+  console.log(isPending);
   return (
-    <Loader isLoading={isLoading}>
-      {errorUserUpdate ? (
-        <ToastMessage
-          text={errorUserUpdate instanceof Error ? errorUserUpdate.message : ""}
-        />
-      ) : null}
-      <SettingsAccountWrapper>
-        <SettingsAccountTitle>Account</SettingsAccountTitle>
-        <SettingsAccountForm>
-          {accountSettingsFormFields.map(
-            (field: UserAccountSettingsFormFields) => (
-              <SettingsAccountItem key={field.name}>
-                <SettingsAccountLabel>{field.label}</SettingsAccountLabel>
-                <SettingsAccountInput
-                  disabled={field.name === "email"}
-                  type={field.type}
-                  value={Object.keys(user).length > 0 && user[field.name]}
-                  placeholder={field.placeholder}
-                  onChange={(e) => handleOnChangeFields(e, field)}
-                  $disabled={field.name === "email"}
-                />
-              </SettingsAccountItem>
-            )
-          )}
-          <SettingsAccountLabel>Skills</SettingsAccountLabel>
-          <SelectAccountSkills
-            placeholder="Enter your skills..."
-            handleOnChangeSelect={handleOnChangeSkills}
-            options={[]}
-            value={formState.skills}
+    <>
+      <Loader isLoading={isPending}>
+        {error ? (
+          <ToastMessage text={error instanceof Error ? error.message : ""} />
+        ) : null}
+        <SettingsAccountWrapper>
+          <SettingsAccountTitle>Account</SettingsAccountTitle>
+          <SettingsAccountForm>
+            {accountSettingsFormFields.map(
+              (field: UserAccountSettingsFormFields) => (
+                <SettingsAccountItem key={field.name}>
+                  <SettingsAccountLabel>{field.label}</SettingsAccountLabel>
+                  <SettingsAccountInput
+                    disabled={field.name === "email"}
+                    type={field.type}
+                    value={
+                      Object.keys(authUser).length > 0 && authUser[field.name]
+                    }
+                    placeholder={field.placeholder}
+                    onChange={(e) => handleOnChangeFields(e, field)}
+                    $disabled={field.name === "email"}
+                  />
+                </SettingsAccountItem>
+              )
+            )}
+            <SettingsAccountLabel>Skills</SettingsAccountLabel>
+            <SelectAccountSkills
+              placeholder="Enter your skills..."
+              handleOnChangeSelect={handleOnChangeSkills}
+              options={[]}
+              value={formState.skills}
+            />
+          </SettingsAccountForm>
+          <Button
+            title="SAVE"
+            icon={<FiSave />}
+            variant="primary"
+            customStyle={{ alignSelf: "flex-end" }}
+            onClick={handleOnSubmit}
           />
-        </SettingsAccountForm>
-        <Button
-          title="SAVE"
-          icon={<FiSave />}
-          variant="primary"
-          customStyle={{ alignSelf: "flex-end" }}
-          onClick={handleOnSubmit}
-        />
-      </SettingsAccountWrapper>
-    </Loader>
+        </SettingsAccountWrapper>
+      </Loader>
+    </>
   );
 };
 

@@ -10,11 +10,15 @@ import useFetchUserNotes from "../hooks/notes/useFetchUserNotes";
 
 import { DEVICES } from "../styles/theme";
 import { Note } from "../types/notes";
-import { fetchCredentials } from "../utils/userUtils";
+import { useFetchAuthUser } from "../hooks/user/useFetchAuthUser";
 
 const Notes = () => {
-  const userID = fetchCredentials();
-  const { notes, isLoading, error } = useFetchUserNotes(userID);
+  const { authUser } = useFetchAuthUser();
+  const isAuthenticated = Object.keys(authUser).length > 0;
+  const { notes, isLoading, error } = useFetchUserNotes(
+    authUser.idusers,
+    isAuthenticated
+  );
 
   const [selectedNote, setSelectedNote] = useState<Note>();
 
@@ -25,13 +29,13 @@ const Notes = () => {
   return (
     <Loader isLoading={isLoading}>
       {error ? (
-        <ToastMessage
-          text={error instanceof Error ? error.response.data.message : ""}
-        />
+        <ToastMessage text={error instanceof Error ? error.message : ""} />
       ) : null}
       <NotesWrapper>
         <NotesList
           notes={notes || []}
+          isAuthenticated={isAuthenticated}
+          idOwner={authUser.idusers}
           selectedNote={selectedNote}
           handleOnClickNote={handleOnClickNote}
         />

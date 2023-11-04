@@ -4,14 +4,14 @@ import { CreateEvent } from "../../types/events";
 
 const useSaveEvent = () => {
   const queryClient = useQueryClient();
-  const { mutate, error, data, isLoading } = useMutation({
+  const { mutate, error, data, isPending } = useMutation({
     mutationFn: (data: CreateEvent) => createEvent(data),
     onSuccess: () => {
-      queryClient.invalidateQueries(["allEvents"]);
+      queryClient.invalidateQueries({ queryKey: ["allEvents"] });
     },
   });
 
-  return { mutate, data, error, isLoading };
+  return { mutate, data, error, isPending };
 };
 
 export default useSaveEvent;

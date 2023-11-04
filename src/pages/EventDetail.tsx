@@ -15,26 +15,32 @@ import { EventParticipant, EventTimeline } from "../types/events";
 import config from "../config/config.json";
 import { useState } from "react";
 import useJoinEvent from "../hooks/events/useJoinEvent";
-import { fetchCredentials } from "../utils/userUtils";
+import { fetchAuth } from "../utils/userUtils";
 import Loader from "../components/Loader";
+import useFetchSingleEventParticipants from "../hooks/events/useFetchSingleEventParticipants";
+
 const EventDetail = () => {
   const [copied, setCopied] = useState(false);
   const location = useLocation();
-  const { event, isLoading, error } = useFetchSingleEvent(
-    location.pathname.split("/")[2]
-  );
-  const { mutate } = useJoinEvent(event?.idevents);
+  const eventID = location.pathname.split("/")[2];
 
+  const { event, isEventLoading, error } = useFetchSingleEvent(eventID);
+  const { mutate } = useJoinEvent(event?.idevents);
+  const { participants, isParticipantsLoading } =
+    useFetchSingleEventParticipants(eventID);
+
+  const isLoading = isEventLoading || isParticipantsLoading;
+
+  console.log(participants);
   const handleJoinEvent = () => {
-    mutate({ idEvent: event?.idevents, idUser: fetchCredentials() });
+    //TODO: Fix removing fetchAuth after updating authentication
+    mutate({ idEvent: event?.idevents, idUser: fetchAuth() });
   };
   return (
     <Loader isLoading={isLoading}>
       <EventDetailWrapper>
         {error ? (
-          <ToastMessage
-            text={error instanceof Error ? error.response.data.message : ""}
-          />
+          <ToastMessage text={error instanceof Error ? error.message : ""} />
         ) : null}
         <EventImageWrapper>
           <EventImage src={event?.image || "https://picsum.photos/1000/200"} />
@@ -66,20 +72,17 @@ const EventDetail = () => {
                 .map((participant: EventParticipant) => (
                   <Avatar overlap name={participant.name} />
                 ))} */}
-            {/* <Avatar name="Sefa" />
-          <Avatar overlap name="seda" />
-          <Avatar overlap name="sena" />
-          <Avatar overlap name="hansa" />
-          <Avatar overlap name="kerem" />
-          <Avatar overlap name="erdem" />
-          <Avatar overlap name="arda" /> */}
-            {event?.participants && (
+            {participants.slice(0, 4).map((participant: EventParticipant) => (
+              <Avatar overlap name={participant.name} />
+            ))}
+
+            {/* {participants.length > 1 && (
               <ShapeCircle
                 type="text"
                 overlap
                 content={`+${event?.participants.length - 4}`}
               />
-            )}
+            )} */}
           </EventAudienceIconsWrapper>
 
           {/* <EventHost>{event?.host}</EventHost> */}
@@ -182,7 +185,8 @@ const EventDateAndTitleWrapper = styled.div`
 const EventAudienceIconsWrapper = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
+  padding-left: 1rem;
 `;
 
 const EventTitle = styled.h1`
@@ -257,8 +261,7 @@ const EventTimelineItemDetailsWrapper = styled.div`
 `;
 
 const EventTimelineItemTitle = styled.div`
-  font-size: ${({ theme }) => theme.font.body.base};
-  /* font-weight: 700; */
+  font-size: ${({ theme }) => theme.font.body.sm};
   color: ${({ theme }) => theme.colors.primary};
   margin-bottom: 0.3rem;
 `;

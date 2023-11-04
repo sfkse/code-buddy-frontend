@@ -16,3 +16,13 @@ export const authenticateRegister = async (formState: AuthFormState) => {
   return data;
 };
 
+export const getLoggedInStatus = async () => {
+  const { data } = await api.get(`/auth/authuser`);
+  return data;
+};
+
+export const logoutUser = async () => {
+  const { data } = await api.post(`/auth/logout`);
+  return data;
+};
+

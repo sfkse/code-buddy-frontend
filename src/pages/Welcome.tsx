@@ -11,7 +11,7 @@ import { useGetCountriesAndCities } from "../hooks/location/useGetCountriesAndCi
 import { useSetUserLocation } from "../hooks/location/useSetUserLocation";
 
 import { UserLocation } from "../types/location";
-import { fetchCredentials } from "../utils/userUtils";
+import { fetchAuth } from "../utils/userUtils";
 import { getCoordinatesFromLocation } from "../api/location";
 
 type CountryProps = {
@@ -33,7 +33,7 @@ const Welcome = () => {
     city: "",
     country: "",
   });
-  const userID = fetchCredentials();
+  const userID = fetchAuth();
 
   const { countries, isLoading: isLoadingCountries } =
     useGetCountriesAndCities();
@@ -48,12 +48,12 @@ const Welcome = () => {
     label: city,
   }));
 
-  const { isLoading: isLoadingLocation, mutate } = useSetUserLocation(
+  const { isPending, mutate } = useSetUserLocation(
     location,
     userID,
     setErrorMessage
   );
-  const isLoading = isLoadingCountries || isLoadingLocation;
+  const isLoading = isLoadingCountries || isPending;
 
   useEffect(() => {
     if (location.lat > 0 && location.lon > 0) mutate();
@@ -99,18 +99,9 @@ const Welcome = () => {
     });
   };
 
-  const handleSetResetMessage = () => {
-    setErrorMessage("");
-  };
-
   return (
     <Loader isLoading={isLoading}>
-      {errorMessage && (
-        <ToastMessage
-          text={errorMessage}
-          handleSetResetMessage={handleSetResetMessage}
-        />
-      )}
+      {errorMessage && <ToastMessage text={errorMessage} />}
       <WelcomWrapper>
         <Logo>
           FELLOW <HiCodeBracketStyle /> CODERS

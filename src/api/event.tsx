@@ -16,11 +16,16 @@ export const getSingleEvent = async (id: string) => {
   return data;
 };
 
-//TODO: Fix this.
 export const joinSingleEvent = async (idEvent: string, idUser: string) => {
   const { data } = await api.post(`/events/single/${idEvent}/join`, {
-    idUser: [JSON.stringify(idUser)],
+    idUser,
   });
+  return data;
+};
+
+export const getSingleEventParticipants = async (idEvent: string) => {
+  const { data } = await api.get(`/events/single/${idEvent}/participants`);
+  console.log(data);
   return data;
 };
 

@@ -1,5 +1,7 @@
 export interface User {
   idusers: string;
+  active: boolean;
+  registered: boolean;
   email: string;
   firstname: string;
   lastname: string;

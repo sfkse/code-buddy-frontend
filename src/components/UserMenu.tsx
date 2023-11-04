@@ -3,46 +3,44 @@ import { styled } from "styled-components";
 import DropdownMenu from "./DropdownMenu";
 import { useLogoutUser } from "../hooks/user/useLogoutUser";
 import { useNavigate } from "react-router-dom";
-import { useFetchSingleUser } from "../hooks/user/useFetchSingleUser";
-import { fetchCredentials } from "../utils/userUtils";
+import { useFetchAuthUser } from "../hooks/user/useFetchAuthUser";
 import Button from "./Button";
 import ToastMessage from "./ToastMessage";
 
 const UserMenu = () => {
-  const { logoutUser } = useLogoutUser();
-  const { user, error } = useFetchSingleUser(fetchCredentials());
+  const { authUser, error } = useFetchAuthUser();
+  const { mutate } = useLogoutUser();
   const navigate = useNavigate();
+
   const dropdownMenuContent = [
     { text: "Settings", onClick: () => navigate("/settings") },
-    { text: "Logout", onClick: () => logoutUser() },
+    { text: "Logout", onClick: () => mutate() },
   ];
   return (
-    <MenuWrapper>
-      {error ? (
-        <ToastMessage
-          text={error instanceof Error ? error.response.data.message : ""}
-        />
-      ) : null}
-      {user && Object.keys(user).length > 0 ? (
-        <>
-          <ProfileImage
-            src={`https://ui-avatars.com/api/?name=${user.firstname.slice(
-              0,
-              1
-            )}+${user.lastname.slice(0, 1)}`}
-            alt=""
+    <>
+      {error ? <ToastMessage text={error.message} /> : null}
+      <MenuWrapper>
+        {Object.keys(authUser).length > 0 ? (
+          <>
+            <ProfileImage
+              src={`https://ui-avatars.com/api/?name=${authUser.firstname.slice(
+                0,
+                1
+              )}+${authUser.lastname.slice(0, 1)}`}
+              alt=""
+            />
+            <DropdownMenu content={dropdownMenuContent} />
+          </>
+        ) : (
+          <LoginButton
+            title="LOGIN"
+            variant="primary"
+            customStyle={{ padding: "0.5rem 1rem" }}
+            onClick={() => navigate("/login")}
           />
-          <DropdownMenu content={dropdownMenuContent} />{" "}
-        </>
-      ) : (
-        <LoginButton
-          title="LOGIN"
-          variant="primary"
-          customStyle={{ padding: "0.5rem 1rem" }}
-          onClick={() => navigate("/login")}
-        />
-      )}
-    </MenuWrapper>
+        )}
+      </MenuWrapper>
+    </>
   );
 };
 

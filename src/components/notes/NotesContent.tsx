@@ -13,7 +13,7 @@ import Loader from "../Loader";
 import SelectMultipleOptions from "./SelectMultipleOptions";
 
 import useSetOnStyle from "../../hooks/editor/useSetOnStyle";
-import useSaveUserNote from "../../hooks/user/useSaveUserNote";
+import useSaveUserNote from "../../hooks/notes/useSaveUserNote";
 import useDeleteUserNote from "../../hooks/notes/useDeleteUserNote";
 
 import { DEVICES } from "../../styles/theme";

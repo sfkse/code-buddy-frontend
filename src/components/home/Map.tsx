@@ -20,9 +20,9 @@ const Markers = ({ users }: MarkersProps) => {
 
   return (
     <>
-      {users.map((user: User) => (
+      {users.map((user: User, index) => (
         <Marker
-          key={user.idusers}
+          key={index}
           icon={
             new Leaflet.Icon({
               iconUrl: onlineIcon,
@@ -52,9 +52,7 @@ const Map = () => {
     <Loader isLoading={isLoading}>
       <>
         {error ? (
-          <ToastMessage
-            text={error instanceof Error ? error.response.data.message : ""}
-          />
+          <ToastMessage text={error instanceof Error ? error.message : ""} />
         ) : null}
         <MapFilter />
         <MapWrapper>

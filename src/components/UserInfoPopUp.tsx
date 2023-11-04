@@ -4,7 +4,7 @@ import { RiUserAddFill } from "react-icons/ri";
 
 import Button from "./Button";
 
-import { User, UserSkills } from "../types/user";
+import { User } from "../types/user";
 import { transformSkillsToHashtags } from "../utils/userUtils";
 
 type UserInfoPopUpProps = {

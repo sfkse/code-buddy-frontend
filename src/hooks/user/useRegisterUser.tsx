@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
 import { authenticateRegister } from "../../api/auth";
-import { saveCredentials } from "../../utils/userUtils";
+import { saveAuth } from "../../utils/userUtils";
 import { AuthFormState } from "../../types/form";
 
 export const useRegisterUser = (
@@ -16,7 +16,7 @@ export const useRegisterUser = (
     mutationFn: () => authenticateRegister(formState),
     onSuccess: (data) => {
       if (data) {
-        saveCredentials(data.data.user.idusers, false);
+        saveAuth(data.data.user.idusers, false);
         return navigate("/welcome");
       }
     },
