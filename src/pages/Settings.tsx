@@ -8,7 +8,7 @@ import { settingsMenuLinks } from "../assets/data/menu";
 const Settings = () => {
   return (
     <SettingsWrapper>
-      <PageMenu pageMenuLinks={settingsMenuLinks} page="settings" />
+      <PageMenu pageMenuLinks={settingsMenuLinks} />
       <SettingsContentWrapper>
         <Outlet />
       </SettingsContentWrapper>

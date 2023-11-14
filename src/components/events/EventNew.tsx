@@ -20,8 +20,8 @@ import { Tags } from "../../types/notes";
 import { TimePicker } from "@mui/x-date-pickers";
 import { EVENT_STATUS } from "../../utils/eventsUtils";
 import Loader from "../Loader";
-import { fetchAuth } from "../../utils/userUtils";
 import ToastMessage from "../ToastMessage";
+import { useFetchAuthUser } from "../../hooks/user/useFetchAuthUser";
 
 const EventNew = () => {
   const [formState, setFormState] = useState({
@@ -33,6 +33,7 @@ const EventNew = () => {
       tags: [] as Tags[],
       date: "",
       location: "",
+      status: EVENT_STATUS.DRAFT,
       timeline: [{ id: 1, time: "", description: "" }],
     },
   });
@@ -46,6 +47,7 @@ const EventNew = () => {
   };
 
   const { mutate, error, isPending } = useSaveEvent();
+  const { authUser } = useFetchAuthUser();
 
   const { handleOnStyle } = useSetOnStyle(
     setEditorState,
@@ -134,8 +136,8 @@ const EventNew = () => {
       date: Math.floor(new Date(formState.currentState.date).getTime() / 1000),
       location: formState.currentState.location,
       timeline: JSON.stringify(formState.currentState.timeline),
-      creator: fetchAuth(),
-      type: type,
+      creator: authUser.idusers,
+      status: type,
     });
   };
 

@@ -12,6 +12,7 @@ export const useLogoutUser = () => {
     onSuccess: async () => {
       queryClient.removeQueries({ queryKey: ["authUser"] });
       queryClient.removeQueries({ queryKey: ["allUserNotes"] });
+      queryClient.removeQueries({ queryKey: ["allUsers"] });
       localStorage.clear();
       return navigate("/");
     },

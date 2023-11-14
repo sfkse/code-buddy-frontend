@@ -1,9 +1,7 @@
 import api from "./axios";
 import { User, UserAccountSettings } from "../types/user";
 
-export const getSingleUser = async (
-  id: string
-): Promise<User[] | undefined> => {
+export const getSingleUser = async (id: string): Promise<User[]> => {
   const { data } = await api.get(`/users/single/${id}`);
   return data;
 };

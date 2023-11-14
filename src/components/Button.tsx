@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import Tooltip from "@mui/material/Tooltip";
 
 import { ButtonProps } from "../types/components";
 import { GRADIENT_BUTTON_STYLE } from "../styles/theme";
@@ -18,7 +19,7 @@ const Button = ({
   const style =
     buttonStyle === "gradient" ? GRADIENT_BUTTON_STYLE : customStyle;
 
-  return (
+  const button = (
     <ButtonComponent
       type={type || "button"}
       onClick={onClick}
@@ -29,6 +30,21 @@ const Button = ({
     >
       {icon && <Icon style={iconStyle}>{icon}</Icon>} <span>{title}</span>
     </ButtonComponent>
+  );
+
+  return (
+    <>
+      {disabled ? (
+        <Tooltip
+          style={{ width: "100%" }}
+          title="You must be logged in to perform this action"
+        >
+          <span>{button}</span>
+        </Tooltip>
+      ) : (
+        button
+      )}
+    </>
   );
 };
 

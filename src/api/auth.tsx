@@ -10,9 +10,15 @@ export const authenticateLogin = async (formState: AuthFormState) => {
 };
 
 export const authenticateRegister = async (formState: AuthFormState) => {
+  console.log(formState);
   const { data } = await api.post(`/auth/register`, {
     ...formState,
   });
+  return data;
+};
+
+export const setUserRegistered = async (idUser: string) => {
+  const { data } = await api.post(`/auth/setuserregistered`, { idUser });
   return data;
 };
 

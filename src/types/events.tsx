@@ -8,13 +8,14 @@ export interface CreateEvent {
   location: string;
   timeline: string;
   creator: string;
-  type: string;
+  status: number;
 }
 
 export interface EventParticipant {
   name: string;
   email: string;
   avatar: string;
+  idusers: string;
 }
 
 export interface Event {
@@ -27,7 +28,7 @@ export interface Event {
   location: string;
   timeline: string;
   creator: string;
-  type: string;
+  status: number;
   participants: EventParticipant[];
   locked: boolean;
 }

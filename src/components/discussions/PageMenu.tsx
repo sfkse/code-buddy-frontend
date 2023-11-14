@@ -9,19 +9,34 @@ type PageMenuLinkProps = {
   label: string;
   icon: React.ReactNode;
   to: string;
+  soon?: boolean;
 };
 
 type PageMenuProps = {
   pageMenuLinks: PageMenuLinkProps[];
-  page: string;
+  hasSearch?: boolean;
+  searchPlaceholder?: string;
 };
 
-const PageMenu = ({ pageMenuLinks, page }: PageMenuProps) => {
+const PageMenu = ({
+  pageMenuLinks,
+  hasSearch,
+  searchPlaceholder,
+}: PageMenuProps) => {
+  const [searchValue, setSearchValue] = React.useState("");
+
+  const handleOnChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+  };
   return (
     <PageMenuWrapper>
       <PageMenuSearchInputWrapper>
-        {page !== "settings" && (
-          <SearchInput placeholder="Search discussions..." />
+        {hasSearch && (
+          <SearchInput
+            searchValue={searchValue}
+            handleOnChangeSearch={handleOnChangeSearch}
+            placeholder={searchPlaceholder}
+          />
         )}
       </PageMenuSearchInputWrapper>
       <PageMenuList>
@@ -30,11 +45,13 @@ const PageMenu = ({ pageMenuLinks, page }: PageMenuProps) => {
             to={link.to}
             key={link.label}
             style={({ isActive }): CSSProperties => ({
-              fontWeight: isActive ? "bold" : "normal",
+              fontWeight: isActive && !link.soon ? "bold" : "normal",
             })}
+            $isSoon={link.soon}
           >
             <PageMenuItemIcon>{link.icon}</PageMenuItemIcon>
             <PageMenuItemText>{link.label}</PageMenuItemText>
+            {link.soon && <SoonLabel>Soon</SoonLabel>}
           </NavLinkItem>
         ))}
       </PageMenuList>
@@ -71,7 +88,7 @@ const PageMenuList = styled.ul`
   padding: 0;
 `;
 
-const NavLinkItem = styled(NavLink)`
+const NavLinkItem = styled(NavLink)<{ $isSoon?: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -80,9 +97,10 @@ const NavLinkItem = styled(NavLink)`
   cursor: pointer;
   &:hover,
   &.active {
-    background-color: ${({ theme }) => theme.colors.secondary};
+    background-color: ${({ theme, $isSoon }) =>
+      !$isSoon && theme.colors.secondary};
     svg {
-      color: ${({ theme }) => theme.colors.yellow};
+      color: ${({ theme, $isSoon }) => !$isSoon && theme.colors.yellow};
     }
   }
 `;
@@ -94,5 +112,20 @@ const PageMenuItemIcon = styled.div`
 const PageMenuItemText = styled.span`
   color: ${({ theme }) => theme.colors.primaryLight};
   font-size: ${({ theme }) => theme.font.body.base};
+`;
+
+const SoonLabel = styled.span`
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.primary};
+  padding: 0.01rem 0.2rem;
+  border-radius: 3px;
+  background: rgb(224, 15, 15);
+  background: linear-gradient(
+    90deg,
+    rgba(224, 15, 15, 1) 0%,
+    rgba(214, 114, 8, 1) 35%,
+    rgba(255, 244, 0, 1) 100%
+  );
 `;
 

@@ -7,6 +7,7 @@ import Button from "../Button";
 import SearchInput from "../SearchInput";
 
 import { DEVICES } from "../../styles/theme";
+import { useFetchAuthUser } from "../../hooks/user/useFetchAuthUser";
 
 type NotesSetupProps = {
   handleAddNote: () => void;
@@ -21,6 +22,7 @@ const NotesSetup = ({
   handleOnChangeSearch,
   count,
 }: NotesSetupProps) => {
+  const { authUser } = useFetchAuthUser();
   return (
     <NotesSetupWrapper>
       <NotesOptionsWrapper>
@@ -45,6 +47,7 @@ const NotesSetup = ({
           title="ADD NOTE"
           icon={<HiOutlinePlus />}
           fullWidth
+          disabled={Object.keys(authUser).length === 0}
         />
       </NotesAddWrapper>
     </NotesSetupWrapper>

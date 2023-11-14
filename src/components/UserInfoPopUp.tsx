@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { RiUserAddFill } from "react-icons/ri";
 
@@ -6,6 +5,7 @@ import Button from "./Button";
 
 import { User } from "../types/user";
 import { transformSkillsToHashtags } from "../utils/userUtils";
+import { useFetchAuthUser } from "../hooks/user/useFetchAuthUser";
 
 type UserInfoPopUpProps = {
   user: User;
@@ -14,29 +14,33 @@ type UserInfoPopUpProps = {
 };
 
 const UserInfoPopUp = ({ user, type }: UserInfoPopUpProps) => {
-  const parsedLocation = JSON.parse(user.location);
-  // useEffect(() => {
-  //   if (user.skills) setSkills(transformSkillsToHashtags(user.skills));
-  // }, [user.skills]);
-
+  const { authUser } = useFetchAuthUser();
   return (
     <PopUpWrapper>
-      <UserLogo />
-      <UserLocation>{`${parsedLocation.city}, ${parsedLocation.country}`}</UserLocation>
-      <UserFullName>{`${user.firstname} ${user.lastname}`}</UserFullName>
-      <UserTagsWrapper>
-        {transformSkillsToHashtags(user.skills)}
-      </UserTagsWrapper>
-      {type !== "noAction" && (
-        <Actions>
-          <Button
-            title="CONNECT"
-            variant="primary"
-            icon={<RiUserAddFill />}
-            iconStyle={{ marginRight: 0 }}
-            fullWidth
-          />
-        </Actions>
+      {user && (
+        <>
+          <UserLogo />
+          <UserLocation>{`${user.location?.city}, ${user.location?.country}`}</UserLocation>
+          <UserFullName>{`${user.firstname} ${user.lastname}`}</UserFullName>
+          <UserTagsWrapper>
+            {transformSkillsToHashtags(user.skills)}
+          </UserTagsWrapper>
+          {type !== "noAction" && (
+            <Actions>
+              <Button
+                title="CONNECT"
+                variant="primary"
+                icon={<RiUserAddFill />}
+                iconStyle={{ marginRight: 0 }}
+                fullWidth
+                disabled={
+                  user.idusers === authUser.idusers ||
+                  Object.keys(authUser).length === 0
+                }
+              />
+            </Actions>
+          )}
+        </>
       )}
     </PopUpWrapper>
   );
@@ -76,11 +80,6 @@ const UserTagsWrapper = styled.div`
   margin: 0.5rem;
   word-break: break-all;
   text-align: center;
-`;
-
-const UserTags = styled.span`
-  display: inline-block;
-  margin-bottom: 0.5rem;
 `;
 
 const Actions = styled.div`

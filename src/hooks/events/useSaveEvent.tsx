@@ -8,6 +8,7 @@ const useSaveEvent = () => {
     mutationFn: (data: CreateEvent) => createEvent(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["allEvents"] });
+      queryClient.invalidateQueries({ queryKey: ["userEvents"] });
     },
   });
 

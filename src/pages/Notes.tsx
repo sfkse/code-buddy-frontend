@@ -15,9 +15,12 @@ import { useFetchAuthUser } from "../hooks/user/useFetchAuthUser";
 const Notes = () => {
   const { authUser } = useFetchAuthUser();
   const isAuthenticated = Object.keys(authUser).length > 0;
+  const isActived = Boolean(authUser.registered);
+  const queryEnabled = isAuthenticated && isActived;
+
   const { notes, isLoading, error } = useFetchUserNotes(
     authUser.idusers,
-    isAuthenticated
+    queryEnabled
   );
 
   const [selectedNote, setSelectedNote] = useState<Note>();
@@ -34,7 +37,6 @@ const Notes = () => {
       <NotesWrapper>
         <NotesList
           notes={notes || []}
-          isAuthenticated={isAuthenticated}
           idOwner={authUser.idusers}
           selectedNote={selectedNote}
           handleOnClickNote={handleOnClickNote}

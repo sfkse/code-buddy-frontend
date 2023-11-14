@@ -12,18 +12,16 @@ export const fetchAuth = (): string => {
 
 //FETCH USER AUTHENTICATION STATUS
 export const isUserAuthenticated = (user: User): boolean => {
-  return Boolean(user && Object.keys(user).length > 0);
+  return Boolean(Object.keys(user).length > 0);
 };
 
 //FETCH USER ACTIVATION STATUS
 export const isUserActivated = (user: User): boolean => {
-  return Boolean(user && Object.keys(user).length > 0 && user.registered);
+  return Boolean(Object.keys(user).length > 0 && user.registered);
 };
 
-export const transformSkillsToHashtags = (skills: string) => {
-  const parsedSkills = JSON.parse(skills) as UserSkills[];
-
-  const extractedSkills = parsedSkills.map((skill: any) => skill.label);
+export const transformSkillsToHashtags = (skills: UserSkills[]) => {
+  const extractedSkills = skills.map((skill: any) => skill.label);
   const hashtagAdded = extractedSkills.join("#");
   return `#${hashtagAdded}`;
 };

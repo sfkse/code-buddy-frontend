@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Avatar from "../components/Avatar";
+import { BsSearchHeartFill } from "react-icons/bs";
 
 const DiscussionsRanking = () => {
   return (
@@ -17,7 +18,7 @@ const DiscussionsRanking = () => {
         @Sefa
       </DiscussionsRankingListItemTitleWrapper>
       <DiscussionsRankingListItemBadges>
-        Badges
+        <BsSearchHeartFill />
       </DiscussionsRankingListItemBadges>
       <DiscussionsRankingListItemTopicsCreated>
         Topics Created

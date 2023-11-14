@@ -8,7 +8,11 @@ import { DEVICES } from "../styles/theme";
 const Discussions = () => {
   return (
     <DiscussionsWrapper>
-      <PageMenu pageMenuLinks={discussionsMenuLinks} page="discussions" />
+      <PageMenu
+        hasSearch
+        pageMenuLinks={discussionsMenuLinks}
+        searchPlaceholder="Search for discussions"
+      />
       <DiscussionsContentWrapper>
         <Outlet />
       </DiscussionsContentWrapper>

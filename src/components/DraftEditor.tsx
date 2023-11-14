@@ -7,6 +7,8 @@ type DraftEditorProps = {
   editorRef: React.MutableRefObject<Editor | null>;
   editorState: EditorState;
   size?: string;
+  readOnly?: boolean;
+  readOnlyAndLarge?: boolean;
   handleOnChangeEditor: (editorState: EditorState) => void;
 };
 
@@ -14,15 +16,23 @@ const DraftEditor = ({
   editorRef,
   editorState,
   size,
+  readOnly,
+  readOnlyAndLarge,
   handleOnChangeEditor,
 }: DraftEditorProps) => {
   return (
-    <EditorWrapper $size={size} onClick={() => editorRef.current?.focus()}>
+    <EditorWrapper
+      $size={size}
+      $readOnly={readOnly}
+      $readOnlyAndLarge={readOnlyAndLarge}
+      onClick={() => editorRef.current?.focus()}
+    >
       <Editor
         ref={editorRef}
         editorState={editorState}
         onChange={handleOnChangeEditor}
         customStyleMap={EDITOR_STYLE_MAP}
+        readOnly={readOnly}
       />
     </EditorWrapper>
   );
@@ -30,12 +40,24 @@ const DraftEditor = ({
 
 export default DraftEditor;
 
-const EditorWrapper = styled.div<{ $size: string | undefined }>`
-  border: 1px solid ${({ theme }) => theme.colors.secondary};
+const EditorWrapper = styled.div<{
+  $size: string | undefined;
+  $readOnly: boolean | undefined;
+  $readOnlyAndLarge: boolean | undefined;
+}>`
+  border: ${({ theme, $readOnly }) =>
+    !$readOnly ? `1px solid ${theme.colors.secondary}` : "none"};
   padding: 1rem;
   border-radius: 4px;
-  min-height: ${({ $size }) => ($size === "sm" ? "15rem" : "65vh")};
-  max-height: ${({ $size }) => ($size === "sm" ? "15rem" : "65vh")};
+  min-height: ${({ $size, $readOnly, $readOnlyAndLarge }) =>
+    $size === "sm"
+      ? "8rem"
+      : $readOnly && !$readOnlyAndLarge
+      ? "1rem"
+      : $readOnlyAndLarge
+      ? "fit-content"
+      : "65vh"};
+  /* max-height: ${({ $size }) => ($size === "sm" ? "8rem" : "65vh")}; */
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;

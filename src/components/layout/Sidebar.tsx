@@ -3,11 +3,10 @@ import { styled } from "styled-components";
 import { NavLink } from "react-router-dom";
 import { CgClose } from "react-icons/cg";
 import { HiCodeBracket } from "react-icons/hi2";
-import { BiMailSend } from "react-icons/bi";
 
 import { DEVICES, MENU_ITEM_BORDER } from "../../styles/theme";
 import { menuLinks } from "../../assets/data/menu";
-import Button from "../Button";
+import CopyButton from "../CopyButton";
 
 type SidebarProps = {
   toggle: boolean;
@@ -45,12 +44,8 @@ const Sidebar = ({ toggle, handleOnToggle }: SidebarProps) => {
             {link.soon && <SoonLabel>Soon</SoonLabel>}
           </NavLinkItem>
         ))}
-        <Button
-          variant="secondary"
-          title="Invite Friends"
-          icon={<BiMailSend />}
-          customStyle={{ marginTop: "1rem" }}
-        />
+
+        <CopyButton urlPath="" fullWidth={true} />
       </MenuItemWrapper>
     </SidebarWrapper>
   );

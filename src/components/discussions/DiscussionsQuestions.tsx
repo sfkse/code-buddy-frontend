@@ -1,30 +1,47 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { GrFormView } from "react-icons/gr";
-import { BiMessage, BiSolidHot, BiTimer } from "react-icons/bi";
-import { AiOutlineArrowUp } from "react-icons/ai";
-import { BsArrowUpRight } from "react-icons/bs";
+import { BiSolidHot, BiTimer } from "react-icons/bi";
+import {
+  BsArrowUpRight,
+  BsChevronDoubleDown,
+  BsReplyFill,
+} from "react-icons/bs";
 import { HiOutlineLockClosed } from "react-icons/hi";
 import { FaRegCircleQuestion } from "react-icons/fa6";
 
-import Card from "../Card";
 import Avatar from "../Avatar";
 import Button from "../Button";
 import { DEVICES } from "../../styles/theme";
+import { CgArrowDownO, CgArrowUpO } from "react-icons/cg";
+import useFetchAllDiscussions from "../../hooks/discussions/useFetchAllDiscussions";
+import Loader from "../Loader";
+import { Discussion } from "../../types/discussions";
+import { convertPassedDaysFromTimestamp } from "../../utils/dateUtils";
+import ToastMessage from "../ToastMessage";
+import { getPlainContent } from "../../utils/editorUtils";
 
-type DiscussionsQuestionsProps = {
-  type: "yourquestions" | "youranswers" | "questions";
-};
-const DiscussionsQuestions = ({ type }: DiscussionsQuestionsProps) => {
+const DiscussionsQuestions = () => {
   const navigate = useNavigate();
+  const { discussions, isPending, error } = useFetchAllDiscussions();
 
-  const handleOpenQuestion = () => {
-    navigate("/discussions/questions/1");
+  const handleOpenQuestion = (id: string) => {
+    navigate(`/discussions/questions/${id}`);
   };
 
+  const fetchDiscussionContentText = (content) => {
+    const htmlContent = getPlainContent(content);
+
+    const text =
+      htmlContent.length > 200
+        ? getPlainContent(content).slice(0, 200) + "..."
+        : htmlContent;
+    return text;
+  };
   return (
-    <>
-      {type === "yourquestions" && <h1>Your Questions</h1>}
+    <Loader isLoading={isPending}>
+      {error ? (
+        <ToastMessage text={error instanceof Error ? error.message : ""} />
+      ) : null}
       <DiscussionsContentTabsWrapper>
         <DiscussionsContentTabs>
           <DiscussionsContentTab>
@@ -50,57 +67,82 @@ const DiscussionsQuestions = ({ type }: DiscussionsQuestionsProps) => {
         />
       </DiscussionsContentTabsWrapper>
       <DiscussionsContentList>
-        <DiscussionsContentListItem onClick={handleOpenQuestion}>
-          <Card>
-            <DiscussionsContentCreatorWrapper>
-              <Avatar name="Sefa" />
-              <DiscussionsContentCreatorDetails>
-                <DiscussionsContentCreatorName>
-                  Sefa
-                </DiscussionsContentCreatorName>
-                <DiscussionsContentCreatorDate>
-                  Today
-                </DiscussionsContentCreatorDate>
-              </DiscussionsContentCreatorDetails>
-            </DiscussionsContentCreatorWrapper>
-            <DiscussionsContentListItemTitle>
-              How to patch KDE on FreeBSD?
-            </DiscussionsContentListItemTitle>
-            <DiscussionsContentListItemDescription>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia
-              voluptatibus, quos, accusantium, quibusdam voluptas voluptatem
-              voluptatum quod doloribus consequuntur doloremque quae. Quod
-              voluptatem, quia tempore voluptatibus voluptas molestias
-              consequatur.
-            </DiscussionsContentListItemDescription>
-            <DiscussionsContentListItemProperties>
-              <DiscussionsContentListItemTagsWrapper>
-                <DiscussionsContentListItemTag>
-                  golang
-                </DiscussionsContentListItemTag>
-                <DiscussionsContentListItemTag>
-                  linux
-                </DiscussionsContentListItemTag>
-              </DiscussionsContentListItemTagsWrapper>
-              <DiscussionsContentListStatistics>
-                <DiscussionsContentListSeen>
-                  <DiscussionsContentListSeenIcon />
-                  123
-                </DiscussionsContentListSeen>
-                <DiscussionsContentListAnswers>
-                  <DiscussionsContentListAnswersIcon />
-                  123
-                </DiscussionsContentListAnswers>
-                <DiscussionsContentListVotes>
-                  <DiscussionsContentListVotesIcon />
-                  123
-                </DiscussionsContentListVotes>
-              </DiscussionsContentListStatistics>
-            </DiscussionsContentListItemProperties>
-          </Card>
-        </DiscussionsContentListItem>
+        {discussions.map((discussion: Discussion) => (
+          <DiscussionsContentListItem key={discussion.iddiscussions}>
+            <DiscussionContentsWrapper>
+              <DiscussionContentItem $type="commentOwner">
+                <DiscussionContentHeaderWrapper>
+                  <DiscussionContentHeaderTitleWrapper>
+                    <DiscussionContentHeaderTitle>
+                      <Avatar name="Karin Benzema" />
+                      <DiscussionContentHeaderTitleUsername>
+                        @karinbenzema
+                      </DiscussionContentHeaderTitleUsername>
+                    </DiscussionContentHeaderTitle>
+                  </DiscussionContentHeaderTitleWrapper>
+                  <DiscussionContentHeaderInfoWrapper>
+                    <DiscussionContentHeaderInfoDate>
+                      {convertPassedDaysFromTimestamp(discussion.created) < 2
+                        ? "Today"
+                        : convertPassedDaysFromTimestamp(discussion.created) +
+                          " days ago"}
+                    </DiscussionContentHeaderInfoDate>
+                  </DiscussionContentHeaderInfoWrapper>
+                </DiscussionContentHeaderWrapper>
+                <DiscussionContentBodyWrapper
+                  onClick={() => handleOpenQuestion(discussion.iddiscussions)}
+                >
+                  <DiscussionContentBodyTitle>
+                    {discussion.title}
+                  </DiscussionContentBodyTitle>
+                  <DiscussionContentBodyText>
+                    {fetchDiscussionContentText(discussion)}
+                  </DiscussionContentBodyText>
+                </DiscussionContentBodyWrapper>
+                <DiscussionContentVotesAndOptionsWrapper>
+                  <DiscussionContentVotesWrapper>
+                    <DiscussionContentVotes>
+                      <DiscussionContentVotesUp>
+                        <DiscussionContentVotesUpIcon />
+                      </DiscussionContentVotesUp>
+                      <DiscussionContentVotesCount>
+                        {discussion.upvote}
+                      </DiscussionContentVotesCount>
+                      <DiscussionContentVotesDown>
+                        <DiscussionContentVotesDownIcon />
+                      </DiscussionContentVotesDown>
+                      <DiscussionContentVotesCount>
+                        {discussion.downvote}
+                      </DiscussionContentVotesCount>
+                    </DiscussionContentVotes>
+                  </DiscussionContentVotesWrapper>
+                  <DiscussionContentOptionsWrapper>
+                    <DiscussionContentOptions>
+                      <DiscussionContentOptionsIcon
+                        onClick={() =>
+                          handleOpenQuestion(discussion.iddiscussions)
+                        }
+                      >
+                        <DiscussionCommenShowComments />
+                        Show all replies ({discussion.comments?.length})
+                      </DiscussionContentOptionsIcon>
+                      <DiscussionContentOptionsIcon
+                        onClick={() =>
+                          handleOpenQuestion(discussion.iddiscussions)
+                        }
+                      >
+                        <DiscussionContentReplyIcon />
+                        Reply
+                      </DiscussionContentOptionsIcon>
+                    </DiscussionContentOptions>
+                  </DiscussionContentOptionsWrapper>
+                </DiscussionContentVotesAndOptionsWrapper>
+              </DiscussionContentItem>
+            </DiscussionContentsWrapper>
+          </DiscussionsContentListItem>
+        ))}
       </DiscussionsContentList>
-    </>
+    </Loader>
   );
 };
 
@@ -182,105 +224,145 @@ const DiscussionsContentList = styled.div`
 `;
 
 const DiscussionsContentListItem = styled.div`
-  margin-bottom: 2rem;
-  cursor: pointer;
+  margin-bottom: 1rem;
   width: 100%;
 `;
 
-const DiscussionsContentCreatorWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
-`;
-
-const DiscussionsContentCreatorDetails = styled.div`
+const DiscussionContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 `;
 
-const DiscussionsContentCreatorName = styled.span`
-  font-size: ${({ theme }) => theme.font.body.xs};
-  font-weight: 600;
-  margin-left: 0.5rem;
+const DiscussionContentItem = styled.div<{ $type?: string }>`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  border: 1px solid ${({ theme }) => theme.colors.secondary};
+  border-left: 4px solid
+    ${({ theme, $type }) =>
+      $type === "commentOwner" ? theme.colors.caution : theme.colors.yellow};
+  border-radius: 4px;
 `;
 
-const DiscussionsContentCreatorDate = styled.span`
-  font-size: ${({ theme }) => theme.font.body.xs};
-  font-weight: 600;
-  margin-left: 0.5rem;
-  color: ${({ theme }) => theme.colors.primaryExtraLight};
-`;
-
-const DiscussionsContentListItemTitle = styled.h3`
-  margin: 0;
-  margin-bottom: 0.5rem;
-  font-size: ${({ theme }) => theme.font.body.xl};
-  font-weight: 500;
-`;
-
-const DiscussionsContentListItemDescription = styled.p`
-  margin: 0;
-  margin-bottom: 0.5rem;
-  font-size: ${({ theme }) => theme.font.body.sm};
-  color: ${({ theme }) => theme.colors.primaryLight};
-`;
-
-const DiscussionsContentListItemProperties = styled.div`
+const DiscussionContentHeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
-  color: ${({ theme }) => theme.colors.primaryExtraLight};
+  align-items: center;
 `;
 
-const DiscussionsContentListItemTagsWrapper = styled.div`
+const DiscussionContentHeaderTitleWrapper = styled.div``;
+
+const DiscussionContentHeaderTitle = styled.span`
+  font-size: ${({ theme }) => theme.font.body.base};
+  font-weight: 700;
   display: flex;
+  align-items: center;
+`;
+
+const DiscussionContentHeaderTitleUsername = styled.span`
+  font-size: ${({ theme }) => theme.font.body.xs};
+  font-weight: 500;
+  margin-left: 0.5rem;
+`;
+
+const DiscussionContentHeaderInfoWrapper = styled.div``;
+
+const DiscussionContentHeaderInfoDate = styled.span`
+  font-size: ${({ theme }) => theme.font.body.xs};
+  font-weight: 400;
+`;
+
+const DiscussionContentBodyWrapper = styled.div`
+  cursor: pointer;
+`;
+
+const DiscussionContentBodyTitle = styled.p`
+  font-size: ${({ theme }) => theme.font.body.base};
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+`;
+
+const DiscussionContentBodyText = styled.p`
+  font-size: ${({ theme }) => theme.font.body.sm};
+  font-weight: 400;
+  max-height: fit-content;
+  overflow: hidden;
+`;
+
+const DiscussionContentVotesAndOptionsWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.5rem;
+  margin-top: 1rem;
+  border-top: 1px solid ${({ theme }) => theme.colors.secondary};
+`;
+
+const DiscussionContentVotesWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const DiscussionContentVotes = styled.div`
+  display: flex;
+  align-items: center;
   gap: 0.5rem;
 `;
 
-const DiscussionsContentListItemTag = styled.span`
-  font-size: ${({ theme }) => theme.font.body.xs};
-  border-radius: 0.2rem;
-  color: ${({ theme }) => theme.colors.secondary};
-  background-color: ${({ theme }) => theme.colors.caution};
-  padding: 0.2rem 0.5rem;
-  display: inline-block;
-`;
-
-const DiscussionsContentListStatistics = styled.div`
-  display: flex;
-  gap: 0.8rem;
-`;
-
-const DiscussionsContentListSeen = styled.div`
+const DiscussionContentVotesUp = styled.div`
   display: flex;
   align-items: center;
-  font-size: ${({ theme }) => theme.font.body.xs};
+  gap: 0.5rem;
 `;
 
-const DiscussionsContentListSeenIcon = styled(GrFormView)`
-  color: ${({ theme }) => theme.colors.primaryExtraLight};
+const DiscussionContentVotesUpIcon = styled(CgArrowUpO)`
   font-size: ${({ theme }) => theme.font.body.base};
+  color: ${({ theme }) => theme.colors.primary};
 `;
 
-const DiscussionsContentListAnswers = styled.div`
+const DiscussionContentVotesDown = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
+const DiscussionContentVotesDownIcon = styled(CgArrowDownO)`
+  font-size: ${({ theme }) => theme.font.body.base};
+  color: ${({ theme }) => theme.colors.primary};
+`;
+
+const DiscussionContentVotesCount = styled.span`
+  font-size: ${({ theme }) => theme.font.body.xs};
+  font-weight: 400;
+`;
+
+const DiscussionContentOptionsWrapper = styled.div``;
+
+const DiscussionContentOptions = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: ${({ theme }) => theme.colors.yellow};
+`;
+
+const DiscussionCommenShowComments = styled(BsChevronDoubleDown)`
+  font-size: ${({ theme }) => theme.font.body.base};
+  margin-right: 2px;
+  color: ${({ theme }) => theme.colors.yellow};
+`;
+
+const DiscussionContentReplyIcon = styled(BsReplyFill)`
+  font-size: ${({ theme }) => theme.font.body.base};
+  margin: 0 2px;
+  color: ${({ theme }) => theme.colors.yellow};
+`;
+
+const DiscussionContentOptionsIcon = styled.div`
   display: flex;
   align-items: center;
   font-size: ${({ theme }) => theme.font.body.xs};
-`;
-
-const DiscussionsContentListAnswersIcon = styled(BiMessage)`
-  color: ${({ theme }) => theme.colors.primaryExtraLight};
-  font-size: ${({ theme }) => theme.font.body.xs};
-`;
-
-const DiscussionsContentListVotes = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: ${({ theme }) => theme.font.body.xs};
-`;
-
-const DiscussionsContentListVotesIcon = styled(AiOutlineArrowUp)`
-  color: ${({ theme }) => theme.colors.primaryExtraLight};
-  font-size: ${({ theme }) => theme.font.body.xs};
+  cursor: pointer;
 `;
 

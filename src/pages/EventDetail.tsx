@@ -1,41 +1,48 @@
 import styled from "styled-components";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import { useLocation } from "react-router-dom";
 
 import Avatar from "../components/Avatar";
 import Button from "../components/Button";
 import ShapeCircle from "../components/ShapeCircle";
-import useFetchSingleEvent from "../hooks/events/useFetchSingleEvent";
-import { useLocation } from "react-router-dom";
 import ToastMessage from "../components/ToastMessage";
+import Loader from "../components/Loader";
+
+import useFetchSingleEventParticipants from "../hooks/events/useFetchSingleEventParticipants";
+import useJoinEvent from "../hooks/events/useJoinEvent";
+import useFetchSingleEvent from "../hooks/events/useFetchSingleEvent";
+
+import { EventParticipant, EventTimeline } from "../types/events";
 import {
   formatEventDate,
   getContentFromEditorState,
 } from "../utils/eventsUtils";
-import { EventParticipant, EventTimeline } from "../types/events";
-import config from "../config/config.json";
-import { useState } from "react";
-import useJoinEvent from "../hooks/events/useJoinEvent";
-import { fetchAuth } from "../utils/userUtils";
-import Loader from "../components/Loader";
-import useFetchSingleEventParticipants from "../hooks/events/useFetchSingleEventParticipants";
+import { useFetchAuthUser } from "../hooks/user/useFetchAuthUser";
+import CopyButton from "../components/CopyButton";
 
+// TODO: Fix the timeline issue when there is no timeline
 const EventDetail = () => {
-  const [copied, setCopied] = useState(false);
   const location = useLocation();
   const eventID = location.pathname.split("/")[2];
 
+  const { authUser } = useFetchAuthUser();
   const { event, isEventLoading, error } = useFetchSingleEvent(eventID);
-  const { mutate } = useJoinEvent(event?.idevents);
+  const { mutate } = useJoinEvent();
   const { participants, isParticipantsLoading } =
     useFetchSingleEventParticipants(eventID);
 
   const isLoading = isEventLoading || isParticipantsLoading;
+  const isEventJoined = participants?.some(
+    (participant: EventParticipant) => participant.idusers === authUser.idusers
+  );
 
-  console.log(participants);
-  const handleJoinEvent = () => {
-    //TODO: Fix removing fetchAuth after updating authentication
-    mutate({ idEvent: event?.idevents, idUser: fetchAuth() });
-  };
+  console.log(event);
+  const hasTimeline =
+    event.length > 0 &&
+    JSON.parse(JSON.parse(event?.timeline)).length >= 1 &&
+    JSON.parse(JSON.parse(event?.timeline))[0].description !== "" &&
+    JSON.parse(JSON.parse(event?.timeline))[0].time !== "";
+  const handleJoinEvent = () =>
+    mutate({ idEvent: event.idevents, idUser: authUser.idusers });
   return (
     <Loader isLoading={isLoading}>
       <EventDetailWrapper>
@@ -53,39 +60,23 @@ const EventDetail = () => {
               <EventTitle>{event?.title}</EventTitle>
             </EventDateAndTitleWrapper>
             <EventShareWrapper>
-              <CopyToClipboard
-                text={`${config.APP_BASE_URL}/events/${event?.idevents}`}
-                onCopy={() => setTimeout(() => setCopied(false), 3000)}
-              >
-                <EventShareButton
-                  onClick={() => setCopied(true)}
-                  title={copied ? "Copied!" : "Invite friends"}
-                />
-              </CopyToClipboard>
+              <CopyButton urlPath={location.pathname} fullWidth={false} />
             </EventShareWrapper>
           </EventHeaderWrapper>
           <EventAudienceIconsWrapper>
-            {/* //TODO: Fix this. Save db or another table */}
-            {/* {event?.participants &&
-              JSON.parse(event?.participants)
-                .slice(0, 4)
-                .map((participant: EventParticipant) => (
-                  <Avatar overlap name={participant.name} />
-                ))} */}
             {participants.slice(0, 4).map((participant: EventParticipant) => (
-              <Avatar overlap name={participant.name} />
+              <Avatar key={participant.name} overlap name={participant.name} />
             ))}
-
-            {/* {participants.length > 1 && (
+            {participants?.length > 4 && (
               <ShapeCircle
                 type="text"
                 overlap
-                content={`+${event?.participants.length - 4}`}
+                content={`+${participants.length - 4}`}
               />
-            )} */}
+            )}
           </EventAudienceIconsWrapper>
 
-          {/* <EventHost>{event?.host}</EventHost> */}
+          {/* <EventHost>sefa</EventHost> */}
           <EventDescription>
             {event?.description &&
               getContentFromEditorState(event?.description)}
@@ -97,14 +88,15 @@ const EventDetail = () => {
               fullWidth
               customStyle={{ padding: "0.5rem" }}
               onClick={handleJoinEvent}
+              disabled={isEventJoined}
             />
           </EventButtonWrapper>
         </EventInfoWrapper>
-        <EventTimelineWrapper>
-          <EventTimelineHeader> Timeline </EventTimelineHeader>
-          <EventTimelineContent>
-            {event?.timeline &&
-              JSON.parse(JSON.parse(event?.timeline)).map(
+        {hasTimeline && (
+          <EventTimelineWrapper>
+            <EventTimelineHeader> Timeline </EventTimelineHeader>
+            <EventTimelineContent>
+              {JSON.parse(JSON.parse(event?.timeline)).map(
                 (timeline: EventTimeline) => (
                   <EventTimelineItem key={timeline.id}>
                     <ShapeCircleItem type="text" content={timeline.time} />
@@ -112,20 +104,13 @@ const EventDetail = () => {
                       <EventTimelineItemTitle>
                         {timeline.description}
                       </EventTimelineItemTitle>
-                      {/* <EventTimelineItemSpeakerAndTimeWrapper>
-                      <EventTimelineItemSpeaker>
-                        By Sefa
-                      </EventTimelineItemSpeaker>
-                      <EventTimelineItemTime>
-                        9:00 AM - 9:30 AM
-                      </EventTimelineItemTime>
-                    </EventTimelineItemSpeakerAndTimeWrapper> */}
                     </EventTimelineItemDetailsWrapper>
                   </EventTimelineItem>
                 )
               )}
-          </EventTimelineContent>
-        </EventTimelineWrapper>
+            </EventTimelineContent>
+          </EventTimelineWrapper>
+        )}
       </EventDetailWrapper>
     </Loader>
   );
@@ -139,6 +124,7 @@ const EventDetailWrapper = styled.div`
   align-items: center;
   padding: 2rem;
   width: 60vw;
+  min-height: 100vh;
 
   @media (max-width: 768px) {
     width: 100vw;
@@ -189,6 +175,13 @@ const EventAudienceIconsWrapper = styled.div`
   padding-left: 1rem;
 `;
 
+// const EventHost = styled.div`
+//   font-size: ${({ theme }) => theme.font.body.base};
+//   font-weight: 700;
+//   color: ${({ theme }) => theme.colors.primary};
+//   margin: 1rem 0;
+// `;
+
 const EventTitle = styled.h1`
   font-size: ${({ theme }) => theme.font.heading.base};
   font-weight: 700;
@@ -220,8 +213,6 @@ const EventShareWrapper = styled.div`
   align-items: center;
   margin-top: 1rem;
 `;
-
-const EventShareButton = styled(Button)``;
 
 const EventTimelineWrapper = styled.div`
   width: 100%;
@@ -264,24 +255,6 @@ const EventTimelineItemTitle = styled.div`
   font-size: ${({ theme }) => theme.font.body.sm};
   color: ${({ theme }) => theme.colors.primary};
   margin-bottom: 0.3rem;
-`;
-
-const EventTimelineItemSpeakerAndTimeWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-size: ${({ theme }) => theme.font.body.xs};
-`;
-
-const EventTimelineItemSpeaker = styled.div`
-  color: ${({ theme }) => theme.colors.primaryLight};
-  letter-spacing: 0.5px;
-  font-style: italic;
-`;
-
-const EventTimelineItemTime = styled.div`
-  color: ${({ theme }) => theme.colors.primaryLight};
-  letter-spacing: 0.5px;
 `;
 
 // const EventAudienceIconsWrapper = styled.div`

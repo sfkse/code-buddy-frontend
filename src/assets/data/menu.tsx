@@ -25,6 +25,7 @@ type PageMenuLinks = {
   label: string;
   icon: JSX.Element;
   to: string;
+  soon?: boolean;
 };
 
 export const menuLinks: MenuLinkProps[] = [
@@ -70,7 +71,8 @@ export const discussionsMenuLinks: PageMenuLinks[] = [
   {
     label: "Ranking",
     icon: <FaRankingStar />,
-    to: "/discussions/ranking",
+    to: "#",
+    soon: true,
   },
   {
     label: "Your Questions",
@@ -116,7 +118,7 @@ export const eventCreateMenuLinks: PageMenuLinks[] = [
   {
     label: "Drafts",
     icon: <FaCompassDrafting />,
-    to: "/events/joined",
+    to: "/events/draft",
   },
 ];
 

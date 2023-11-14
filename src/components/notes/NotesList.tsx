@@ -12,10 +12,8 @@ import useAddUserNote from "../../hooks/notes/useAddUserNote";
 import { DEVICES } from "../../styles/theme";
 import { Note, Tags } from "../../types/notes";
 import { createDefaultContent, getPlainContent } from "../../utils/editorUtils";
-import { useNavigate } from "react-router-dom";
 
 type NotesListProps = {
-  isAuthenticated: boolean;
   idOwner: Note["owner"];
   notes: Note[];
   selectedNote?: Note;
@@ -23,7 +21,6 @@ type NotesListProps = {
 };
 
 const NotesList = ({
-  isAuthenticated,
   idOwner,
   notes,
   selectedNote,
@@ -31,10 +28,11 @@ const NotesList = ({
 }: NotesListProps) => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [filteredNotes, setFilteredNotes] = useState<Note[]>(notes);
+  const [activeNoteType, setActiveNoteType] = useState<string>("1");
   const { mutate, error, isPending } = useAddUserNote();
-  const navigate = useNavigate();
+
   useEffect(() => {
-    setFilteredNotes(notes);
+    setFilteredNotes(notes.filter((note) => note.type === "1"));
   }, [notes]);
 
   const color1 = chroma("green");
@@ -51,15 +49,11 @@ const NotesList = ({
   };
 
   const handleAddNote = () => {
-    if (!isAuthenticated) {
-      localStorage.setItem("redirect", "/notes");
-      return navigate("/login");
-    }
     mutate({
       title: "New note(Draft)",
       content: createDefaultContent(),
       tags: [{ label: "Draft", value: "Draft" }],
-      type: -1,
+      type: "0",
       owner: idOwner,
     });
   };
@@ -78,6 +72,20 @@ const NotesList = ({
     }
   };
 
+  const onSelectNoteType = (e: React.MouseEvent<HTMLSpanElement>) => {
+    const value = e.currentTarget.innerText;
+    if (value === "Private") {
+      setActiveNoteType("1");
+      console.log(notes);
+      const filteredNotes = notes.filter((note) => note.type === "1");
+      setFilteredNotes(filteredNotes);
+    } else {
+      setActiveNoteType("2");
+      const filteredNotes = notes.filter((note) => note.type === "2");
+      setFilteredNotes(filteredNotes);
+    }
+  };
+
   return (
     <Loader isLoading={isPending}>
       {error ? (
@@ -90,6 +98,14 @@ const NotesList = ({
           count={notes.length}
           handleAddNote={handleAddNote}
         />
+        <NoteTypeWrapper>
+          <NoteType onClick={onSelectNoteType} $active={activeNoteType === "1"}>
+            Private
+          </NoteType>
+          <NoteType onClick={onSelectNoteType} $active={activeNoteType === "2"}>
+            Shared
+          </NoteType>
+        </NoteTypeWrapper>
         <NotesListItemWrapper>
           {filteredNotes.length > 0 &&
             filteredNotes.map((note: Note) => (
@@ -142,6 +158,25 @@ const NoteListWrapper = styled.div`
     padding: 1rem;
     border-right: none;
   }
+`;
+
+const NoteTypeWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+`;
+
+const NoteType = styled.span<{ $active: boolean }>`
+  font-size: ${({ theme }) => theme.font.body.xs};
+  font-weight: 700;
+  color: ${({ theme }) => theme.colors.text};
+  flex: 1;
+  padding-bottom: 0.5rem;
+  text-align: center;
+  cursor: pointer;
+  border-bottom: ${({ $active, theme }) =>
+    $active && `3px solid ${theme.colors.yellow}`};
 `;
 
 const NotesListItemWrapper = styled.div`

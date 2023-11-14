@@ -1,7 +1,8 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
-import { Editor, EditorState } from "draft-js";
-import { FiSave } from "react-icons/fi";
+import { Editor, EditorState, convertToRaw } from "draft-js";
+import { BsSendDash } from "react-icons/bs";
+import { useLocation } from "react-router-dom";
 
 import Card from "../components/Card";
 import DraftEditor from "../components/DraftEditor";
@@ -10,28 +11,35 @@ import Button from "../components/Button";
 import DiscussionComments from "../components/discussions/DiscussionComments";
 import Avatar from "../components/Avatar";
 import UserInfoPopUp from "../components/UserInfoPopUp";
+import Loader from "../components/Loader";
+import ToastMessage from "../components/ToastMessage";
 
 import useSetOnStyle from "../hooks/editor/useSetOnStyle";
+import useFetchSingleDiscussion from "../hooks/discussions/useFetchSingleDiscussion";
 
-const userObject = {
-  idusers: "c51ce767-114b-4875-8539-76b3b08793ed",
-  active: 1,
-  email: "new@gmail.com",
-  firstname: "New",
-  lastname: "Devops",
-  user_type: 0,
-  updated_at: 1695989048,
-  created_at: 1695989048,
-  location:
-    '{"lat":34.5260109,"lon":69.1776838,"city":"Kabul","country":"Afghanistan"}',
-  skills: "devOps",
-};
+import { convertPassedDaysFromTimestamp } from "../utils/dateUtils";
+import { getEditorStateFromRaw } from "../utils/editorUtils";
+import { Tags } from "../types/notes";
+import useSubmitComment from "../hooks/discussions/useSubmitComment";
+import { useFetchAuthUser } from "../hooks/user/useFetchAuthUser";
 
 const DiscussionsQuestionsDetail = () => {
   const [isOpenPopUp, setIsOpenPopUp] = useState(false);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const editorRef = useRef<Editor>(null);
+  const location = useLocation();
+  const discussionId = location.pathname.split("/")[3];
+
+  const { authUser } = useFetchAuthUser();
+  const { discussion, isPending, error } =
+    useFetchSingleDiscussion(discussionId);
+
+  const { mutate, errorSubmitComment, isSubmitCommentPending } =
+    useSubmitComment(discussionId);
+
   const { handleOnStyle } = useSetOnStyle(setEditorState, editorState);
+  const isLoading = isPending || isSubmitCommentPending;
+  const isError = error || errorSubmitComment;
 
   const handleOnChangeEditor = (editorState: EditorState) => {
     setEditorState(editorState);
@@ -41,90 +49,108 @@ const DiscussionsQuestionsDetail = () => {
     setIsOpenPopUp(!isOpenPopUp);
   };
 
+  const onSubmitComment = (e: React.FormEvent) => {
+    e.preventDefault();
+    mutate({
+      comment: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
+      idUser: authUser.idusers,
+      iddiscussions: discussionId,
+    });
+  };
   return (
-    <DiscussionsQuestionsDetailWrapper>
-      <Card>
-        <DiscussionsQuestionsDetailContentWrapper>
-          <DiscussionsQuestionsDetailContentHeaderWrapper>
-            <DiscussionsQuestionsDetailContentHeaderTitleWrapper>
-              <DiscussionsQuestionsDetailContentHeaderTitle>
-                How to use React Hooks?
-              </DiscussionsQuestionsDetailContentHeaderTitle>
-            </DiscussionsQuestionsDetailContentHeaderTitleWrapper>
-            <DiscussionsQuestionsDetailContentHeaderInfoWrapper>
-              <DiscussionsQuestionsDetailContentHeaderInfo>
-                <DiscussionsQuestionsDetailContentHeaderInfoAuthor>
-                  <DiscussionsQuestionsDetailContentHeaderInfoAuthorAvatar
-                    onClick={handleOpenUserPopUp}
-                  >
-                    <Avatar name="Hansa Köse" />
-                    <DiscussionsQuestionUserPopUpWrapper
-                      $isopenpopup={isOpenPopUp}
-                    >
-                      <UserInfoPopUp type="noAction" user={userObject} />
-                    </DiscussionsQuestionUserPopUpWrapper>
-                  </DiscussionsQuestionsDetailContentHeaderInfoAuthorAvatar>
-                  <DiscussionsQuestionsDetailContentHeaderInfoAuthorName>
-                    @karinbenzema
-                  </DiscussionsQuestionsDetailContentHeaderInfoAuthorName>
-                </DiscussionsQuestionsDetailContentHeaderInfoAuthor>
-                <DiscussionsQuestionsDetailContentHeaderInfoDate>
-                  2 days ago
-                </DiscussionsQuestionsDetailContentHeaderInfoDate>
-              </DiscussionsQuestionsDetailContentHeaderInfo>
-              <DiscussionsQuestionsDetailContentHeaderTags>
-                <DiscussionsQuestionsDetailContentHeaderTag>
-                  General
-                </DiscussionsQuestionsDetailContentHeaderTag>
-                <DiscussionsQuestionsDetailContentHeaderTag>
-                  Work
-                </DiscussionsQuestionsDetailContentHeaderTag>
-              </DiscussionsQuestionsDetailContentHeaderTags>
-            </DiscussionsQuestionsDetailContentHeaderInfoWrapper>
-          </DiscussionsQuestionsDetailContentHeaderWrapper>
-          <DiscussionsQuestionsDetailContentBodyWrapper>
-            <DiscussionsQuestionsDetailContentBody>
-              <DiscussionsQuestionsDetailContentBodyText>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quisquam doloribus, voluptatum, quae, quod voluptatem voluptas
-                voluptate tempora quos quibusdam natus doloremque. Voluptate,
-                voluptatum doloremque. Quisquam doloribus, voluptatum, quae,
-                quod voluptatem voluptas voluptate tempora quos quibusdam natus
-                doloremque. Voluptate, voluptatum doloremque.
-              </DiscussionsQuestionsDetailContentBodyText>
-              <DiscussionsQuestionsDetailContentBodyText>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quisquam doloribus, voluptatum, quae,
-              </DiscussionsQuestionsDetailContentBodyText>
-              <DiscussionsQuestionsDetailContentBodyText>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Quisquam doloribus, voluptatum, quae,
-              </DiscussionsQuestionsDetailContentBodyText>
-            </DiscussionsQuestionsDetailContentBody>
-          </DiscussionsQuestionsDetailContentBodyWrapper>
-        </DiscussionsQuestionsDetailContentWrapper>
-      </Card>
+    <Loader isLoading={isLoading}>
+      {isError ? (
+        <ToastMessage text={isError instanceof Error ? isError.message : ""} />
+      ) : null}
+      {discussion && Object.keys(discussion).length > 0 && (
+        <DiscussionsQuestionsDetailWrapper>
+          <Card>
+            <DiscussionsQuestionsDetailContentWrapper>
+              <DiscussionsQuestionsDetailContentHeaderWrapper>
+                <DiscussionsQuestionsDetailContentHeaderTitleWrapper>
+                  <DiscussionsQuestionsDetailContentHeaderTitle>
+                    {discussion.title}
+                  </DiscussionsQuestionsDetailContentHeaderTitle>
+                </DiscussionsQuestionsDetailContentHeaderTitleWrapper>
+                <DiscussionsQuestionsDetailContentHeaderInfoWrapper>
+                  <DiscussionsQuestionsDetailContentHeaderInfo>
+                    <DiscussionsQuestionsDetailContentHeaderInfoAuthor>
+                      <DiscussionsQuestionsDetailContentHeaderInfoAuthorAvatar
+                        onClick={handleOpenUserPopUp}
+                      >
+                        <Avatar name="Hansa Köse" />
+                        <DiscussionsQuestionUserPopUpWrapper
+                          $isopenpopup={isOpenPopUp}
+                        >
+                          <UserInfoPopUp
+                            type="noAction"
+                            user={discussion.user}
+                          />
+                        </DiscussionsQuestionUserPopUpWrapper>
+                      </DiscussionsQuestionsDetailContentHeaderInfoAuthorAvatar>
+                      <DiscussionsQuestionsDetailContentHeaderInfoAuthorName>
+                        @karinbenzema
+                      </DiscussionsQuestionsDetailContentHeaderInfoAuthorName>
+                    </DiscussionsQuestionsDetailContentHeaderInfoAuthor>
+                    <DiscussionsQuestionsDetailContentHeaderInfoDate>
+                      {convertPassedDaysFromTimestamp(discussion.created) < 2
+                        ? "Today"
+                        : convertPassedDaysFromTimestamp(discussion.created) +
+                          " days ago"}
+                    </DiscussionsQuestionsDetailContentHeaderInfoDate>
+                  </DiscussionsQuestionsDetailContentHeaderInfo>
+                  <DiscussionsQuestionsDetailContentHeaderTags>
+                    {discussion.tags?.map((tag: Tags) => (
+                      <DiscussionsQuestionsDetailContentHeaderTag
+                        key={tag.value}
+                      >
+                        {tag.label}
+                      </DiscussionsQuestionsDetailContentHeaderTag>
+                    ))}
+                  </DiscussionsQuestionsDetailContentHeaderTags>
+                </DiscussionsQuestionsDetailContentHeaderInfoWrapper>
+              </DiscussionsQuestionsDetailContentHeaderWrapper>
+              <DiscussionsQuestionsDetailContentBodyWrapper>
+                <DiscussionsQuestionsDetailContentBody>
+                  <DiscussionsQuestionsDetailContentBodyText>
+                    <DraftEditor
+                      readOnly={true}
+                      readOnlyAndLarge={true}
+                      editorRef={editorRef}
+                      editorState={
+                        discussion && getEditorStateFromRaw(discussion)
+                      }
+                      handleOnChangeEditor={() => console.log("changed")}
+                    />
+                  </DiscussionsQuestionsDetailContentBodyText>
+                </DiscussionsQuestionsDetailContentBody>
+              </DiscussionsQuestionsDetailContentBodyWrapper>
+            </DiscussionsQuestionsDetailContentWrapper>
+          </Card>
 
-      <DiscussionsQuestionsDetailSuggestionsWrapper>
-        <DiscussionsQuestionsDetailSuggestionsTitle>
-          Do you have any suggestions?
-        </DiscussionsQuestionsDetailSuggestionsTitle>
-        <EditorStyleOptions handleOnStyle={handleOnStyle} />
-        <DraftEditor
-          size="sm"
-          editorRef={editorRef}
-          editorState={editorState}
-          handleOnChangeEditor={handleOnChangeEditor}
-        />
-        <Button
-          title="SAVE"
-          icon={<FiSave />}
-          variant="primary"
-          customStyle={{ alignSelf: "flex-end", marginTop: "1rem" }}
-        />
-      </DiscussionsQuestionsDetailSuggestionsWrapper>
-      <DiscussionComments />
-    </DiscussionsQuestionsDetailWrapper>
+          <DiscussionsQuestionsDetailSuggestionsWrapper>
+            <DiscussionsQuestionsDetailSuggestionsTitle>
+              Do you have any suggestions?
+            </DiscussionsQuestionsDetailSuggestionsTitle>
+            <EditorStyleOptions handleOnStyle={handleOnStyle} />
+            <DraftEditor
+              size="sm"
+              editorRef={editorRef}
+              editorState={editorState}
+              handleOnChangeEditor={handleOnChangeEditor}
+            />
+            <Button
+              title="SUBMIT"
+              icon={<BsSendDash />}
+              variant="primary"
+              customStyle={{ alignSelf: "flex-end", marginTop: "1rem" }}
+              onClick={onSubmitComment}
+            />
+          </DiscussionsQuestionsDetailSuggestionsWrapper>
+          <DiscussionComments discussionId={discussion.iddiscussions} />
+        </DiscussionsQuestionsDetailWrapper>
+      )}
+    </Loader>
   );
 };
 
@@ -248,7 +274,7 @@ const DiscussionsQuestionsDetailSuggestionsWrapper = styled.div`
 
 const DiscussionsQuestionsDetailSuggestionsTitle = styled.h2`
   font-size: ${({ theme }) => theme.font.body.xl};
-  font-weight: 700;
+  font-weight: 500;
   margin: 2rem 0;
 `;
 

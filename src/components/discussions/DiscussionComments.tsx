@@ -3,62 +3,102 @@ import { BsChevronDoubleDown, BsReplyFill } from "react-icons/bs";
 import { CgArrowDownO, CgArrowUpO } from "react-icons/cg";
 
 import Avatar from "../Avatar";
+import useFetchDiscussionComments from "../../hooks/discussions/useFetchDiscussionComments";
+import Loader from "../Loader";
+import ToastMessage from "../ToastMessage";
+import { DiscussionComment } from "../../types/discussions";
+import { convertPassedDaysFromTimestamp } from "../../utils/dateUtils";
+import DraftEditor from "../DraftEditor";
+import { getEditorStateFromRaw } from "../../utils/editorUtils";
+import { Editor } from "draft-js";
+import { useRef } from "react";
 
-const DiscussionComments = () => {
+type DiscussionCommentsProps = {
+  discussionId?: string;
+};
+
+const DiscussionComments = ({ discussionId }: DiscussionCommentsProps) => {
+  const { comments, isPending, error } =
+    useFetchDiscussionComments(discussionId);
+
+  const editorRef = useRef<Editor>(null);
   return (
-    <DiscussionCommentsWrapper>
-      <DiscussionCommentItem $type="commentOwner">
-        <DiscussionCommentHeaderWrapper>
-          <DiscussionCommentHeaderTitleWrapper>
-            <DiscussionCommentHeaderTitle>
-              <Avatar name="Karin Benzema" />
-              <DiscussionCommentHeaderTitleUsername>
-                @karinbenzema
-              </DiscussionCommentHeaderTitleUsername>
-            </DiscussionCommentHeaderTitle>
-          </DiscussionCommentHeaderTitleWrapper>
-          <DiscussionCommentHeaderInfoWrapper>
-            <DiscussionCommentHeaderInfoDate>
-              2 days ago
-            </DiscussionCommentHeaderInfoDate>
-          </DiscussionCommentHeaderInfoWrapper>
-        </DiscussionCommentHeaderWrapper>
-        <DiscussionCommentBodyWrapper>
-          <DiscussionCommentBodyText>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-            doloribus, voluptatum, quae, quod voluptatem voluptas voluptate
-            tempora quos quibusdam natus doloremque. Voluptate, voluptatum
-            doloremque.
-          </DiscussionCommentBodyText>
-        </DiscussionCommentBodyWrapper>
-        <DiscussionCommentVotesAndOptionsWrapper>
-          <DiscussionCommentVotesWrapper>
-            <DiscussionCommentVotes>
-              <DiscussionCommentVotesUp>
-                <DiscussionCommentVotesUpIcon />
-              </DiscussionCommentVotesUp>
-              <DiscussionCommentVotesCount>10</DiscussionCommentVotesCount>
-              <DiscussionCommentVotesDown>
-                <DiscussionCommentVotesDownIcon />
-              </DiscussionCommentVotesDown>
-              <DiscussionCommentVotesCount>10</DiscussionCommentVotesCount>
-            </DiscussionCommentVotes>
-          </DiscussionCommentVotesWrapper>
-          <DiscussionCommentOptionsWrapper>
-            <DiscussionCommentOptions>
-              <DiscussionCommentOptionsIcon>
-                <DiscussionCommenShowComments />
-                Show all replies (2)
-              </DiscussionCommentOptionsIcon>
-              <DiscussionCommentOptionsIcon>
-                <DiscussionCommentReplyIcon />
-                Reply
-              </DiscussionCommentOptionsIcon>
-            </DiscussionCommentOptions>
-          </DiscussionCommentOptionsWrapper>
-        </DiscussionCommentVotesAndOptionsWrapper>
-      </DiscussionCommentItem>
-    </DiscussionCommentsWrapper>
+    <Loader isLoading={isPending}>
+      {error ? (
+        <ToastMessage text={error instanceof Error ? error.message : ""} />
+      ) : null}
+      <DiscussionCommentsWrapper>
+        {comments?.map((comment: DiscussionComment) => (
+          <DiscussionCommentItem
+            key={comment.iddiscussioncomments}
+            $type="commentOwner"
+          >
+            <DiscussionCommentHeaderWrapper>
+              <DiscussionCommentHeaderTitleWrapper>
+                <DiscussionCommentHeaderTitle>
+                  <Avatar name="Karin Benzema" />
+                  <DiscussionCommentHeaderTitleUsername>
+                    {/* {comment.user} */}
+                  </DiscussionCommentHeaderTitleUsername>
+                </DiscussionCommentHeaderTitle>
+              </DiscussionCommentHeaderTitleWrapper>
+              <DiscussionCommentHeaderInfoWrapper>
+                <DiscussionCommentHeaderInfoDate>
+                  {convertPassedDaysFromTimestamp(comment.created) < 2
+                    ? "Today"
+                    : convertPassedDaysFromTimestamp(comment.created) +
+                      " days ago"}
+                </DiscussionCommentHeaderInfoDate>
+              </DiscussionCommentHeaderInfoWrapper>
+            </DiscussionCommentHeaderWrapper>
+            <DiscussionCommentBodyWrapper>
+              <DiscussionCommentBodyText>
+                {/* TODO: standardize the getEditorStateFromRaw function. expecting 'content' we send 'comment' here */}
+                {/* <DraftEditor
+                  readOnly={true}
+                  readOnlyAndLarge={true}
+                  editorRef={editorRef}
+                  editorState={
+                    comments.length > 0 && getEditorStateFromRaw(comment)
+                  }
+                  handleOnChangeEditor={() => console.log("changed")}
+                /> */}
+              </DiscussionCommentBodyText>
+            </DiscussionCommentBodyWrapper>
+            <DiscussionCommentVotesAndOptionsWrapper>
+              <DiscussionCommentVotesWrapper>
+                <DiscussionCommentVotes>
+                  <DiscussionCommentVotesUp>
+                    <DiscussionCommentVotesUpIcon />
+                  </DiscussionCommentVotesUp>
+                  <DiscussionCommentVotesCount>
+                    {comment.upvote}
+                  </DiscussionCommentVotesCount>
+                  <DiscussionCommentVotesDown>
+                    <DiscussionCommentVotesDownIcon />
+                  </DiscussionCommentVotesDown>
+                  <DiscussionCommentVotesCount>
+                    {comment.downvote}
+                  </DiscussionCommentVotesCount>
+                </DiscussionCommentVotes>
+              </DiscussionCommentVotesWrapper>
+              <DiscussionCommentOptionsWrapper>
+                <DiscussionCommentOptions>
+                  <DiscussionCommentOptionsIcon>
+                    <DiscussionCommenShowComments />
+                    Show all replies (2)
+                  </DiscussionCommentOptionsIcon>
+                  <DiscussionCommentOptionsIcon>
+                    <DiscussionCommentReplyIcon />
+                    Reply
+                  </DiscussionCommentOptionsIcon>
+                </DiscussionCommentOptions>
+              </DiscussionCommentOptionsWrapper>
+            </DiscussionCommentVotesAndOptionsWrapper>
+          </DiscussionCommentItem>
+        ))}
+      </DiscussionCommentsWrapper>
+    </Loader>
   );
 };
 

@@ -7,7 +7,7 @@ import styled from "styled-components";
 const EventCreate = () => {
   return (
     <EventCreateWrapper>
-      <PageMenu pageMenuLinks={eventCreateMenuLinks} page="discussions" />
+      <PageMenu hasSearch={false} pageMenuLinks={eventCreateMenuLinks} />
       <EventCreateContentWrapper>
         <Outlet />
       </EventCreateContentWrapper>
@@ -20,7 +20,7 @@ export default EventCreate;
 const EventCreateWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 4fr;
-  position: relative;
+  /* position: relative; */
 
   @media only screen and (${DEVICES.md}) {
     grid-template-columns: 1fr;

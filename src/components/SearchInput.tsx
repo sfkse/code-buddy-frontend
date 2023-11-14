@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 type SearchInputProps = {
-  placeholder: string;
+  placeholder?: string;
   searchValue: string;
   handleOnChangeSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
@@ -15,7 +15,7 @@ const SearchInput = ({
     <SearchInputComponent
       value={searchValue}
       onChange={handleOnChangeSearch}
-      placeholder={placeholder}
+      placeholder={placeholder || "Search"}
     />
   );
 };

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import ToastMessage from "../components/ToastMessage";
 import FormFields from "../components/FormFields";
+import SelectMultipleOptions from "../components/notes/SelectMultipleOptions";
 
 import { useRegisterUser } from "../hooks/user/useRegisterUser";
 import { AuthFormState } from "../types/form";
@@ -18,16 +19,12 @@ const Register = () => {
     password: "",
     firstName: "",
     lastName: "",
-    skills: "",
+    skills: [],
     confirmPassword: "",
   });
   const navigate = useNavigate();
 
-  const { mutate, isLoading } = useRegisterUser(
-    formState,
-    setFormState,
-    setErrorMessage
-  );
+  const { mutate, isPending } = useRegisterUser();
 
   // REGISTER WITH EMAIL AND PASSWORD
   const handleRegister = (e: React.SyntheticEvent) => {
@@ -43,7 +40,7 @@ const Register = () => {
     if (formState.password !== formState.confirmPassword)
       return setErrorMessage("Passwords do not match");
 
-    mutate();
+    mutate(formState);
   };
   // LOGIN WITH GITHUB
   const handleGithubLogin = () => {
@@ -60,8 +57,8 @@ const Register = () => {
     }));
   };
 
-  const handleSetResetMessage = () => {
-    setErrorMessage("");
+  const handleOnChangeSkills = (e: any) => {
+    setFormState({ ...formState, skills: e });
   };
 
   return (
@@ -79,9 +76,15 @@ const Register = () => {
           formState={formState}
           handleSetFormState={handleSetFormState}
         />
+        <SelectMultipleOptions
+          placeholder="Enter your skills..."
+          handleOnChangeSelect={handleOnChangeSkills}
+          options={[]}
+          value={formState.skills}
+        />
         <Button
           type="submit"
-          disabled={isLoading}
+          disabled={isPending}
           title="REGISTER"
           fullWidth
           variant="primary"
@@ -93,12 +96,7 @@ const Register = () => {
         </LoginText>
       </FormWrapper>
 
-      {errorMessage && (
-        <ToastMessage
-          text={errorMessage}
-          handleSetResetMessage={handleSetResetMessage}
-        />
-      )}
+      {errorMessage && <ToastMessage text={errorMessage} />}
     </AuthPageWrapper>
   );
 };

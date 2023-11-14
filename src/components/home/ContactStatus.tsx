@@ -65,12 +65,12 @@ const ContactStatueSecondCol = styled.div`
 `;
 
 const ContactLogo = styled(RxAvatar)`
-  width: 2rem;
-  height: 2rem;
+  width: 1.3rem;
+  height: 1.3rem;
 `;
 
 const ContactName = styled.div`
-  font-size: ${({ theme }) => theme.font.body.base};
+  font-size: ${({ theme }) => theme.font.body.sm};
 `;
 
 const ContactStatusText = styled.div`

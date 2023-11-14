@@ -3,7 +3,7 @@ export interface Note {
   active: boolean;
   title: string;
   content: string;
-  type: number;
+  type: string;
   created: number;
   updated: number;
   tags: Tags[];
@@ -19,7 +19,7 @@ export interface PostNoteData {
   idnotes: string;
   title: string;
   content: string;
-  type: number;
+  type: string;
   tags: Tags[];
   owner: string;
   active: boolean;
@@ -28,7 +28,7 @@ export interface PostNoteData {
 export interface CreateNoteData {
   title: string;
   content: string;
-  type: number;
+  type: string;
   tags: Tags[];
   owner: string;
 }

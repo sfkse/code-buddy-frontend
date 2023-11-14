@@ -1,3 +1,5 @@
+import { UserSkills } from "./user";
+
 export interface AuthFormState {
   email: string;
   password: string;
@@ -5,7 +7,7 @@ export interface AuthFormState {
   firstName?: string;
   lastName?: string;
   location?: string;
-  skills?: string;
+  skills?: UserSkills[];
 }
 
 export interface DiscussionFormState {

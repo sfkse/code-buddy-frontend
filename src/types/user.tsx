@@ -1,3 +1,5 @@
+import { UserLocation } from "./location";
+
 export interface User {
   idusers: string;
   active: boolean;
@@ -8,7 +10,7 @@ export interface User {
   created: number;
   updated: number;
   user_type?: number;
-  location: string;
+  location: UserLocation;
   skills: UserSkills[];
 }
 export interface UserAccountSettings {

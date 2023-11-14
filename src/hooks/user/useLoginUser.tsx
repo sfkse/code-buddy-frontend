@@ -15,6 +15,7 @@ export const useLoginUser = (
     mutationFn: () => authenticateLogin(formState),
     onSuccess: async (data) => {
       if (data) {
+        localStorage.setItem("auth", "true");
         queryClient.invalidateQueries({ queryKey: ["authUser"] });
         return navigate(localStorage.getItem("redirect") || "/");
       }

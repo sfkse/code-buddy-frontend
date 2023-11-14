@@ -9,25 +9,30 @@ import EventDetail from "./pages/EventDetail";
 import Error from "./pages/Error";
 import Register from "./pages/Register";
 import DiscussionsNew from "./pages/DiscussionsNew";
-
 import Discussions from "./pages/Discussions";
-import Layout from "./components/layout/Layout";
-import AuthWrapper from "./components/AuthWrapper";
-import DiscussionsQuestions from "./components/discussions/DiscussionsQuestions";
 import DiscussionsRanking from "./pages/DiscussionsRanking";
 import DiscussionsQuestionsDetail from "./pages/DiscussionsQuestionsDetail";
 import Calendar from "./pages/Calendar";
 import Settings from "./pages/Settings";
 import SettingsAccount from "./pages/SettingsAccount";
 import SettingsPermissions from "./pages/SettingsPermissions";
+
+import Layout from "./components/layout/Layout";
+import RouteHandler from "./components/RouteHandler";
+import DiscussionsQuestions from "./components/discussions/DiscussionsQuestions";
 import EventCreate from "./components/events/EventCreate";
 import EventNew from "./components/events/EventNew";
 import UserEvents from "./components/events/UserEvents";
+import DraftEvents from "./components/events/DraftEvents";
+import JoinedEvents from "./components/events/JoinedEvents";
+import DraftEventEdit from "./components/events/DraftEventEdit";
+import DiscussionsYourQuestions from "./pages/DiscussionsYourQustions";
+import DiscussionsYourAnswers from "./pages/DiscussionsYourAnswers";
 
 const App = () => {
   return (
     <>
-      <AuthWrapper>
+      <RouteHandler>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
@@ -40,7 +45,9 @@ const App = () => {
             <Route path="events" element={<EventCreate />}>
               <Route path="create" element={<EventNew />} />
               <Route path="published" element={<UserEvents />} />
-              <Route path="joined" element={<EventCreate />} />
+              <Route path="joined" element={<JoinedEvents />} />
+              <Route path="draft" element={<DraftEvents />} />
+              <Route path="draft/:id" element={<DraftEventEdit />} />
             </Route>
             <Route path="discussions" element={<Discussions />}>
               <Route
@@ -54,12 +61,9 @@ const App = () => {
               <Route path="ranking" element={<DiscussionsRanking />} />
               <Route
                 path="yourquestions"
-                element={<DiscussionsQuestions type="yourquestions" />}
+                element={<DiscussionsYourQuestions />}
               />
-              <Route
-                path="youranswers"
-                element={<DiscussionsQuestions type="youranswers" />}
-              />
+              <Route path="youranswers" element={<DiscussionsYourAnswers />} />
               <Route path="yourlikes" element={<Discussions />} />
               <Route path="newquestion" element={<DiscussionsNew />} />
             </Route>
@@ -77,7 +81,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="*" element={<Error />} />
         </Routes>
-      </AuthWrapper>
+      </RouteHandler>
     </>
   );
 };

@@ -50,7 +50,7 @@ const NotesContent = ({ selectedNote, setSelectedNote }: NotesContentProps) => {
   const { mutate, error, isLoading } = useSaveUserNote({
     idnotes: selectedNote?.idnotes,
     title: formState.currentState.title,
-    type: 0,
+    type: "1",
     active: true,
     tags: formState.currentState.tags,
     owner: selectedNote?.owner,

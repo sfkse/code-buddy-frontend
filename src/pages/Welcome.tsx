@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { HiCodeBracket } from "react-icons/hi2";
 
@@ -10,9 +10,8 @@ import Select from "../components/Select";
 import { useGetCountriesAndCities } from "../hooks/location/useGetCountriesAndCities";
 import { useSetUserLocation } from "../hooks/location/useSetUserLocation";
 
-import { UserLocation } from "../types/location";
-import { fetchAuth } from "../utils/userUtils";
 import { getCoordinatesFromLocation } from "../api/location";
+import { useFetchAuthUser } from "../hooks/user/useFetchAuthUser";
 
 type CountryProps = {
   country: string;
@@ -24,18 +23,13 @@ const Welcome = () => {
     country: "",
     iso2: "",
   });
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState({ message: "" });
   const [cities, setCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
-  const [location, setLocation] = useState<UserLocation>({
-    lat: 0,
-    lon: 0,
-    city: "",
-    country: "",
-  });
-  const userID = fetchAuth();
 
-  const { countries, isLoading: isLoadingCountries } =
+  const { authUser } = useFetchAuthUser();
+
+  const { countries, isPending: isLoadingCountries } =
     useGetCountriesAndCities();
   const mappedCountries = countries?.map((country: CountryProps) => ({
     value: country.country,
@@ -48,18 +42,14 @@ const Welcome = () => {
     label: city,
   }));
 
-  const { isPending, mutate } = useSetUserLocation(
-    location,
-    userID,
-    setErrorMessage
+  const { isPending, mutate, setLocationError } = useSetUserLocation(
+    authUser.idusers
   );
   const isLoading = isLoadingCountries || isPending;
-
-  useEffect(() => {
-    if (location.lat > 0 && location.lon > 0) mutate();
-  }, [location, mutate]);
+  const error = setLocationError || errorMessage;
 
   const handleCountrySelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setErrorMessage({ message: "" });
     if (e.target.value) {
       const selectedCountryObject = countries.filter(
         (country: CountryProps) => country.country === e.target.value
@@ -79,6 +69,7 @@ const Welcome = () => {
   };
 
   const handleCitySelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setErrorMessage({ message: "" });
     setSelectedCity(e.target.value);
   };
 
@@ -88,20 +79,26 @@ const Welcome = () => {
       selectedCountry.iso2
     );
 
+    console.log(errorMessage);
     if (lat === 0 && lon === 0)
-      return setErrorMessage("Error fetching location, try another city");
+      return setErrorMessage({
+        message: "Error fetching location, try another city",
+      });
 
-    setLocation({
-      lat,
-      lon,
-      city: selectedCity,
-      country: selectedCountry.country,
+    mutate({
+      location: {
+        lat,
+        lon,
+        city: selectedCity,
+        country: selectedCountry.country,
+      },
+      userID: authUser.idusers,
     });
   };
 
   return (
     <Loader isLoading={isLoading}>
-      {errorMessage && <ToastMessage text={errorMessage} />}
+      {error && <ToastMessage text={error.message} />}
       <WelcomWrapper>
         <Logo>
           FELLOW <HiCodeBracketStyle /> CODERS
