@@ -32,18 +32,20 @@ const NotesList = ({
   const { mutate, error, isPending } = useAddUserNote();
 
   useEffect(() => {
-    setFilteredNotes(notes.filter((note) => note.type === "1"));
+    setFilteredNotes(
+      notes.filter((note) => note.type === "1" || note.type === "0")
+    );
   }, [notes]);
 
   const color1 = chroma("green");
   // const color2 = chroma("red");
 
   const fetchNoteListText = (note: Note) => {
-    const htmlContent = getPlainContent(note);
+    const htmlContent = getPlainContent(note.content);
 
     const text =
       htmlContent.length > 100
-        ? getPlainContent(note).slice(0, 100) + "..."
+        ? getPlainContent(note.content).slice(0, 100) + "..."
         : htmlContent;
     return text;
   };

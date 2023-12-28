@@ -11,6 +11,7 @@ export interface Discussion {
   upvote: number;
   downvote: number;
   comments: DiscussionComment[];
+  user: User;
 }
 
 export interface DiscussionComment {
@@ -21,6 +22,7 @@ export interface DiscussionComment {
   upvote: number;
   downvote: number;
   username: string;
+  content: string;
 }
 
 export interface CreateDiscussion {

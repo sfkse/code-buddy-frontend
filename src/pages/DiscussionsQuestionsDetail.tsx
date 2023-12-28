@@ -33,7 +33,7 @@ const DiscussionsQuestionsDetail = () => {
   const { authUser } = useFetchAuthUser();
   const { discussion, isPending, error } =
     useFetchSingleDiscussion(discussionId);
-
+  console.log(discussion);
   const { mutate, errorSubmitComment, isSubmitCommentPending } =
     useSubmitComment(discussionId);
 
@@ -49,13 +49,13 @@ const DiscussionsQuestionsDetail = () => {
     setIsOpenPopUp(!isOpenPopUp);
   };
 
-  const onSubmitComment = (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmitComment = () => {
     mutate({
       comment: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
       idUser: authUser.idusers,
       iddiscussions: discussionId,
     });
+    setEditorState(EditorState.createEmpty());
   };
   return (
     <Loader isLoading={isLoading}>
@@ -118,7 +118,7 @@ const DiscussionsQuestionsDetail = () => {
                       readOnlyAndLarge={true}
                       editorRef={editorRef}
                       editorState={
-                        discussion && getEditorStateFromRaw(discussion)
+                        discussion && getEditorStateFromRaw(discussion.content)
                       }
                       handleOnChangeEditor={() => console.log("changed")}
                     />
@@ -147,7 +147,9 @@ const DiscussionsQuestionsDetail = () => {
               onClick={onSubmitComment}
             />
           </DiscussionsQuestionsDetailSuggestionsWrapper>
-          <DiscussionComments discussionId={discussion.iddiscussions} />
+          {discussion.comments.length > 0 && (
+            <DiscussionComments discussion={discussion} />
+          )}
         </DiscussionsQuestionsDetailWrapper>
       )}
     </Loader>

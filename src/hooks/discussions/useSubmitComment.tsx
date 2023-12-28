@@ -7,7 +7,7 @@ const useSubmitComment = (id: string) => {
   const { mutate, error, data, isPending } = useMutation({
     mutationFn: (data: CreateDiscussionComment) => createComment(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["discussionComments", id] });
+      queryClient.invalidateQueries({ queryKey: ["singleDiscussion", id] });
     },
   });
 

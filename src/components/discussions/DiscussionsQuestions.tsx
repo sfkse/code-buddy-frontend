@@ -96,7 +96,7 @@ const DiscussionsQuestions = () => {
                     {discussion.title}
                   </DiscussionContentBodyTitle>
                   <DiscussionContentBodyText>
-                    {fetchDiscussionContentText(discussion)}
+                    {fetchDiscussionContentText(discussion.content)}
                   </DiscussionContentBodyText>
                 </DiscussionContentBodyWrapper>
                 <DiscussionContentVotesAndOptionsWrapper>

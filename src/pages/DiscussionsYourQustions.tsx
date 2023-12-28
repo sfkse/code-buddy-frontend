@@ -3,15 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { BsChevronDoubleDown, BsReplyFill } from "react-icons/bs";
 
 import { CgArrowDownO, CgArrowUpO } from "react-icons/cg";
-import Avatar from "../components/Avatar";
-import { DEVICES } from "../styles/theme";
+
 import { useFetchAuthUser } from "../hooks/user/useFetchAuthUser";
 import useFetchUserDiscussions from "../hooks/discussions/useFetchUserDiscussions";
+
+import Avatar from "../components/Avatar";
 import Loader from "../components/Loader";
 import ToastMessage from "../components/ToastMessage";
+
 import { Discussion } from "../types/discussions";
 import { convertPassedDaysFromTimestamp } from "../utils/dateUtils";
 import { getPlainContent } from "../utils/editorUtils";
+import { DEVICES } from "../styles/theme";
 
 const DiscussionsYourQuestions = () => {
   const { authUser, error } = useFetchAuthUser();
@@ -68,7 +71,7 @@ const DiscussionsYourQuestions = () => {
                     {discussion.title}
                   </DiscussionContentBodyTitle>
                   <DiscussionContentBodyText>
-                    {fetchDiscussionContentText(discussion)}
+                    {fetchDiscussionContentText(discussion.content)}
                   </DiscussionContentBodyText>
                 </DiscussionContentBodyWrapper>
                 <DiscussionContentVotesAndOptionsWrapper>

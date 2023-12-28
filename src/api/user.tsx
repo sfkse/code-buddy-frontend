@@ -6,7 +6,7 @@ export const getSingleUser = async (id: string): Promise<User[]> => {
   return data;
 };
 
-export const getAllUsers = async (): Promise<User[] | undefined> => {
+export const getAllUsers = async (): Promise<User[]> => {
   const { data } = await api.get(`/users/all`);
   return data;
 };

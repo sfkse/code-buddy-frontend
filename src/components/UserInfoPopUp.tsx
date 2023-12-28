@@ -15,6 +15,11 @@ type UserInfoPopUpProps = {
 
 const UserInfoPopUp = ({ user, type }: UserInfoPopUpProps) => {
   const { authUser } = useFetchAuthUser();
+  const disableConnectButton =
+    user?.idusers === authUser.idusers ||
+    Object.keys(authUser).length === 0 ||
+    !authUser.registered;
+
   return (
     <PopUpWrapper>
       {user && (
@@ -33,10 +38,7 @@ const UserInfoPopUp = ({ user, type }: UserInfoPopUpProps) => {
                 icon={<RiUserAddFill />}
                 iconStyle={{ marginRight: 0 }}
                 fullWidth
-                disabled={
-                  user.idusers === authUser.idusers ||
-                  Object.keys(authUser).length === 0
-                }
+                disabled={disableConnectButton}
               />
             </Actions>
           )}

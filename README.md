@@ -1,27 +1,46 @@
-# React + TypeScript + Vite
+# Code Buddy Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the Code Buddy Frontend, a dynamic and interactive web application built using React, TypeScript, and Vite. This project is designed to provide a seamless and efficient user experience for various functionalities related to community interaction, event management, and personal note-taking.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React and TypeScript**: Leveraging the power of React combined with the robustness of TypeScript for a scalable and maintainable codebase.
+- **Vite**: Utilizing Vite for an optimized development experience with fast builds and hot module replacement.
+- **Custom Components**: A range of reusable components like buttons, cards, loaders, and more, enhancing UI consistency and usability.
+- **Authentication**: Integrated authentication system for secure user access and management.
+- **Event Management**: Features for creating, viewing, and managing events.
+- **Discussion Forums**: A platform for users to engage in discussions, ask questions, and share knowledge.
+- **Personal Notes**: Functionality for users to create and manage personal notes.
+- **Styled Components**: Utilizing styled-components for styling, allowing for theme customization and a more dynamic styling experience.
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+To set up the project locally:
 
-- Configure the top-level `parserOptions` property like this:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/sfkse/code-buddy-frontend.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd code-buddy-frontend
+   ```
+3. Install dependencies:
+   ```bash
+   yarn install
+   ```
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+## Running the Application
+
+Start the development server:
+
+```bash
+npm run dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+The application will be available at http://localhost:3001.
+
+## Contributing
+
+Contributions to the Code Buddy Frontend are welcome! Feel free to fork the repository, make changes, and submit pull requests. If you find any issues or have suggestions, please open an issue in the GitHub repository.
+

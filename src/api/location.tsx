@@ -23,10 +23,7 @@ export const getCountriesAndCities = async () => {
 };
 
 export const setUserLocation = async (location: UserLocation, id: string) => {
-  const { data } = await api.put(
-    `/users/single/${id}/location`,
-    JSON.stringify(location)
-  );
+  const { data } = await api.put(`/users/single/${id}/location`, location);
   return data;
 };
 

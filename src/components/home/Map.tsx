@@ -13,33 +13,34 @@ import { useFetchAllUsers } from "../../hooks/user/useFetchAllUsers";
 import { User } from "../../types/user";
 
 type MarkersProps = {
-  users: User[];
+  users: User[] | undefined;
 };
 const Markers = ({ users }: MarkersProps) => {
   if (!users) return null;
 
   return (
     <>
-      {users.map((user: User, index) => (
-        <Marker
-          key={index}
-          icon={
-            new Leaflet.Icon({
-              iconUrl: onlineIcon,
-              iconRetinaUrl: onlineIcon,
-              popupAnchor: [-0, -0],
-              iconSize: [32, 32],
-            })
-          }
-          position={[
-            JSON.parse(user.location).lat,
-            JSON.parse(user.location).lon,
-          ]}
-        >
-          <Popup>
-            <UserInfoPopUp user={user} />
-          </Popup>
-        </Marker>
+      {users.map((user: User) => (
+        <>
+          {user.location && (
+            <Marker
+              key={user.idusers}
+              icon={
+                new Leaflet.Icon({
+                  iconUrl: onlineIcon,
+                  iconRetinaUrl: onlineIcon,
+                  popupAnchor: [-0, -0],
+                  iconSize: [32, 32],
+                })
+              }
+              position={[user.location?.lat, user.location?.lon]}
+            >
+              <Popup>
+                <UserInfoPopUp user={user} />
+              </Popup>
+            </Marker>
+          )}
+        </>
       ))}
     </>
   );
@@ -64,7 +65,7 @@ const Map = () => {
             key={users?.length}
           >
             <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
-            {users && <Markers users={users} />}
+            <Markers users={users} />
           </MapContainer>
         </MapWrapper>
       </>

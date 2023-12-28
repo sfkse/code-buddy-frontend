@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { PiSneakerMove, PiTimer } from "react-icons/Pi";
+import { PiSneakerMove, PiTimer } from "react-icons/pi";
 
-import { ImLocation2 } from "react-icons/Im";
+import { ImLocation2 } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
 
 import Card from "../Card";
@@ -22,7 +22,7 @@ type EventItemProps = {
 const EventItem = ({ event }: EventItemProps) => {
   const navigate = useNavigate();
   const { participants } = useFetchSingleEventParticipants(event.idevents);
-  console.log(event);
+
   return (
     <CardWrapper key={event.idevents}>
       <Card title={event.title}>

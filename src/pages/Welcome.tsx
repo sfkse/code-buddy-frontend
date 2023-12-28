@@ -27,8 +27,6 @@ const Welcome = () => {
   const [cities, setCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
 
-  const { authUser } = useFetchAuthUser();
-
   const { countries, isPending: isLoadingCountries } =
     useGetCountriesAndCities();
   const mappedCountries = countries?.map((country: CountryProps) => ({
@@ -42,9 +40,7 @@ const Welcome = () => {
     label: city,
   }));
 
-  const { isPending, mutate, setLocationError } = useSetUserLocation(
-    authUser.idusers
-  );
+  const { isPending, mutate, setLocationError } = useSetUserLocation();
   const isLoading = isLoadingCountries || isPending;
   const error = setLocationError || errorMessage;
 
@@ -92,7 +88,6 @@ const Welcome = () => {
         city: selectedCity,
         country: selectedCountry.country,
       },
-      userID: authUser.idusers,
     });
   };
 

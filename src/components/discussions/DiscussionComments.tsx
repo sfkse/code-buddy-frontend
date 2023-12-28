@@ -1,34 +1,28 @@
 import styled from "styled-components";
 import { BsChevronDoubleDown, BsReplyFill } from "react-icons/bs";
 import { CgArrowDownO, CgArrowUpO } from "react-icons/cg";
-
-import Avatar from "../Avatar";
-import useFetchDiscussionComments from "../../hooks/discussions/useFetchDiscussionComments";
-import Loader from "../Loader";
-import ToastMessage from "../ToastMessage";
-import { DiscussionComment } from "../../types/discussions";
-import { convertPassedDaysFromTimestamp } from "../../utils/dateUtils";
-import DraftEditor from "../DraftEditor";
-import { getEditorStateFromRaw } from "../../utils/editorUtils";
 import { Editor } from "draft-js";
 import { useRef } from "react";
 
+import Avatar from "../Avatar";
+import Loader from "../Loader";
+import DraftEditor from "../DraftEditor";
+
+import { Discussion, DiscussionComment } from "../../types/discussions";
+import { convertPassedDaysFromTimestamp } from "../../utils/dateUtils";
+import { getEditorStateFromRaw } from "../../utils/editorUtils";
+
 type DiscussionCommentsProps = {
-  discussionId?: string;
+  discussion: Discussion;
 };
 
-const DiscussionComments = ({ discussionId }: DiscussionCommentsProps) => {
-  const { comments, isPending, error } =
-    useFetchDiscussionComments(discussionId);
-
+const DiscussionComments = ({ discussion }: DiscussionCommentsProps) => {
   const editorRef = useRef<Editor>(null);
+
   return (
-    <Loader isLoading={isPending}>
-      {error ? (
-        <ToastMessage text={error instanceof Error ? error.message : ""} />
-      ) : null}
+    <Loader isLoading={false}>
       <DiscussionCommentsWrapper>
-        {comments?.map((comment: DiscussionComment) => (
+        {discussion.comments?.map((comment: DiscussionComment) => (
           <DiscussionCommentItem
             key={comment.iddiscussioncomments}
             $type="commentOwner"
@@ -38,7 +32,7 @@ const DiscussionComments = ({ discussionId }: DiscussionCommentsProps) => {
                 <DiscussionCommentHeaderTitle>
                   <Avatar name="Karin Benzema" />
                   <DiscussionCommentHeaderTitleUsername>
-                    {/* {comment.user} */}
+                    {discussion.user.firstname}
                   </DiscussionCommentHeaderTitleUsername>
                 </DiscussionCommentHeaderTitle>
               </DiscussionCommentHeaderTitleWrapper>
@@ -53,16 +47,13 @@ const DiscussionComments = ({ discussionId }: DiscussionCommentsProps) => {
             </DiscussionCommentHeaderWrapper>
             <DiscussionCommentBodyWrapper>
               <DiscussionCommentBodyText>
-                {/* TODO: standardize the getEditorStateFromRaw function. expecting 'content' we send 'comment' here */}
-                {/* <DraftEditor
+                <DraftEditor
                   readOnly={true}
                   readOnlyAndLarge={true}
                   editorRef={editorRef}
-                  editorState={
-                    comments.length > 0 && getEditorStateFromRaw(comment)
-                  }
+                  editorState={getEditorStateFromRaw(comment.comment)}
                   handleOnChangeEditor={() => console.log("changed")}
-                /> */}
+                />
               </DiscussionCommentBodyText>
             </DiscussionCommentBodyWrapper>
             <DiscussionCommentVotesAndOptionsWrapper>

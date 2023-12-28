@@ -73,7 +73,7 @@ const NotesContent = ({ selectedNote, setSelectedNote }: NotesContentProps) => {
   const setInitialData = () => {
     setFormState({
       dataChanged: false,
-      editorState: getEditorStateFromRaw(selectedNote),
+      editorState: getEditorStateFromRaw(selectedNote.content),
       initialState: {
         html: selectedNote.content,
         title: selectedNote.title,
@@ -86,7 +86,7 @@ const NotesContent = ({ selectedNote, setSelectedNote }: NotesContentProps) => {
       },
     });
   };
-
+  console.log(selectedNote);
   const handleOnChangeEditor = (editorState: EditorState) => {
     const html = stateToHTML(editorState.getCurrentContent());
 
@@ -201,7 +201,9 @@ export default NotesContent;
 
 const NotesContentWrapper = styled.div`
   width: 100%;
+  height: 100%;
   padding: 2rem;
+  padding-bottom: 0;
 
   @media only screen and (${DEVICES.md}) {
     padding: 1rem;
