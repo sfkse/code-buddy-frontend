@@ -1,6 +1,6 @@
 # Code Buddy Frontend
 
-Welcome to the Code Buddy Frontend, a dynamic and interactive web application built using React, TypeScript, and Vite. This project is designed to provide a seamless and efficient user experience for various functionalities related to community interaction, event management, and personal note-taking.
+Welcome to the Code Buddy Frontend, a dynamic and interactive web application built using React, TypeScript, and Vite. This project is designed to provide a seamless and efficient user experience for various functionalities related to community interaction, event management, and personal note-taking. Still in development phase
 
 ## Features
 
