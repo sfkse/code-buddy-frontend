@@ -3,26 +3,26 @@ import styled from "styled-components";
 import { RiDraftFill } from "react-icons/ri";
 import { TbCubeSend } from "react-icons/tb";
 import { ContentState, Editor, EditorState, convertToRaw } from "draft-js";
+import { useLocation } from "react-router-dom";
 import { stateToHTML } from "draft-js-export-html";
-import "draft-js/dist/Draft.css";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { TimePicker } from "@mui/x-date-pickers";
+import "draft-js/dist/Draft.css";
 
 import Button from "../../components/Button";
 import DraftEditor from "../../components/DraftEditor";
 import EditorStyleOptions from "../../components/EditorStyleOptions";
+import Loader from "../Loader";
+import ToastMessage from "../ToastMessage";
 import SelectMultipleOptions from "../notes/SelectMultipleOptions";
 
 import useSetOnStyle from "../../hooks/editor/useSetOnStyle";
 import useSaveEvent from "../../hooks/events/useSaveEvent";
-import { Tags } from "../../types/notes";
-import { TimePicker } from "@mui/x-date-pickers";
-import { EVENT_STATUS } from "../../utils/eventsUtils";
-import Loader from "../Loader";
-import ToastMessage from "../ToastMessage";
 import { useFetchAuthUser } from "../../hooks/user/useFetchAuthUser";
-import { useLocation } from "react-router-dom";
+import { EVENT_STATUS } from "../../utils/eventsUtils";
+import { Tags } from "../../types/notes";
 import { Event } from "../../types/events";
 
 const DraftEventEdit = () => {
@@ -81,11 +81,10 @@ const DraftEventEdit = () => {
     e: React.ChangeEvent<HTMLInputElement>,
     dateType: boolean = false
   ) => {
-    // const dataChanged = fieldChangeHandler({ title: e.target.value });
     if (dateType) {
       setFormState((prev) => ({
         ...prev,
-        //   dataChanged,
+
         currentState: {
           ...prev.currentState,
           date: e.$d.toISOString().slice(0, 19).replace("T", " "),
@@ -94,7 +93,7 @@ const DraftEventEdit = () => {
     } else {
       setFormState((prev) => ({
         ...prev,
-        //   dataChanged,
+
         currentState: { ...prev.currentState, [e.target.name]: e.target.value },
       }));
     }
@@ -105,18 +104,14 @@ const DraftEventEdit = () => {
 
     setFormState((prev) => ({
       ...prev,
-      //   dataChanged,
       editorState,
       currentState: { ...prev.currentState, description: html },
     }));
-    // const dataChanged = fieldChangeHandler({ html });
   };
 
   const handleOnChangeTags = (tags: any) => {
-    // const dataChanged = fieldChangeHandler({ tags: tags });
     setFormState((prev) => ({
       ...prev,
-      //   dataChanged,
       currentState: { ...prev.currentState, tags: tags },
     }));
   };
@@ -139,7 +134,6 @@ const DraftEventEdit = () => {
     }
     setFormState((prev) => ({
       ...prev,
-      //   dataChanged,
       currentState: {
         ...prev.currentState,
         timeline: prev.currentState.timeline.map((slot) =>
@@ -363,23 +357,6 @@ const EventNewTimeline = styled.div`
   justify-content: space-between;
   gap: 1rem;
 `;
-
-// const EventNewTime = styled.input`
-//   width: 30%;
-//   font-weight: 700;
-//   margin-bottom: 1rem;
-//   background-color: transparent;
-//   padding: 0.5rem;
-//   border: 1px solid ${({ theme }) => theme.colors.secondary};
-//   &:focus {
-//     outline: none;
-//   }
-//   &::placeholder {
-//     color: ${({ theme }) => theme.colors.primaryExtraLight};
-//     font-weight: normal;
-//     font-size: 0.9rem;
-//   }
-// `;
 
 const Provider = styled(LocalizationProvider)`
   flex: 1;

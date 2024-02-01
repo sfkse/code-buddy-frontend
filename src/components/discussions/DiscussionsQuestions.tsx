@@ -1,23 +1,24 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { BiSolidHot, BiTimer } from "react-icons/bi";
+import { HiOutlineLockClosed } from "react-icons/hi";
+import { FaRegCircleQuestion } from "react-icons/fa6";
+import { CgArrowDownO, CgArrowUpO } from "react-icons/cg";
 import {
   BsArrowUpRight,
   BsChevronDoubleDown,
   BsReplyFill,
 } from "react-icons/bs";
-import { HiOutlineLockClosed } from "react-icons/hi";
-import { FaRegCircleQuestion } from "react-icons/fa6";
 
 import Avatar from "../Avatar";
 import Button from "../Button";
-import { DEVICES } from "../../styles/theme";
-import { CgArrowDownO, CgArrowUpO } from "react-icons/cg";
-import useFetchAllDiscussions from "../../hooks/discussions/useFetchAllDiscussions";
+import ToastMessage from "../ToastMessage";
 import Loader from "../Loader";
+
+import useFetchAllDiscussions from "../../hooks/discussions/useFetchAllDiscussions";
+import { DEVICES } from "../../styles/theme";
 import { Discussion } from "../../types/discussions";
 import { convertPassedDaysFromTimestamp } from "../../utils/dateUtils";
-import ToastMessage from "../ToastMessage";
 import { getPlainContent } from "../../utils/editorUtils";
 
 const DiscussionsQuestions = () => {
@@ -28,7 +29,7 @@ const DiscussionsQuestions = () => {
     navigate(`/discussions/questions/${id}`);
   };
 
-  const fetchDiscussionContentText = (content) => {
+  const fetchDiscussionContentText = (content: string) => {
     const htmlContent = getPlainContent(content);
 
     const text =

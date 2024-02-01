@@ -50,10 +50,7 @@ const App = () => {
               <Route path="draft/:id" element={<DraftEventEdit />} />
             </Route>
             <Route path="discussions" element={<Discussions />}>
-              <Route
-                path="questions"
-                element={<DiscussionsQuestions type="questions" />}
-              />
+              <Route path="questions" element={<DiscussionsQuestions />} />
               <Route
                 path="questions/:id"
                 element={<DiscussionsQuestionsDetail />}

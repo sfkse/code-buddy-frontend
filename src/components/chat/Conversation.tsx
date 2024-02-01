@@ -7,20 +7,27 @@ import UserInfoPopUp from "../UserInfoPopUp";
 
 const userObject = {
   idusers: "8e3727c7-b8ef-475d-a2af-d7dc382ee949",
-  active: 1,
+  active: true,
+  registered: true,
   email: "sf55@gmail.com",
-  firstname: "hansa",
-  lastname: "köse",
-  password: "$2b$10$XhDzUolFIB3ARtoQ2BTwluUGCADdXoO3mjnh2CPgV5.Z3RDkvv5m.",
-  usertype: 0,
-  updated: 1698587680,
+  firstname: "Hansa",
+  lastname: "Köse",
   created: 1698587680,
-  location:
-    '{"lat":59.3251172,"lon":18.0710935,"city":"Stockholm","country":"Sweden"}',
-  skills:
-    '[{"label":"sefa","value":"sefa","__isNew__":true},{"label":"asd","value":"asd","__isNew__":true},{"label":"sefas","value":"sefas","__isNew__":true},{"label":"hansa","value":"hansa","__isNew__":true},{"label":"kemla","value":"kemla","__isNew__":true}]',
-  online: 0,
-  lastseen: null,
+  updated: 1698587680,
+  user_type: 0,
+  location: {
+    lat: 59.3251172,
+    lon: 18.0710935,
+    city: "Stockholm",
+    country: "Sweden",
+  },
+  skills: [
+    { label: "sefa", value: "sefa", __isNew__: true },
+    { label: "asd", value: "asd", __isNew__: true },
+    { label: "sefas", value: "sefas", __isNew__: true },
+    { label: "hansa", value: "hansa", __isNew__: true },
+    { label: "kemla", value: "kemla", __isNew__: true },
+  ],
 };
 
 const Conversation = () => {
