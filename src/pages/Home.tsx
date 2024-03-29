@@ -1,35 +1,18 @@
-import { styled } from "styled-components";
+import Banner from "../features/home/Banner";
+import ConnectFellows from "../features/home/ConnectFellows";
+import FeaturedEvents from "../features/home/FeaturedEvents";
+import LatestPosts from "../features/home/LatestPosts";
 
-import Map from "../components/home/Map";
-import ContactStatus from "../components/home/ContactStatus";
-import UpcomingEvents from "../components/home/UpcomingEvents";
-import LatestTopics from "../components/home/LatestTopics";
-
-const Home = () => {
+function Home() {
   return (
-    <HomeWrapper>
-      <Map />
-      <SectionWrapper>
-        <ContactStatus />
-        <UpcomingEvents />
-        <LatestTopics />
-      </SectionWrapper>
-    </HomeWrapper>
+    <>
+      <Banner />
+      <FeaturedEvents />
+      <ConnectFellows />
+      <LatestPosts />
+    </>
   );
-};
+}
 
 export default Home;
-
-const HomeWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  padding: 2rem;
-`;
-
-const SectionWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-`;
 
